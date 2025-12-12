@@ -1,0 +1,46 @@
+
+> vite-react-typescript-starter@0.0.0 lint
+> eslint .
+
+
+C:\Users\shiva\OneDrive\Creative Cloud Files\Desktop\project\src\components\appointments\Appointments.tsx
+  2:56  error  'Clock' is defined but never used  @typescript-eslint/no-unused-vars
+  2:63  error  'Phone' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\shiva\OneDrive\Creative Cloud Files\Desktop\project\src\components\auth\LoginForm.tsx
+  35:14  error  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\shiva\OneDrive\Creative Cloud Files\Desktop\project\src\components\auth\RegisterForm.tsx
+  45:14  error  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\shiva\OneDrive\Creative Cloud Files\Desktop\project\src\components\insurance\Insurance.tsx
+  2:16  error  'Search' is defined but never used    @typescript-eslint/no-unused-vars
+  2:32  error  'Calendar' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\shiva\OneDrive\Creative Cloud Files\Desktop\project\src\components\prescriptions\Prescriptions.tsx
+  2:38  error  'Calendar' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\shiva\OneDrive\Creative Cloud Files\Desktop\project\src\components\profile\Profile.tsx
+   2:16  error  'Mail' is defined but never used         @typescript-eslint/no-unused-vars
+   2:22  error  'Phone' is defined but never used        @typescript-eslint/no-unused-vars
+   2:29  error  'Calendar' is defined but never used     @typescript-eslint/no-unused-vars
+   2:46  error  'Ruler' is defined but never used        @typescript-eslint/no-unused-vars
+   2:53  error  'Weight' is defined but never used       @typescript-eslint/no-unused-vars
+   5:21  error  'ProfileType' is defined but never used  @typescript-eslint/no-unused-vars
+  57:14  error  'error' is defined but never used        @typescript-eslint/no-unused-vars
+
+C:\Users\shiva\OneDrive\Creative Cloud Files\Desktop\project\src\components\visualization\HealthVisualization.tsx
+   3:10  error    'LabResult' is defined but never used                                                                            @typescript-eslint/no-unused-vars
+  14:11  error    'ChartPoint' is defined but never used                                                                           @typescript-eslint/no-unused-vars
+  28:6   warning  React Hook useEffect has a missing dependency: 'fetchLabData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  51:64  error    Unexpected any. Specify a different type                                                                         @typescript-eslint/no-explicit-any
+
+C:\Users\shiva\OneDrive\Creative Cloud Files\Desktop\project\src\contexts\AuthContext.tsx
+   20:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  109:13  error    'data' is assigned a value but never used                                                                                       @typescript-eslint/no-unused-vars
+
+C:\Users\shiva\OneDrive\Creative Cloud Files\Desktop\project\src\types\database.types.ts
+  96:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+??? 21 problems (19 errors, 2 warnings)
+
