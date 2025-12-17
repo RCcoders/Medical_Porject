@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Send, Bot, User, Loader2 } from 'lucide-react'
+import { agentService } from '../../services/agentService'
 
 interface Message {
     id: string
@@ -43,18 +44,27 @@ export function ResearchLab() {
         setInput('')
         setIsThinking(true)
 
-        // Placeholder for Real Backend Integration
-        // TODO: Connect this to your actual Python/Node.js Agent Swarm
-        setTimeout(() => {
+        try {
+            const response = await agentService.query(userMsg.content)
+
             const agentMsg: Message = {
                 id: (Date.now() + 1).toString(),
                 role: 'agent',
-                content: "This is a placeholder response. To enable real-time agentic research, please connect the `ResearchLab` component to your backend service endpoints.",
+                content: response,
                 timestamp: new Date()
             }
-            setIsThinking(false)
             setMessages(prev => [...prev, agentMsg])
-        }, 1500)
+        } catch (error) {
+            const errorMsg: Message = {
+                id: (Date.now() + 1).toString(),
+                role: 'agent',
+                content: "System Error: Unable to reach agent swarm. Please verify backend connection.",
+                timestamp: new Date()
+            }
+            setMessages(prev => [...prev, errorMsg])
+        } finally {
+            setIsThinking(false)
+        }
     }
 
     return (

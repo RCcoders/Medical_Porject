@@ -7,3 +7,10 @@ python-dotenv
 passlib[bcrypt]
 python-jose[cryptography]
 python-multipart
+langchain-google-genai
+langchain
+langchain-ollama
+langchain-mistralai
+langchain-google-community
+google-search-results
+langchain-community

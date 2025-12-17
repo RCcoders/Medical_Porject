@@ -101,6 +101,7 @@ function AppRoutes() {
         <Route path="lab-results" element={<LabResults />} />
         <Route path="insurance" element={<Insurance />} />
         <Route path="appointments" element={<Appointments />} />
+
         <Route path="profile" element={<Profile />} />
       </Route>
 
@@ -117,6 +118,7 @@ function AppRoutes() {
         <Route path="consultations" element={<Consultations />} />
         <Route path="patients" element={<PatientList />} />
         <Route path="patients/:id" element={<PatientDetails />} />
+
         <Route path="profile" element={<DoctorProfile />} />
         <Route path="settings" element={<div className="p-4">Doctor Settings (Coming Soon)</div>} />
         <Route index element={<Navigate to="/doctor/dashboard" replace />} />

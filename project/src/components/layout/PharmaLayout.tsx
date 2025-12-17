@@ -1,6 +1,7 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { FlaskConical, LayoutDashboard, LogOut, Microscope, ShieldCheck, Wifi } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
+import { FloatingChatWidget } from '../agents/FloatingChatWidget'
 
 export function PharmaLayout() {
     const { signOut, user } = useAuth()
@@ -112,6 +113,7 @@ export function PharmaLayout() {
                     <Outlet />
                 </main>
             </div>
+            <FloatingChatWidget />
         </div>
     )
 }

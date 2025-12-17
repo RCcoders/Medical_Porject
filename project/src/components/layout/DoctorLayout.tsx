@@ -1,6 +1,7 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { Activity, Users, Settings, LogOut, HeartPulse, LayoutDashboard } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
+import { FloatingChatWidget } from '../agents/FloatingChatWidget'
 
 export function DoctorLayout() {
     const { signOut, user } = useAuth()
@@ -59,6 +60,8 @@ export function DoctorLayout() {
                         All Patients
                     </Link>
 
+
+
                     <div className="text-xs font-semibold text-slate-400 mt-8 mb-4 px-2">ADMIN</div>
                     <Link
                         to="/doctor/settings"
@@ -113,6 +116,7 @@ export function DoctorLayout() {
                     <Outlet />
                 </main>
             </div>
+            <FloatingChatWidget />
         </div>
     )
 }

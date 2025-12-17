@@ -11,7 +11,7 @@ import os
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine, get_db
-from .routers import auth, doctors, researchers, patient_data
+from .routers import auth, doctors, researchers, patient_data, agents
 from .routers.auth import get_current_user
 
 # --- Logging ---
@@ -74,6 +74,7 @@ app.include_router(auth.router)
 app.include_router(doctors.router)
 app.include_router(researchers.router)
 app.include_router(patient_data.router)
+app.include_router(agents.router)
 
 
 # --- Root ---
