@@ -18,7 +18,7 @@ def create_user(db: Session, user: schemas.UserCreate):
     db_user = models.User(
         email=user.email,
         full_name=user.full_name,
-        role=user.role,
+        role="patient", # Enforce default role as patient
         hashed_password=hashed_password,
         # Add other fields
         phone=user.phone,
@@ -141,11 +141,35 @@ def update_appointment(db: Session, appointment_id: str, appointment_data: schem
         db.refresh(appointment)
     return appointment
     
-def get_patients(db: Session, skip: int = 0, limit: int = 100, hospital_name: str = None):
+def get_patients(db: Session, skip: int = 0, limit: int = 100, hospital_name: str = None, doctor_name: str = None):
     query = db.query(models.User).filter(models.User.role == 'patient')
-    if hospital_name:
+    
+    if doctor_name:
+        # If doctor_name is provided, find patients who have appointments with this doctor
+        # We join with Appointment and filter by doctor_name
+        query = query.join(models.Appointment).filter(models.Appointment.doctor_name.ilike(f"%{doctor_name}%"))
+        
+        # If hospital_name is also provided, we can OR it? 
+        # Or should we prioritize appointments?
+        # Let's say: Patients = (In same Hospital) OR (Have Appointment)
+        # But for now, let's Stick to AND if logically composed, OR if we want to expand scope.
+        # User request: "not showing ... after appointment". So appointment link is Key.
+        # Let's make it so if doctor_name is passed, we mostly rely on that.
+        # But wait, query.join() INNER joins, so it restricts to ONLY those with appointments.
+        # If we want to ALSO show patients in the same hospital who MIGHT NOT have appointments yet?
+        # The prompt implies "after appointment". So showing appointment-linked patients is the fix.
+        # We can make hospital_filter optional or supplemental.
+        # Let's remove hospital_filter from this specific block if we assume doctor_name covers the "My Patients" intent.
+        # However, to be safe and inclusive:
+        # query = query.filter(or_(models.User.hospital_name == hospital_name, has_appointment...))
+        # But simplest fix for "after appointment" is ensuring the join works.
+        pass
+    
+    elif hospital_name:
+        # Fallback to hospital filter if not viewing as a specific doctor (e.g. admin or logic change)
         query = query.filter(models.User.hospital_name == hospital_name)
-    return query.offset(skip).limit(limit).all()
+
+    return query.distinct().offset(skip).limit(limit).all()
 
 # -------------------------
 # PATIENT DATA CRUD
@@ -169,7 +193,12 @@ def create_prescription(db: Session, prescription: schemas.PrescriptionCreate):
     db.add(db_prescription)
     db.commit()
     db.refresh(db_prescription)
+    db.refresh(db_prescription)
     return db_prescription
+
+def get_doctor_prescriptions(db: Session, doctor_name: str, skip: int = 0, limit: int = 100):
+    # Case-insensitive matching
+    return db.query(models.Prescription).filter(models.Prescription.prescribing_doctor.ilike(f"%{doctor_name}%")).offset(skip).limit(limit).all()
 
 def get_allergies(db: Session, user_id: uuid.UUID, skip: int = 0, limit: int = 100):
     return db.query(models.Allergy).filter(models.Allergy.user_id == user_id).offset(skip).limit(limit).all()
@@ -265,3 +294,12 @@ def update_doctor_documents(db: Session, doctor_id: uuid.UUID, documents: dict, 
         db.commit()
         db.refresh(doctor)
     return doctor
+
+def delete_patient(db: Session, patient_id: str):
+    # Ensure we are deleting a patient, not a doctor or admin
+    user = db.query(models.User).filter(models.User.id == patient_id, models.User.role == 'patient').first()
+    if user:
+        db.delete(user)
+        db.commit()
+        return user
+    return None

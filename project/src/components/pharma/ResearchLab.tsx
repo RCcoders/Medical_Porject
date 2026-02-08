@@ -9,6 +9,89 @@ interface Message {
     timestamp: Date
 }
 
+const SAMPLE_QUESTIONS = [
+    {
+        question: "How does target validation reduce drug discovery risk?",
+        answer: "Target validation confirms that modulating a biological target produces a therapeutic effect without unacceptable toxicity. It reduces late-stage failure by ensuring disease relevance before costly development."
+    },
+    {
+        question: "What are the key differences between small molecules and biologics?",
+        answer: "Small molecules are chemically synthesized, orally bioavailable, and can cross cell membranes, while biologics are larger, protein-based, require injection, and have high target specificity but complex manufacturing."
+    },
+    {
+        question: "How does structure-based drug design work?",
+        answer: "It uses 3D structural data of biological targets to design molecules that fit precisely into binding sites, improving potency and selectivity through computational modeling."
+    },
+    {
+        question: "What role does ADMET profiling play in early drug development?",
+        answer: "ADMET profiling predicts absorption, distribution, metabolism, excretion, and toxicity to identify candidates likely to fail due to poor pharmacokinetics or safety issues."
+    },
+    {
+        question: "Why are prodrugs developed?",
+        answer: "Prodrugs improve bioavailability, stability, or targeting by converting into the active drug inside the body, overcoming formulation or permeability challenges."
+    },
+    {
+        question: "What is the importance of in vitro assays before animal studies?",
+        answer: "In vitro assays screen toxicity, potency, and mechanism of action efficiently, reducing animal use and identifying unsafe compounds early."
+    },
+    {
+        question: "How does PK/PD modeling guide dose selection?",
+        answer: "PK/PD models relate drug concentration to biological effect, enabling prediction of effective and safe dosing regimens."
+    },
+    {
+        question: "What is off-target toxicity and how is it identified?",
+        answer: "Off-target toxicity occurs when a drug interacts with unintended proteins. It’s identified using in silico screening, in vitro panels, and safety pharmacology studies."
+    },
+    {
+        question: "Why are animal disease models imperfect predictors of human response?",
+        answer: "Species differences in metabolism, genetics, and disease pathways limit direct translation, leading to efficacy or safety mismatches in humans."
+    },
+    {
+        question: "What is the significance of NOAEL in toxicology studies?",
+        answer: "NOAEL (No Observed Adverse Effect Level) defines the highest dose without harmful effects and guides safe starting doses in human trials."
+    },
+    {
+        question: "How does Phase I differ from Phase II clinical trials?",
+        answer: "Phase I focuses on safety and pharmacokinetics in healthy volunteers, while Phase II evaluates efficacy and dose optimization in patients."
+    },
+    {
+        question: "Why are biomarkers important in clinical trials?",
+        answer: "Biomarkers enable patient stratification, monitor drug response, and improve trial efficiency by identifying responders early."
+    },
+    {
+        question: "What causes high attrition rates in Phase III trials?",
+        answer: "Insufficient efficacy, unforeseen safety issues, and suboptimal trial design are common causes of late-stage failure."
+    },
+    {
+        question: "How does adaptive trial design improve success rates?",
+        answer: "Adaptive designs allow protocol modifications based on interim data, improving efficiency, reducing cost, and increasing the probability of success."
+    },
+    {
+        question: "What is the role of real-world evidence in drug development?",
+        answer: "Real-world evidence complements trial data by providing insights into long-term safety, effectiveness, and population-level outcomes."
+    },
+    {
+        question: "What is the purpose of IND submission?",
+        answer: "An Investigational New Drug (IND) application allows initiation of human trials by demonstrating sufficient preclinical safety and manufacturing quality."
+    },
+    {
+        question: "How does AI assist in pharmacovigilance?",
+        answer: "AI analyzes adverse event reports, social media, and EHR data to detect safety signals faster and with higher sensitivity than manual methods."
+    },
+    {
+        question: "Why is data integrity critical in pharmaceutical research?",
+        answer: "Data integrity ensures regulatory compliance, reproducibility, and trust in trial outcomes, preventing costly delays or rejections."
+    },
+    {
+        question: "How can AI reduce drug development timelines?",
+        answer: "AI accelerates target discovery, predicts toxicity, optimizes trial design, and automates data analysis, significantly reducing time and cost."
+    },
+    {
+        question: "What ethical considerations arise when using AI in pharma research?",
+        answer: "Bias mitigation, data privacy, transparency, and explainability are critical to ensure patient safety and regulatory acceptance."
+    }
+]
+
 export function ResearchLab() {
     const [messages, setMessages] = useState<Message[]>([
         {
@@ -45,7 +128,11 @@ export function ResearchLab() {
         setIsThinking(true)
 
         try {
-            const response = await agentService.query(userMsg.content)
+            // Add minimum delay of 2 seconds
+            const [response] = await Promise.all([
+                agentService.query(userMsg.content),
+                new Promise(resolve => setTimeout(resolve, 2000))
+            ])
 
             const agentMsg: Message = {
                 id: (Date.now() + 1).toString(),
@@ -65,6 +152,30 @@ export function ResearchLab() {
         } finally {
             setIsThinking(false)
         }
+    }
+
+    const handleSampleClick = async (question: string, answer: string) => {
+        const userMsg: Message = {
+            id: Date.now().toString(),
+            role: 'user',
+            content: question,
+            timestamp: new Date()
+        }
+        setMessages(prev => [...prev, userMsg])
+        setIsThinking(true)
+
+        // Simulate thinking delay for samples
+        await new Promise(resolve => setTimeout(resolve, 1500))
+
+        const agentMsg: Message = {
+            id: (Date.now() + 1).toString(),
+            role: 'agent',
+            content: answer,
+            timestamp: new Date()
+        }
+
+        setMessages(prev => [...prev, agentMsg])
+        setIsThinking(false)
     }
 
     return (
@@ -116,6 +227,19 @@ export function ResearchLab() {
                 </div>
 
                 <div className="p-4 border-t border-slate-800 bg-slate-900/80 backdrop-blur-md relative z-20">
+                    {/* Sample Questions */}
+                    <div className="flex gap-2 overflow-x-auto pb-3 scrollbar-none">
+                        {SAMPLE_QUESTIONS.map((q, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => handleSampleClick(q.question, q.answer)}
+                                className="whitespace-nowrap px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-xs text-slate-400 hover:bg-purple-600/20 hover:text-purple-300 hover:border-purple-500/30 transition-all"
+                            >
+                                {q.question}
+                            </button>
+                        ))}
+                    </div>
+
                     <form onSubmit={handleSend} className="relative group">
                         <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl opacity-20 group-hover:opacity-40 transition duration-500 blur"></div>
                         <input

@@ -11,8 +11,9 @@ import os
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine, get_db
-from .routers import auth, doctors, researchers, patient_data, agents
+from .routers import auth, doctors, researchers, patient_data, agents, users, patients, appointments, video
 from .routers.auth import get_current_user
+from .core.middleware import GlobalExceptionHandlerMiddleware
 
 # --- Logging ---
 logging.basicConfig(level=logging.INFO)
@@ -36,6 +37,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(GlobalExceptionHandlerMiddleware)
 
 # --- Directories & static mount ---
 BASE_DIR = Path(__file__).resolve().parent.parent  # adjust if this file sits at backend/
@@ -75,6 +77,10 @@ app.include_router(doctors.router)
 app.include_router(researchers.router)
 app.include_router(patient_data.router)
 app.include_router(agents.router)
+app.include_router(users.router)
+app.include_router(patients.router)
+app.include_router(appointments.router)
+app.include_router(video.router)
 
 
 # --- Root ---
@@ -83,66 +89,13 @@ def read_root():
     return {"message": "Welcome to the Medical Project Backend"}
 
 
-# --- Users CRUD endpoints (examples) ---
-@app.post("/users/", response_model=schemas.User, status_code=status.HTTP_201_CREATED)
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_email(db, email=user.email)
-    if db_user:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered")
-    return crud.create_user(db=db, user=user)
+# --- Startup hook for extra checks (optional) ---
+@app.on_event("startup")
+def on_startup():
+    # ensure upload dir exists and log startup state
+    UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    logger.info(f"Uploads are being served from: {UPLOAD_DIR}")
 
-
-@app.get("/users/", response_model=List[schemas.User])
-def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    # clamp limit to prevent abuse
-    limit = min(limit, 500)
-    users = crud.get_users(db, skip=skip, limit=limit)
-    return users
-
-
-@app.get("/users/{user_id}", response_model=schemas.User)
-def read_user(user_id: UUID, db: Session = Depends(get_db)):
-    # typed user_id prevents accidental string IDs
-    db_user = crud.get_user(db, user_id=str(user_id))
-    if db_user is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
-    return db_user
-
-
-@app.get("/patients/", response_model=List[schemas.User])
-def read_patients(
-    skip: int = 0,
-    limit: int = 100,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(get_current_user),
-):
-    # If current_user is doctor and has hospital info, filter patients by hospital
-    hospital_filter: Optional[str] = None
-    # current_user is a Pydantic model, ensure it contains doctor_profile if loaded by router
-    try:
-        if getattr(current_user, "role", None) == "doctor":
-            dp = getattr(current_user, "doctor_profile", None)
-            if dp and getattr(dp, "hospital_name", None):
-                hospital_filter = dp.hospital_name
-    except Exception:
-        # be conservative if current_user shape is unexpected
-        logger.debug("current_user missing expected attributes", exc_info=True)
-
-    limit = min(limit, 500)
-    patients = crud.get_patients(db, skip=skip, limit=limit, hospital_name=hospital_filter)
-    return patients
-
-
-@app.post("/appointments/", response_model=schemas.Appointment, status_code=status.HTTP_201_CREATED)
-def create_appointment(appointment: schemas.AppointmentCreate, db: Session = Depends(get_db)):
-    return crud.create_appointment(db=db, appointment=appointment)
-
-
-@app.get("/appointments/", response_model=List[schemas.Appointment])
-def read_appointments(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    limit = min(limit, 500)
-    appointments = crud.get_appointments(db, skip=skip, limit=limit)
-    return appointments
 
 
 # --- Startup hook for extra checks (optional) ---

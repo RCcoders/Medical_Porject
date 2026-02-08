@@ -53,7 +53,10 @@ def read_prescriptions(skip: int = 0, limit: int = 100, db: Session = Depends(ge
 
 @router.post("/prescriptions", response_model=schemas.Prescription)
 def create_prescription(prescription: schemas.PrescriptionCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
-    # In a real app, only doctors should probably create prescriptions
+    # Auto-fill prescribing doctor if user is a doctor
+    if current_user.role == 'doctor':
+        prescription.prescribing_doctor = current_user.full_name
+        
     return crud.create_prescription(db=db, prescription=prescription)
 
 # -------------------------
@@ -193,4 +196,10 @@ def read_patient_visits(patient_id: str, skip: int = 0, limit: int = 100, db: Se
     if current_user.role != 'doctor':
         raise HTTPException(status_code=403, detail="Not authorized to view patient data")
     return crud.get_hospital_visits(db, user_id=patient_id, skip=skip, limit=limit)
+
+@router.get("/{patient_id}/allergies", response_model=List[schemas.Allergy])
+def read_patient_allergies(patient_id: str, skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    if current_user.role != 'doctor':
+        raise HTTPException(status_code=403, detail="Not authorized to view patient data")
+    return crud.get_allergies(db, user_id=patient_id, skip=skip, limit=limit)
 

@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getUser, getPatientLabResults, getPatientPrescriptions, createLabResult, createPrescription, uploadFile } from '../../services/api'
 import { HealthVisualization } from '../visualization/HealthVisualization'
+import { useAuth } from '../../contexts/AuthContext'
 import { Plus, ArrowLeft, FileText, Download } from 'lucide-react'
 
 export function PatientDetails() {
+    const { profile } = useAuth()
     const { id } = useParams<{ id: string }>()
     const navigate = useNavigate()
     const [patient, setPatient] = useState<any>(null)
@@ -20,6 +22,11 @@ export function PatientDetails() {
     const [prescriptionFile, setPrescriptionFile] = useState<File | null>(null)
     const [uploading, setUploading] = useState(false)
 
+    // Helper to get doctor name, defaulting to profile if available
+    const getDoctorName = () => {
+        return profile?.role === 'doctor' ? profile.full_name : 'Dr. ' + (profile?.full_name || 'Smith')
+    }
+
     const [newLabResult, setNewLabResult] = useState({
         test_name: '',
         test_category: 'Blood',
@@ -28,7 +35,7 @@ export function PatientDetails() {
         reference_range: '',
         status: 'Final',
         test_date: new Date().toISOString().split('T')[0],
-        ordering_doctor: 'Dr. Smith', // Should be dynamic
+        ordering_doctor: '',
         lab_facility: '',
         notes: '',
         document_url: ''
@@ -43,11 +50,21 @@ export function PatientDetails() {
         refills_remaining: 0,
         side_effects: '',
         special_instructions: '',
-        prescribing_doctor: 'Dr. Smith', // Should be dynamic
+        prescribing_doctor: '',
         pharmacy: '',
         status: 'Active',
         document_url: ''
     })
+
+    // Update defaults when profile loads
+    useEffect(() => {
+        if (profile?.full_name) {
+            const docName = profile.role === 'doctor' ? profile.full_name : (profile.full_name || 'Dr. Smith');
+            setNewLabResult(prev => ({ ...prev, ordering_doctor: docName }))
+            setNewPrescription(prev => ({ ...prev, prescribing_doctor: docName }))
+        }
+    }, [profile])
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -109,7 +126,18 @@ export function PatientDetails() {
                 docUrl = uploadRes.url
             }
 
-            await createPrescription({ ...newPrescription, user_id: id, document_url: docUrl })
+            // Sanitize payload
+            const payload = {
+                ...newPrescription,
+                user_id: id,
+                document_url: docUrl,
+                // Convert empty string dates to null/undefined
+                end_date: newPrescription.end_date || undefined,
+                // Ensure number
+                refills_remaining: Number(newPrescription.refills_remaining) || 0
+            }
+
+            await createPrescription(payload)
             setShowPrescriptionModal(false)
             setPrescriptionFile(null)
             setNewPrescription(prev => ({ ...prev, document_url: '' }))

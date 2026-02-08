@@ -3,6 +3,14 @@ import { Building2, Pill, AlertTriangle, FlaskConical, Shield, Calendar, Trendin
 import { useAuth } from '../../contexts/AuthContext'
 import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
+import {
+  getHospitalVisits,
+  getPrescriptions,
+  getAllergies,
+  getLabResults,
+  getInsurancePolicies,
+  getMyAppointments
+} from '../../services/api'
 
 interface DashboardStats {
   hospitalVisits: number
@@ -40,17 +48,51 @@ export function Dashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      // Mock fetch
+      const [
+        visits,
+        prescriptions,
+        allergiesData,
+        labResults,
+        policies,
+        appointments
+      ] = await Promise.all([
+        getHospitalVisits().catch(() => []),
+        getPrescriptions().catch(() => []),
+        getAllergies().catch(() => []),
+        getLabResults().catch(() => []),
+        getInsurancePolicies().catch(() => []),
+        getMyAppointments().catch(() => [])
+      ])
+
       setStats({
-        hospitalVisits: 0,
-        activePrescriptions: 0,
-        allergies: 0,
-        recentLabResults: 0,
-        activePolicies: 0,
-        upcomingAppointments: 0,
+        hospitalVisits: visits.length,
+        activePrescriptions: prescriptions.filter((p: any) => p.status === 'Active').length,
+        allergies: allergiesData.length,
+        recentLabResults: labResults.length,
+        activePolicies: policies.filter((p: any) => p.status === 'Active').length,
+        upcomingAppointments: appointments.filter((a: any) => a.status === 'Confirmed' || a.status === 'Scheduled').length,
       })
 
-      setRecentActivity([])
+      // Combine and sort recent activity
+      const activity = [
+        ...visits.map((v: any) => ({
+          id: v.id,
+          type: 'visit',
+          title: `Visit to ${v.hospital_name}`,
+          date: v.admission_date,
+          status: v.visit_type
+        })),
+        ...labResults.map((r: any) => ({
+          id: r.id,
+          type: 'lab',
+          title: r.test_name,
+          date: r.test_date,
+          status: r.result_status
+        }))
+      ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, 5)
+
+      setRecentActivity(activity)
 
     } catch (error) {
       console.error('Error fetching dashboard data:', error)
@@ -65,28 +107,28 @@ export function Dashboard() {
       name: 'Hospital Visits',
       count: stats.hospitalVisits,
       icon: Building2,
-      color: 'bg-blue-500',
+      color: 'bg-teal-500',
       href: '/visits',
     },
     {
       name: 'Active Prescriptions',
       count: stats.activePrescriptions,
       icon: Pill,
-      color: 'bg-green-500',
+      color: 'bg-emerald-500',
       href: '/prescriptions',
     },
     {
       name: 'Known Allergies',
       count: stats.allergies,
       icon: AlertTriangle,
-      color: 'bg-red-500',
+      color: 'bg-rose-500',
       href: '/allergies',
     },
     {
       name: 'Recent Lab Results',
       count: stats.recentLabResults,
       icon: FlaskConical,
-      color: 'bg-purple-500',
+      color: 'bg-sky-500',
       href: '/lab-results',
     },
     {
@@ -116,7 +158,7 @@ export function Dashboard() {
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-6 text-white">
+      <div className="bg-gradient-to-r from-teal-600 to-teal-700 rounded-2xl p-6 text-white shadow-lg">
         <div className="flex items-center">
           <Activity className="h-12 w-12 text-blue-200" />
           <div className="ml-4">
@@ -165,9 +207,9 @@ export function Dashboard() {
                 <div key={activity.id} className="flex items-center p-3 bg-gray-50 rounded-lg">
                   <div className="flex-shrink-0">
                     {activity.type === 'visit' ? (
-                      <Building2 className="h-5 w-5 text-blue-500" />
+                      <Building2 className="h-5 w-5 text-teal-500" />
                     ) : (
-                      <FlaskConical className="h-5 w-5 text-purple-500" />
+                      <FlaskConical className="h-5 w-5 text-sky-500" />
                     )}
                   </div>
                   <div className="ml-3 flex-1">
@@ -223,7 +265,7 @@ export function Dashboard() {
             <div className="pt-4 border-t">
               <Link
                 to="/visualization"
-                className="w-full bg-blue-600 text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 inline-block text-center"
+                className="w-full bg-teal-600 text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-teal-700 transition-colors duration-200 inline-block text-center shadow-sm"
               >
                 View 3D Health Trends
               </Link>

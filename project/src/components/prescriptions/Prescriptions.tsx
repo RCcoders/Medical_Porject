@@ -130,7 +130,7 @@ export function Prescriptions() {
                     <div className="mt-4">
                       <div className="flex items-center text-sm text-gray-600">
                         <User className="h-4 w-4 mr-2" />
-                        <span>Prescribed by Dr. {prescription.prescribing_doctor}</span>
+                        <span>Prescribed by {prescription.prescribing_doctor.startsWith('Dr.') || prescription.prescribing_doctor.startsWith('Dr ') ? prescription.prescribing_doctor : `Dr. ${prescription.prescribing_doctor}`}</span>
                       </div>
                     </div>
 

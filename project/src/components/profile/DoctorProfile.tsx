@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getCurrentUser, updateDoctorProfile } from '../../services/api';
-import { User, Activity, Award, BookOpen, MapPin, Building, FileText, Save } from 'lucide-react';
+import { getCurrentUser, updateDoctorProfile, uploadDoctorDocuments } from '../../services/api';
+import { User, Activity, Award, BookOpen, MapPin, Building, FileText, Save, Upload, AlertCircle, CheckCircle } from 'lucide-react';
 
 interface DoctorProfileData {
     specialty: string;
@@ -18,6 +18,9 @@ const DoctorProfile: React.FC = () => {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [isUploading, setIsUploading] = useState(false);
+    const [uploadError, setUploadError] = useState('');
+    const [uploadSuccess, setUploadSuccess] = useState('');
     const [profile, setProfile] = useState<DoctorProfileData>({
         specialty: '',
         license_number: '',
@@ -78,6 +81,39 @@ const DoctorProfile: React.FC = () => {
             console.error(err);
         } finally {
             setSaving(false);
+        }
+    };
+
+    const handleFileUpload = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsUploading(true);
+        setUploadError('');
+        setUploadSuccess('');
+
+        const formData = new FormData();
+        const form = e.currentTarget;
+
+        const appendFile = (name: string) => {
+            const input = form.elements.namedItem(name) as HTMLInputElement;
+            if (input.files && input.files[0]) {
+                formData.append(name, input.files[0]);
+            }
+        };
+
+        appendFile('medical_degree_proof');
+        appendFile('registration_cert');
+        appendFile('identity_proof');
+        appendFile('professional_photo');
+        appendFile('other_certificates');
+
+        try {
+            await uploadDoctorDocuments(formData);
+            setUploadSuccess('Documents uploaded successfully! Please wait for verification.');
+            fetchProfile(); // Refresh profile data
+        } catch (error: any) {
+            setUploadError(error.response?.data?.detail || 'Upload failed');
+        } finally {
+            setIsUploading(false);
         }
     };
 
@@ -172,7 +208,8 @@ const DoctorProfile: React.FC = () => {
                                         name="hospital_name"
                                         value={profile.hospital_name}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                        disabled={!!profile.hospital_name}
+                                        className={`w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${profile.hospital_name ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                                     />
                                 </div>
 
@@ -184,7 +221,8 @@ const DoctorProfile: React.FC = () => {
                                             name="hospital_state"
                                             value={profile.hospital_state}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                            disabled={!!profile.hospital_state}
+                                            className={`w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${profile.hospital_state ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                                         />
                                     </div>
                                     <div>
@@ -194,7 +232,8 @@ const DoctorProfile: React.FC = () => {
                                             name="hospital_city"
                                             value={profile.hospital_city}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                            disabled={!!profile.hospital_city}
+                                            className={`w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${profile.hospital_city ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                                         />
                                     </div>
                                 </div>
@@ -229,6 +268,61 @@ const DoctorProfile: React.FC = () => {
                         </button>
                     </div>
                 </form>
+
+                {/* Document Upload Section */}
+                <div className="p-8 border-t bg-gray-50">
+                    <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2 mb-2">
+                        <Upload className="w-5 h-5 text-blue-600" />
+                        Verification Documents
+                    </h3>
+                    <p className="text-sm text-gray-500 mb-6">Upload your documents for verification. This is required to activate your account.</p>
+
+                    <form onSubmit={handleFileUpload} className="space-y-6 bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                        {uploadError && (
+                            <div className="bg-red-50 border border-red-200 rounded-lg p-3 flex items-center gap-2">
+                                <AlertCircle className="w-4 h-4 text-red-600" />
+                                <p className="text-red-700 text-sm">{uploadError}</p>
+                            </div>
+                        )}
+                        {uploadSuccess && (
+                            <div className="bg-green-50 border border-green-200 rounded-lg p-3 flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4 text-green-600" />
+                                <p className="text-green-700 text-sm">{uploadSuccess}</p>
+                            </div>
+                        )}
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Medical Degree Proof</label>
+                                <input type="file" name="medical_degree_proof" className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Registration Certificate</label>
+                                <input type="file" name="registration_cert" className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Identity Proof</label>
+                                <input type="file" name="identity_proof" className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Professional Photo</label>
+                                <input type="file" name="professional_photo" className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Other Certificates</label>
+                                <input type="file" name="other_certificates" className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                            </div>
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={isUploading}
+                            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 disabled:opacity-50 font-medium transition-all"
+                        >
+                            {isUploading ? 'Uploading Documents...' : 'Upload Documents'}
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     );

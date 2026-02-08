@@ -26,14 +26,9 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str  # Added password field
+    role: Optional[str] = None # Hide role from public API, handled in backend defaulting to 'patient'
 
-class User(UserBase):
-    id: UUID
-    created_at: datetime
-    updated_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
 
 
 class Token(BaseModel):
@@ -78,6 +73,7 @@ class Doctor(DoctorBase):
     hospital_name: Optional[str] = None
     hospital_state: Optional[str] = None
     hospital_city: Optional[str] = None
+    full_name: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -109,7 +105,18 @@ class Researcher(ResearcherBase):
         from_attributes = True
 
 # -------------------------
-# HOSPITAL VISIT SCHEMAS
+# USER RESPONSE SCHEMA (Moved here to resolve forward references)
+# -------------------------
+
+class User(UserBase):
+    id: UUID
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+    doctor_profile: Optional[Doctor] = None
+    researcher_profile: Optional[Researcher] = None
+
+    class Config:
+        from_attributes = True
 # -------------------------
 
 class HospitalVisitBase(BaseModel):

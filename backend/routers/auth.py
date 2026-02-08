@@ -2,8 +2,9 @@ from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from .. import crud, schemas, auth, models
+from .. import schemas, auth, models
 from ..database import get_db
+from ..services.auth_service import UserService
 
 router = APIRouter(
     prefix="/auth",
@@ -12,54 +13,19 @@ router = APIRouter(
 
 @router.post("/register", response_model=schemas.User)
 def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_email(db, email=user.email)
-    if db_user:
-        raise HTTPException(status_code=400, detail="Email already registered")
-    
-    # Generate OTP
-    import random
-    otp_code = str(random.randint(100000, 999999))
-    crud.create_otp(db, email=user.email, otp_code=otp_code)
-    
-    # Log OTP to console (Simulation)
-    print(f"--------------------------------------------------")
-    print(f"OTP for {user.email}: {otp_code}")
-    print(f"--------------------------------------------------")
-    
-    return crud.create_user(db=db, user=user)
+    service = UserService(db)
+    return service.register_user(user)
 
 @router.post("/verify-otp")
 def verify_otp(verification: schemas.OTPVerify, db: Session = Depends(get_db)):
-    otp_record = crud.get_otp(db, email=verification.email)
-    if not otp_record:
-        raise HTTPException(status_code=400, detail="Invalid OTP or OTP expired")
-    
-    if otp_record.otp_code != verification.otp:
-        raise HTTPException(status_code=400, detail="Invalid OTP")
-        
-    # Verify user
-    user = crud.get_user_by_email(db, email=verification.email)
-    if user:
-        user.is_verified = True
-        db.commit()
-        
-    # Delete OTP
-    crud.delete_otp(db, email=verification.email)
-    
-    return {"message": "Email verified successfully"}
+    service = UserService(db)
+    return service.verify_otp(verification.email, verification.otp)
 
 @router.post("/login", response_model=schemas.Token)
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    user = crud.get_user_by_email(db, email=form_data.username)
-    if not user or not auth.verify_password(form_data.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+    service = UserService(db)
+    user = service.authenticate_user(form_data.username, form_data.password)
     
-
-        
     access_token_expires = timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = auth.create_access_token(
         subject=user.email, expires_delta=access_token_expires
@@ -80,7 +46,12 @@ def get_current_user(token: str = Depends(auth.oauth2_scheme), db: Session = Dep
         token_data = schemas.TokenData(email=email)
     except auth.JWTError:
         raise credentials_exception
-    user = crud.get_user_by_email(db, email=token_data.email)
+    
+    # We can keep direct DB access here for performance or move to service
+    # For consistency, let's keep it direct or basic repo get
+    from ..crud import get_user_by_email # Or use repo
+    user = get_user_by_email(db, email=token_data.email)
+    
     if user is None:
         raise credentials_exception
     return user

@@ -16,6 +16,7 @@ import { Consultations } from './components/doctor/Consultations'
 import { DoctorDashboard } from './components/doctor/DoctorDashboard'
 import { PatientList } from './components/doctor/PatientList'
 import { PatientDetails } from './components/doctor/PatientDetails'
+import { DoctorAI } from './components/doctor/DoctorAI'
 import { PharmaLayout } from './components/layout/PharmaLayout'
 import { ResearchLab } from './components/pharma/ResearchLab'
 import { ResearcherDashboard } from './components/pharma/ResearcherDashboard'
@@ -118,6 +119,7 @@ function AppRoutes() {
         <Route path="consultations" element={<Consultations />} />
         <Route path="patients" element={<PatientList />} />
         <Route path="patients/:id" element={<PatientDetails />} />
+        <Route path="ai-assistant" element={<DoctorAI />} />
 
         <Route path="profile" element={<DoctorProfile />} />
         <Route path="settings" element={<div className="p-4">Doctor Settings (Coming Soon)</div>} />

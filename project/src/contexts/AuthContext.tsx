@@ -6,8 +6,8 @@ interface AuthContextType {
   user: any | null
   profile: Profile | null
   loading: boolean
-  signUp: (email: string, password: string, fullName: string, role: 'patient' | 'doctor' | 'researcher') => Promise<{ error: Error | null }>
-  signIn: (email: string, password: string, rememberMe?: boolean) => Promise<{ error: Error | null }>
+  signUp: (email: string, password: string, fullName: string, role: 'patient' | 'doctor' | 'researcher', additionalDetails?: { hospitalName?: string, hospitalState?: string, hospitalCity?: string }) => Promise<{ error: Error | null }>
+  signIn: (email: string, password: string, rememberMe?: boolean, requiredRole?: 'patient' | 'doctor' | 'researcher') => Promise<{ error: Error | null }>
   signOut: () => Promise<void>
   resetPassword: (email: string) => Promise<{ error: Error | null }>
   updateProfile: (updates: Partial<Profile>) => Promise<{ error: Error | null }>
@@ -64,9 +64,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await checkAuth()
   }
 
-  const signUp = async (email: string, password: string, fullName: string, role: 'patient' | 'doctor' | 'researcher') => {
+  const signUp = async (email: string, password: string, fullName: string, role: 'patient' | 'doctor' | 'researcher', additionalDetails?: { hospitalName?: string, hospitalState?: string, hospitalCity?: string }) => {
     try {
-      await register({ email, password, full_name: fullName, role })
+      await register({
+        email,
+        password,
+        full_name: fullName,
+        role,
+        hospital_name: additionalDetails?.hospitalName,
+        hospital_state: additionalDetails?.hospitalState,
+        hospital_city: additionalDetails?.hospitalCity
+      })
       return { error: null }
     } catch (error: any) {
       const message = error.response?.data?.detail || error.message
@@ -74,7 +82,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  const signIn = async (email: string, password: string, rememberMe: boolean = false) => {
+  const signIn = async (email: string, password: string, rememberMe: boolean = false, requiredRole?: 'patient' | 'doctor' | 'researcher') => {
     try {
       const formData = new URLSearchParams();
       formData.append("username", email);
@@ -93,6 +101,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       const userData = await getCurrentUser();
+
+      // --- FIX 3: Enforce Role Verification ---
+      if (requiredRole && userData.role !== requiredRole) {
+        // Clear tokens immediately
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+        setUser(null);
+        setProfile(null);
+
+        throw new Error(`Access denied. Please use the ${requiredRole.charAt(0).toUpperCase() + requiredRole.slice(1)} login portal.`);
+      }
+
       setUser(userData);
       setProfile({
         id: userData.id,

@@ -213,7 +213,12 @@ export function Appointments() {
     }
 
     try {
-      const dateTime = new Date(`${formData.appointment_date}T${formData.appointment_time} `)
+      if (!formData.appointment_date || !formData.appointment_time) {
+        alert("Please select both Date and Time.");
+        setIsSubmitting(false);
+        return;
+      }
+      const dateTime = new Date(`${formData.appointment_date}T${formData.appointment_time}`)
 
       const appointmentData = {
         user_id: user.id,

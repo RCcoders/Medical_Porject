@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Heart, Stethoscope, Mail, Phone, CreditCard, User, Eye, EyeOff, ArrowRight, UserPlus, ArrowLeft, Microscope } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Heart, Stethoscope, Mail, Phone, CreditCard, User, Eye, EyeOff, ArrowRight, UserPlus, ArrowLeft, Microscope, MapPin } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
 
 type UserRole = 'patient' | 'doctor' | 'researcher'
@@ -24,6 +24,75 @@ export function AuthPortal() {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
+    const [hospitalName, setHospitalName] = useState('')
+    const [hospitalState, setHospitalState] = useState('')
+    const [hospitalCity, setHospitalCity] = useState('')
+
+    // Hospital Data States
+    const [hospitalData, setHospitalData] = useState<Record<string, Record<string, string[]>>>({})
+    const [availableStates, setAvailableStates] = useState<string[]>([])
+    const [availableCities, setAvailableCities] = useState<string[]>([])
+    const [availableHospitals, setAvailableHospitals] = useState<string[]>([])
+
+    useEffect(() => {
+        const fetchHospitalData = async () => {
+            try {
+                const response = await fetch('/assets/HospitalsInIndia.csv');
+                const text = await response.text();
+                const lines = text.split('\n');
+                const data: Record<string, Record<string, string[]>> = {};
+
+                // Skip header row (index 0)
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (!line) continue;
+
+                    // Simple CSV parsing (handling quotes if necessary, but assuming simple structure for now based on file view)
+                    // The file has quotes around some fields. We need a regex to split correctly.
+                    // The file has quotes around some fields. We need a regex to split correctly.
+                    // Fallback to simple split if regex fails or for simple lines
+                    const parts = line.split(',').map(p => p.trim().replace(/^"|"$/g, ''));
+
+                    // Expected format: ID, Hospital, State, City, LocalAddress, Pincode
+                    // Index: 0, 1, 2, 3, 4, 5
+                    if (parts.length >= 4) {
+                        const hospital = parts[1];
+                        const state = parts[2];
+                        const city = parts[3];
+
+                        if (state && city && hospital) {
+                            if (!data[state]) data[state] = {};
+                            if (!data[state][city]) data[state][city] = [];
+                            data[state][city].push(hospital);
+                        }
+                    }
+                }
+
+                setHospitalData(data);
+                setAvailableStates(Object.keys(data).sort());
+            } catch (error) {
+                console.error('Error loading hospital data:', error);
+            }
+        };
+
+        fetchHospitalData();
+    }, []);
+
+    const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const newState = e.target.value;
+        setHospitalState(newState);
+        setHospitalCity('');
+        setHospitalName('');
+        setAvailableCities(newState ? Object.keys(hospitalData[newState] || {}).sort() : []);
+        setAvailableHospitals([]);
+    };
+
+    const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const newCity = e.target.value;
+        setHospitalCity(newCity);
+        setHospitalName('');
+        setAvailableHospitals(newCity && hospitalState ? (hospitalData[hospitalState][newCity] || []).sort() : []);
+    };
 
     const handleRoleSelect = (role: UserRole) => {
         setSelectedRole(role)
@@ -46,10 +115,14 @@ export function AuthPortal() {
 
         try {
             if (authMode === 'login') {
-                const { error: signInError } = await signIn(email, password)
+                const { error: signInError } = await signIn(email, password, false, selectedRole)
                 if (signInError) throw signInError
             } else {
-                const { error: signUpError } = await signUp(email, password, fullName, selectedRole)
+                const { error: signUpError } = await signUp(email, password, fullName, selectedRole, {
+                    hospitalName,
+                    hospitalState,
+                    hospitalCity
+                })
                 if (signUpError) throw signUpError
                 setSuccess('Account created! Please check your email.')
             }
@@ -226,6 +299,66 @@ export function AuthPortal() {
                                 />
                             </div>
                         </div>
+                    )}
+
+                    {authMode === 'register' && selectedRole === 'doctor' && (
+                        <>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-gray-700 text-sm font-semibold mb-2">State</label>
+                                    <div className="relative">
+                                        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                        <select
+                                            value={hospitalState}
+                                            onChange={handleStateChange}
+                                            className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none bg-white"
+                                            required
+                                        >
+                                            <option value="">Select State</option>
+                                            {availableStates.map(state => (
+                                                <option key={state} value={state}>{state}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="block text-gray-700 text-sm font-semibold mb-2">City</label>
+                                    <div className="relative">
+                                        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                        <select
+                                            value={hospitalCity}
+                                            onChange={handleCityChange}
+                                            className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none bg-white"
+                                            required
+                                            disabled={!hospitalState}
+                                        >
+                                            <option value="">Select City</option>
+                                            {availableCities.map(city => (
+                                                <option key={city} value={city}>{city}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label className="block text-gray-700 text-sm font-semibold mb-2">Hospital Name</label>
+                                <div className="relative">
+                                    <Stethoscope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                    <select
+                                        value={hospitalName}
+                                        onChange={(e) => setHospitalName(e.target.value)}
+                                        className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none bg-white"
+                                        required
+                                        disabled={!hospitalCity}
+                                    >
+                                        <option value="">Select Hospital</option>
+                                        {availableHospitals.map((hospital, index) => (
+                                            <option key={index} value={hospital}>{hospital}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                        </>
                     )}
 
                     <div>

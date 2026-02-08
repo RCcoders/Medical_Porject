@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000'; // Default FastAPI port
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 export const api = axios.create({
     baseURL: API_URL,
@@ -14,12 +14,23 @@ api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
-        console.log('[DEBUG] Attaching token to request', token?.slice(0, 8) + '...'); // partial print
-    } else {
-        console.log('[DEBUG] No token found in storage');
     }
     return config;
 });
+
+// Add response interceptor for global error handling
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        console.error("API Error:", error.response?.data?.detail || error.message);
+        if (error.response?.status === 401 && !error.config.url?.includes('/auth/login')) {
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
+            window.location.href = '/';
+        }
+        return Promise.reject(error);
+    }
+);
 
 export const login = async (formData: FormData | URLSearchParams) => {
     try {
@@ -81,6 +92,16 @@ export const getPatients = async () => {
         return response.data;
     } catch (error) {
         console.error('Error fetching patients:', error);
+        throw error;
+    }
+};
+
+export const deletePatient = async (id: string) => {
+    try {
+        const response = await api.delete(`/patients/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting patient:', error);
         throw error;
     }
 };
@@ -351,6 +372,16 @@ export const getPatientVisits = async (patientId: string) => {
         throw error;
     }
 };
+
+export const getPatientAllergies = async (patientId: string) => {
+    try {
+        const response = await api.get(`/patient-data/${patientId}/allergies`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching patient allergies:', error);
+        throw error;
+    }
+};
 export const updateDoctorProfile = async (profileData: any) => {
     try {
         const response = await api.put('/doctors/me', profileData);
@@ -367,6 +398,16 @@ export const updateResearcherProfile = async (profileData: any) => {
         return response.data;
     } catch (error) {
         console.error('Error updating researcher profile:', error);
+        throw error;
+    }
+};
+
+export const getDoctorRecentActivity = async () => {
+    try {
+        const response = await api.get('/doctors/me/recent-activity');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching doctor activity:', error);
         throw error;
     }
 };

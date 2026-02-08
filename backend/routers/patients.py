@@ -1,0 +1,54 @@
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from typing import List, Optional
+from uuid import UUID
+import logging
+
+from .. import crud, models, schemas
+from ..database import get_db
+from .auth import get_current_user
+
+logger = logging.getLogger("medical_backend")
+
+router = APIRouter(
+    prefix="/patients",
+    tags=["patients"],
+)
+
+@router.get("/", response_model=List[schemas.User])
+def read_patients(
+    skip: int = 0,
+    limit: int = 100,
+    db: Session = Depends(get_db),
+    current_user: schemas.User = Depends(get_current_user),
+):
+    doctor_name_filter: Optional[str] = None
+    
+    if current_user.role == "doctor":
+        doctor_name_filter = current_user.full_name
+        # Also keep hospital filter if needed, but appointment link is stronger
+        try:
+             dp = getattr(current_user, "doctor_profile", None)
+             if dp and getattr(dp, "hospital_name", None):
+                 hospital_filter = dp.hospital_name
+        except Exception:
+             pass
+
+    limit = min(limit, 500)
+    patients = crud.get_patients(db, skip=skip, limit=limit, hospital_name=hospital_filter, doctor_name=doctor_name_filter)
+    return patients
+
+
+@router.delete("/{patient_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_patient(
+    patient_id: str,
+    db: Session = Depends(get_db),
+    current_user: schemas.User = Depends(get_current_user),
+):
+    if current_user.role != "doctor":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to delete patients")
+    
+    deleted_patient = crud.delete_patient(db, patient_id=patient_id)
+    if deleted_patient is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Patient not found")
+    return None

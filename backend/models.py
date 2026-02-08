@@ -69,6 +69,10 @@ class Doctor(Base):
     
     user = relationship("User", back_populates="doctor_profile")
 
+    @property
+    def full_name(self):
+        return self.user.full_name if self.user else None
+
 
 class Researcher(Base):
     __tablename__ = "researchers"

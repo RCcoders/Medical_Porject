@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Search, Filter, MoreHorizontal, X } from 'lucide-react'
-import { getPatients, createPatient } from '../../services/api'
+import { Search, Filter, MoreHorizontal, X, Trash2 } from 'lucide-react'
+import { getPatients, createPatient, deletePatient } from '../../services/api'
 import { useNavigate } from 'react-router-dom'
 
 interface Patient {
@@ -52,6 +52,18 @@ export function PatientList() {
         } catch (err) {
             console.error('Failed to create patient:', err)
             alert('Failed to create patient. See console for details.')
+        }
+    }
+
+    const handleDeletePatient = async (id: string) => {
+        if (window.confirm('Are you sure you want to delete this patient? This action cannot be undone.')) {
+            try {
+                await deletePatient(id)
+                setPatients(patients.filter(p => p.id !== id))
+            } catch (err) {
+                console.error('Failed to delete patient:', err)
+                alert('Failed to delete patient. Please try again.')
+            }
         }
     }
 
@@ -139,6 +151,16 @@ export function PatientList() {
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <button className="text-gray-400 hover:text-blue-600 p-2 rounded-full hover:bg-blue-50 transition-colors">
                                             <MoreHorizontal className="w-5 h-5" />
+                                        </button>
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                handleDeletePatient(patient.id)
+                                            }}
+                                            className="text-gray-400 hover:text-red-600 p-2 rounded-full hover:bg-red-50 transition-colors ml-1"
+                                            title="Delete Patient"
+                                        >
+                                            <Trash2 className="w-5 h-5" />
                                         </button>
                                     </td>
                                 </tr>
