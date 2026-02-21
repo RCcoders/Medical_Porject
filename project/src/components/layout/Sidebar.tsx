@@ -42,7 +42,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
             <div className="flex items-center">
               <Heart className="h-8 w-8 text-teal-600" />
-              <span className="ml-3 text-xl font-bold text-gray-900">Health Ledger</span>
+              <span className="ml-3 text-xl font-bold text-gray-900">G-ONE</span>
             </div>
             <button
               onClick={onClose}

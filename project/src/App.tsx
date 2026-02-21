@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { AuthPortal } from './components/auth/AuthPortal'
 import { Layout } from './components/layout/Layout'
@@ -24,16 +25,29 @@ import { ClinicalTrials } from './components/pharma/ClinicalTrials'
 import { VideoCall } from './components/common/VideoCall'
 import DoctorProfile from './components/profile/DoctorProfile'
 import ResearcherProfile from './components/profile/ResearcherProfile'
+import SplashScreen from './components/common/SplashScreen'
+
+function BrandedLoader() {
+  return (
+    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center gap-4">
+      <div className="relative">
+        <div className="absolute -inset-4 bg-blue-600/20 rounded-full blur-xl animate-pulse" />
+        <img src="/assets/g-onelogo.png" alt="G-ONE" className="w-24 h-24 object-contain relative animate-bounce" />
+      </div>
+      <div className="flex gap-1.5 mt-2">
+        <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.3s]" />
+        <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.15s]" />
+        <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" />
+      </div>
+    </div>
+  )
+}
 
 function ProtectedRoute({ children, allowedRoles }: { children: React.ReactNode, allowedRoles?: ('patient' | 'doctor' | 'researcher')[] }) {
   const { user, profile, loading } = useAuth()
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-      </div>
-    )
+    return <BrandedLoader />
   }
 
   if (!user) {
@@ -54,11 +68,7 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
   const { user, profile, loading } = useAuth()
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-      </div>
-    )
+    return <BrandedLoader />
   }
 
   if (user && profile) {
@@ -151,6 +161,19 @@ function AppRoutes() {
 }
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false)
+    }, 2500)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (showSplash) {
+    return <SplashScreen />
+  }
+
   return (
     <AuthProvider>
       <Router>

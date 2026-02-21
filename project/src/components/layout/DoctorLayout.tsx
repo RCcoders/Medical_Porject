@@ -30,7 +30,7 @@ export function DoctorLayout() {
                     <div className="flex items-center gap-2 text-blue-700">
                         <HeartPulse className="h-8 w-8" />
                         <div>
-                            <h1 className="text-xl font-bold leading-none">MediWatch</h1>
+                            <h1 className="text-xl font-bold leading-none">G-ONE</h1>
                             <span className="text-xs text-slate-500 font-medium tracking-wider">CLINICIAN VIEW</span>
                         </div>
                     </div>

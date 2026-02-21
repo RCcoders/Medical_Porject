@@ -5,7 +5,7 @@ import { useAuth } from '../../contexts/AuthContext'
 
 
 export function PharmaLayout() {
-    const { signOut, user } = useAuth()
+    const { signOut, profile } = useAuth()
     const location = useLocation()
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
@@ -23,7 +23,7 @@ export function PharmaLayout() {
 
             {/* Pharma Sidebar */}
             <aside className={`
-                fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 flex flex-col relative overflow-hidden transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static
+                fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 flex flex-col overflow-hidden transition-transform duration-300 ease-in-out lg:translate-x-0 lg:relative
                 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
             `}>
                 {/* Gradient Gloss */}
@@ -35,7 +35,7 @@ export function PharmaLayout() {
                             <Microscope className="h-6 w-6" />
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold leading-none tracking-tight text-white">PharmaLab</h1>
+                            <h1 className="text-xl font-bold leading-none tracking-tight text-white">G-ONE</h1>
                             <span className="text-[10px] text-purple-400/70 font-bold tracking-widest uppercase">Research Portal</span>
                         </div>
                     </div>
@@ -90,15 +90,22 @@ export function PharmaLayout() {
                 </nav>
 
                 <div className="p-4 border-t border-slate-800 relative z-10">
-                    <div className="flex items-center gap-3 px-4 py-3 mb-2 bg-slate-800/50 rounded-xl border border-slate-700/50">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-lg">
+                    <Link
+                        to="/pharma/profile"
+                        onClick={() => setIsSidebarOpen(false)}
+                        className={`flex items-center gap-3 px-4 py-3 mb-2 rounded-xl border transition-all duration-200 group/profile ${isActive('/pharma/profile')
+                            ? 'bg-purple-600/20 border-purple-500/30'
+                            : 'bg-slate-800/50 border-slate-700/50 hover:bg-slate-800 hover:border-slate-600'
+                            }`}
+                    >
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-lg group-hover/profile:scale-110 transition-transform">
                             RES
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-white truncate">{user?.displayName || 'Researcher'}</p>
+                            <p className="text-sm font-medium text-white truncate">{profile?.full_name || 'Researcher'}</p>
                             <p className="text-[10px] text-slate-400 truncate uppercase tracking-wider">Lead Scientist</p>
                         </div>
-                    </div>
+                    </Link>
                     <button
                         onClick={() => signOut()}
                         className="flex items-center gap-3 px-4 py-2 w-full text-xs font-medium text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
@@ -124,6 +131,7 @@ export function PharmaLayout() {
                             {isActive('/pharma/dashboard') && 'Global R&D Overview'}
                             {isActive('/pharma/clinical-trials') && 'Clinical Trials Management'}
                             {isActive('/pharma/ai-assistant') && 'AI Research Module'}
+                            {isActive('/pharma/profile') && 'Researcher Identity Profile'}
 
                         </h2>
                     </div>
@@ -140,7 +148,7 @@ export function PharmaLayout() {
                     </div>
                 </header>
 
-                <main className="flex-1 overflow-auto bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black p-4 lg:p-0">
+                <main className="flex-1 overflow-auto bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black p-4 md:p-8">
                     <Outlet />
                 </main>
             </div>

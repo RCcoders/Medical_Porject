@@ -37,7 +37,7 @@ This project consists of a **FastAPI Backend** and a **React/Vite Frontend**.
 
 5.  **Run the Backend Server**:
     ```bash
-    uvicorn backend.main:app --reload
+    python -m venv venv
     ```
     -   The API will be available at `http://localhost:8000`.
     -   Swagger docs: `http://localhost:8000/docs`.

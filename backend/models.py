@@ -84,8 +84,76 @@ class Researcher(Base):
     field_of_study = Column(String)
     publications_count = Column(Integer, default=0)
     current_projects = Column(Text, nullable=True)
+    bio = Column(Text, nullable=True)
+    
+    # Core Identity & Location
+    professional_title = Column(String, nullable=True) # e.g. Lead Scientist
+    city = Column(String, nullable=True)
+    country = Column(String, nullable=True)
+    
+    # Academic Background
+    highest_qualification = Column(String, nullable=True)
+    specialization = Column(String, nullable=True)
+    university = Column(String, nullable=True)
+    completion_year = Column(Integer, nullable=True)
+    
+    # Research Expertise (Stored as semicolon-separated strings or JSON)
+    research_areas = Column(Text, nullable=True) 
+    techniques = Column(Text, nullable=True)
+    therapeutic_domains = Column(Text, nullable=True)
+    
+    # Experience
+    total_experience_years = Column(Integer, default=0)
+    research_type = Column(String, nullable=True) # Academic, Industrial, Clinical
+    
+    # Verification & Social
+    orcid_id = Column(String, nullable=True)
+    linkedin_url = Column(String, nullable=True)
+    google_scholar_url = Column(String, nullable=True)
+    
+    # Collaboration
+    collaboration_interests = Column(Text, nullable=True)
+    is_mentorship_available = Column(Boolean, default=False)
+    
+    # Document Paths
+    thesis_url = Column(String, nullable=True)
+    cv_url = Column(String, nullable=True)
+    other_docs_url = Column(String, nullable=True)
     
     user = relationship("User", back_populates="researcher_profile")
+    trials = relationship("ClinicalTrial", back_populates="researcher")
+    projects = relationship("ResearchProject", back_populates="researcher")
+
+
+class ClinicalTrial(Base):
+    __tablename__ = "clinical_trials"
+    __table_args__ = {"schema": "medical"}
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    researcher_id = Column(UUID(as_uuid=True), ForeignKey("medical.researchers.id"))
+    title = Column(String)
+    phase = Column(String)  # Phase I, II, III, IV
+    status = Column(String)  # Recruitment, Active, Completed, Terminated
+    start_date = Column(Date)
+    end_date = Column(Date, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    
+    researcher = relationship("Researcher", back_populates="trials")
+
+
+class ResearchProject(Base):
+    __tablename__ = "research_projects"
+    __table_args__ = {"schema": "medical"}
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    researcher_id = Column(UUID(as_uuid=True), ForeignKey("medical.researchers.id"))
+    title = Column(String)
+    description = Column(Text)
+    status = Column(String)
+    area = Column(String)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    
+    researcher = relationship("Researcher", back_populates="projects")
 
 
 class HospitalVisit(Base):

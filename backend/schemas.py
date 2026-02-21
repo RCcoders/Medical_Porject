@@ -87,6 +87,24 @@ class ResearcherBase(BaseModel):
     field_of_study: str
     publications_count: int = 0
     current_projects: Optional[str] = None
+    bio: Optional[str] = None
+    professional_title: Optional[str] = None
+    city: Optional[str] = None
+    country: Optional[str] = None
+    highest_qualification: Optional[str] = None
+    specialization: Optional[str] = None
+    university: Optional[str] = None
+    completion_year: Optional[int] = None
+    research_areas: Optional[str] = None
+    techniques: Optional[str] = None
+    therapeutic_domains: Optional[str] = None
+    total_experience_years: Optional[int] = 0
+    research_type: Optional[str] = None
+    orcid_id: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    google_scholar_url: Optional[str] = None
+    collaboration_interests: Optional[str] = None
+    is_mentorship_available: Optional[bool] = False
 
 class ResearcherCreate(ResearcherBase):
     pass
@@ -96,13 +114,78 @@ class ResearcherUpdate(BaseModel):
     field_of_study: Optional[str] = None
     publications_count: Optional[int] = None
     current_projects: Optional[str] = None
+    bio: Optional[str] = None
+    professional_title: Optional[str] = None
+    city: Optional[str] = None
+    country: Optional[str] = None
+    highest_qualification: Optional[str] = None
+    specialization: Optional[str] = None
+    university: Optional[str] = None
+    completion_year: Optional[int] = None
+    research_areas: Optional[str] = None
+    techniques: Optional[str] = None
+    therapeutic_domains: Optional[str] = None
+    total_experience_years: Optional[int] = None
+    research_type: Optional[str] = None
+    orcid_id: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    google_scholar_url: Optional[str] = None
+    collaboration_interests: Optional[str] = None
+    is_mentorship_available: Optional[bool] = None
 
 class Researcher(ResearcherBase):
     id: UUID
     user_id: UUID
+    thesis_url: Optional[str] = None
+    cv_url: Optional[str] = None
+    other_docs_url: Optional[str] = None
 
     class Config:
         from_attributes = True
+
+# -------------------------
+# NEW RESEARCHER SCHEMAS
+# -------------------------
+
+class ClinicalTrialBase(BaseModel):
+    title: str
+    phase: str
+    status: str
+    start_date: date
+    end_date: Optional[date] = None
+
+class ClinicalTrialCreate(ClinicalTrialBase):
+    pass
+
+class ClinicalTrial(ClinicalTrialBase):
+    id: UUID
+    researcher_id: UUID
+
+    class Config:
+        from_attributes = True
+
+class ResearchProjectBase(BaseModel):
+    title: str
+    description: str
+    status: str
+    area: str
+
+class ResearchProjectCreate(ResearchProjectBase):
+    pass
+
+class ResearchProject(ResearchProjectBase):
+    id: UUID
+    researcher_id: UUID
+
+    class Config:
+        from_attributes = True
+
+class ResearcherDashboardStats(BaseModel):
+    active_trials: int
+    pipeline_assets: int
+    rwe_queries: int
+    alerts: int
+    pipeline_viz: dict # { "Phase I": 20, ... }
 
 # -------------------------
 # USER RESPONSE SCHEMA (Moved here to resolve forward references)

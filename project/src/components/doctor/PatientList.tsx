@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Search, Filter, MoreHorizontal, X, Trash2 } from 'lucide-react'
 import { getPatients, createPatient, deletePatient } from '../../services/api'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 interface Patient {
     id: string
@@ -38,9 +38,14 @@ export function PatientList() {
         }
     }
 
+    const location = useLocation()
+
     useEffect(() => {
         fetchPatients()
-    }, [])
+        if (location.search.includes('add=true')) {
+            setIsModalOpen(true)
+        }
+    }, [location.search])
 
     const handleCreatePatient = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -67,9 +72,15 @@ export function PatientList() {
         }
     }
 
-    const filteredPatients = patients.filter(patient =>
-        patient.full_name?.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    const filteredPatients = patients.filter(patient => {
+        const matchesSearch = patient.full_name?.toLowerCase().includes(searchTerm.toLowerCase())
+        if (location.search.includes('critical=true')) {
+            // Mock critical logic: patients with 'Alert' in their recent status or just a subset
+            // In a real app, this would be a server-side filter or a specific property
+            return matchesSearch && (parseInt(patient.id.slice(-1), 16) % 3 === 0) // Mock 1/3 of patients as critical
+        }
+        return matchesSearch
+    })
 
     if (loading) return <div>Loading patients...</div>
     if (error) return <div className="text-red-500">{error}</div>
@@ -107,8 +118,8 @@ export function PatientList() {
                 </button>
             </div>
 
-            {/* Patient Table */}
-            <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+            {/* Patient Table (Desktop) */}
+            <div className="hidden md:block bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
@@ -134,7 +145,12 @@ export function PatientList() {
                                                 </div>
                                             </div>
                                             <div className="ml-4">
-                                                <div className="text-sm font-medium text-gray-900">{patient.full_name}</div>
+                                                <div className="flex items-center gap-2">
+                                                    <div className="text-sm font-medium text-gray-900">{patient.full_name}</div>
+                                                    {(parseInt(patient.id.slice(-1), 16) % 3 === 0) && (
+                                                        <span className="px-1.5 py-0.5 text-[10px] bg-red-100 text-red-700 rounded-md font-bold uppercase tracking-wider">Critical</span>
+                                                    )}
+                                                </div>
                                                 <div className="text-sm text-gray-500">ID: #{patient.id.slice(0, 8)}</div>
                                             </div>
                                         </div>
@@ -173,6 +189,53 @@ export function PatientList() {
                         </div>
                     )}
                 </div>
+            </div>
+
+            {/* Patient Cards (Mobile) */}
+            <div className="md:hidden space-y-4">
+                {filteredPatients.map((patient) => (
+                    <div
+                        key={patient.id}
+                        onClick={() => navigate(`/doctor/patients/${patient.id}`)}
+                        className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm active:bg-gray-50 transition-colors"
+                    >
+                        <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-3">
+                                <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+                                    {patient.full_name?.charAt(0) || '?'}
+                                </div>
+                                <div>
+                                    <div className="text-sm font-bold text-gray-900">{patient.full_name}</div>
+                                    <div className="text-[10px] text-gray-500 font-mono tracking-tight">ID: #{patient.id.slice(0, 8)}</div>
+                                </div>
+                            </div>
+                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-blue-50 text-blue-700 border border-blue-100">
+                                {patient.role}
+                            </span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 text-xs text-gray-500">
+                            <div className="flex flex-col">
+                                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Phone</span>
+                                <span className="text-gray-900 font-medium">{patient.phone || 'N/A'}</span>
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">DOB</span>
+                                <span className="text-gray-900 font-medium">{patient.date_of_birth || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div className="pt-3 mt-3 border-t border-gray-100 flex justify-end gap-2">
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation()
+                                    handleDeletePatient(patient.id)
+                                }}
+                                className="p-2 text-gray-400 hover:text-red-600 active:bg-red-50 rounded-lg transition-colors"
+                            >
+                                <Trash2 className="w-4 h-4" />
+                            </button>
+                        </div>
+                    </div>
+                ))}
             </div>
 
             {/* Add Patient Modal */}

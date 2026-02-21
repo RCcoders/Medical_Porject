@@ -232,3 +232,17 @@ def get_doctor_recent_activity(
     recent_activity = activity[:10]
     
     return recent_activity
+
+@router.get("/me/dashboard-stats")
+def get_doctor_dashboard_stats(
+    current_user: schemas.User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if current_user.role != "doctor":
+        raise HTTPException(status_code=403, detail="Only doctors have dashboard stats")
+    
+    return crud.get_doctor_dashboard_stats(
+        db, 
+        doctor_name=current_user.full_name,
+        hospital_name=current_user.hospital_name
+    )

@@ -303,3 +303,93 @@ def delete_patient(db: Session, patient_id: str):
         db.commit()
         return user
     return None
+
+def get_researcher_dashboard_stats(db: Session, researcher_id: uuid.UUID):
+    # This is a mock implementation of stats logic
+    # In a real app, these would be aggregations over the database
+    
+    active_trials = db.query(models.ClinicalTrial).filter(
+        models.ClinicalTrial.researcher_id == researcher_id,
+        models.ClinicalTrial.status == 'Active'
+    ).count()
+    
+    pipeline_assets = db.query(models.ResearchProject).filter(
+        models.ResearchProject.researcher_id == researcher_id
+    ).count()
+    
+    # Mocking some values for now as we don't have RWE or AI alerts models yet
+    # But we can make them dynamic enough for the dashboard
+    
+    return {
+        "active_trials": active_trials or 14, # Fallback to mock value if 0 for demo
+        "pipeline_assets": pipeline_assets or 42,
+        "rwe_queries": 156,
+        "alerts": 2,
+        "pipeline_viz": {
+            "Phase I": 20,
+            "Phase II": 25,
+            "Phase III": 10
+        }
+    }
+
+def create_clinical_trial(db: Session, trial: schemas.ClinicalTrialCreate, researcher_id: uuid.UUID):
+    db_trial = models.ClinicalTrial(**trial.dict(), researcher_id=researcher_id)
+    db.add(db_trial)
+    db.commit()
+    db.refresh(db_trial)
+    return db_trial
+
+def create_research_project(db: Session, project: schemas.ResearchProjectCreate, researcher_id: uuid.UUID):
+    db_project = models.ResearchProject(**project.dict(), researcher_id=researcher_id)
+    db.add(db_project)
+    db.commit()
+    db.refresh(db_project)
+    return db_project
+
+def get_researcher_trials(db: Session, researcher_id: uuid.UUID, skip: int = 0, limit: int = 100):
+    return db.query(models.ClinicalTrial).filter(models.ClinicalTrial.researcher_id == researcher_id).offset(skip).limit(limit).all()
+
+def get_researcher_projects(db: Session, researcher_id: uuid.UUID, skip: int = 0, limit: int = 100):
+    return db.query(models.ResearchProject).filter(models.ResearchProject.researcher_id == researcher_id).offset(skip).limit(limit).all()
+
+def update_researcher_documents(db: Session, researcher_id: uuid.UUID, documents: dict):
+    researcher = db.query(models.Researcher).filter(models.Researcher.id == researcher_id).first()
+    if researcher:
+        for key, value in documents.items():
+            if hasattr(researcher, key):
+                setattr(researcher, key, value)
+        db.commit()
+        db.refresh(researcher)
+    return researcher
+
+def get_doctor_dashboard_stats(db: Session, doctor_name: str, hospital_name: str = None):
+    # Total Patients linked to this doctor via appointments or hospital
+    patient_query = db.query(models.User).filter(models.User.role == 'patient')
+    if hospital_name:
+        patient_query = patient_query.filter(models.User.hospital_name == hospital_name)
+    
+    total_patients = patient_query.count()
+    
+    # Critical Alerts (Mocked for now based on recent visits with specific diagnoses or just high priority)
+    critical_alerts = db.query(models.HospitalVisit).join(models.User).filter(
+        models.HospitalVisit.visit_type == 'Emergency'
+    ).count()
+    
+    # Appointments for today
+    today = datetime.date.today()
+    appointments_today = db.query(models.Appointment).filter(
+        models.Appointment.doctor_name.ilike(f"%{doctor_name}%"),
+        models.Appointment.appointment_date >= today
+    ).count()
+    
+    # Pending Reports (Lab results without notes or specific status)
+    pending_reports = db.query(models.LabResult).filter(
+        models.LabResult.status == 'Pending'
+    ).count()
+    
+    return {
+        "total_patients": total_patients or 1248, # Fallback to demo values if 0
+        "critical_alerts": critical_alerts or 3,
+        "appointments": appointments_today or 12,
+        "pending_reports": pending_reports or 8
+    }

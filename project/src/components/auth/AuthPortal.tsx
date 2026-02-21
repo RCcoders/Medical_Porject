@@ -171,7 +171,7 @@ export function AuthPortal() {
             <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4 font-sans">
                 <div className="w-full max-w-4xl">
                     <div className="text-center mb-12">
-                        <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome to Medical Portal</h1>
+                        <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome to G-ONE</h1>
                         <p className="text-xl text-gray-600">Please select your role to continue</p>
                     </div>
 

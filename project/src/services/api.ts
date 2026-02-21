@@ -402,12 +402,76 @@ export const updateResearcherProfile = async (profileData: any) => {
     }
 };
 
+export const uploadResearcherDocuments = async (formData: FormData) => {
+    try {
+        const response = await api.put('/researchers/me/documents', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Document upload error:', error);
+        throw error;
+    }
+};
+
+export const getResearcherDashboardStats = async () => {
+    try {
+        const response = await api.get('/researchers/me/dashboard-stats');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching researcher stats:', error);
+        throw error;
+    }
+};
+
+export const getClinicalTrials = async () => {
+    try {
+        const response = await api.get('/researchers/me/trials');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching clinical trials:', error);
+        throw error;
+    }
+};
+
+export const createClinicalTrial = async (trialData: any) => {
+    try {
+        const response = await api.post('/researchers/me/trials', trialData);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating clinical trial:', error);
+        throw error;
+    }
+};
+
+export const queryAgents = async (query: string) => {
+    try {
+        const response = await api.post('/agents/query', { query });
+        return response.data;
+    } catch (error) {
+        console.error('Error querying agents:', error);
+        throw error;
+    }
+};
+
 export const getDoctorRecentActivity = async () => {
     try {
         const response = await api.get('/doctors/me/recent-activity');
         return response.data;
     } catch (error) {
         console.error('Error fetching doctor activity:', error);
+        throw error;
+    }
+};
+
+export const getDoctorDashboardStats = async () => {
+    try {
+        const response = await api.get('/doctors/me/dashboard-stats');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching doctor stats:', error);
         throw error;
     }
 };

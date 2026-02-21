@@ -1,16 +1,61 @@
-import { Microscope, Beaker, Activity, AlertCircle, ArrowUpRight } from 'lucide-react'
+import { Microscope, Beaker, Activity, AlertCircle, ArrowUpRight, Loader2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { getResearcherDashboardStats } from '../../services/api'
+
+interface DashboardStats {
+    active_trials: number;
+    pipeline_assets: number;
+    rwe_queries: number;
+    alerts: number;
+    pipeline_viz: Record<string, number>;
+}
 
 export function ResearcherDashboard() {
-    // const { profile } = useAuth() // Auth context available but unused
     const navigate = useNavigate()
+    const [stats, setStats] = useState<DashboardStats | null>(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const data = await getResearcherDashboardStats()
+                setStats(data)
+            } catch (err) {
+                console.error('Failed to fetch stats:', err)
+                setError('Failed to load dashboard data.')
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchStats()
+    }, [])
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[60vh]">
+                <Loader2 className="w-8 h-8 text-purple-500 animate-spin" />
+            </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div className="p-8">
+                <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400">
+                    {error}
+                </div>
+            </div>
+        )
+    }
 
     return (
-        <div className="space-y-6 p-8">
+        <div className="space-y-6 p-4 md:p-8">
             {/* Header */}
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-white tracking-tight">Research Hub</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Research Hub</h1>
                     <p className="text-slate-400 mt-1">Global drug development pipeline status.</p>
                 </div>
                 <div className="text-right">
@@ -26,7 +71,9 @@ export function ResearcherDashboard() {
                     <div className="flex justify-between items-start">
                         <div>
                             <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Active Trials</p>
-                            <h3 className="text-3xl font-bold text-white mt-2 group-hover:text-purple-400 transition-colors">14</h3>
+                            <h3 className="text-3xl font-bold text-white mt-2 group-hover:text-purple-400 transition-colors">
+                                {stats?.active_trials ?? 0}
+                            </h3>
                         </div>
                         <div className="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20">
                             <Microscope className="w-6 h-6 text-purple-400" />
@@ -43,7 +90,9 @@ export function ResearcherDashboard() {
                     <div className="flex justify-between items-start">
                         <div>
                             <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Pipeline Assets</p>
-                            <h3 className="text-3xl font-bold text-white mt-2 group-hover:text-blue-400 transition-colors">42</h3>
+                            <h3 className="text-3xl font-bold text-white mt-2 group-hover:text-blue-400 transition-colors">
+                                {stats?.pipeline_assets ?? 0}
+                            </h3>
                         </div>
                         <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20">
                             <Beaker className="w-6 h-6 text-blue-400" />
@@ -60,7 +109,9 @@ export function ResearcherDashboard() {
                     <div className="flex justify-between items-start">
                         <div>
                             <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">RWE Queries</p>
-                            <h3 className="text-3xl font-bold text-white mt-2 group-hover:text-emerald-400 transition-colors">156</h3>
+                            <h3 className="text-3xl font-bold text-white mt-2 group-hover:text-emerald-400 transition-colors">
+                                {stats?.rwe_queries ?? 0}
+                            </h3>
                         </div>
                         <div className="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
                             <Activity className="w-6 h-6 text-emerald-400" />
@@ -77,7 +128,9 @@ export function ResearcherDashboard() {
                     <div className="flex justify-between items-start">
                         <div>
                             <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Alerts</p>
-                            <h3 className="text-3xl font-bold text-amber-500 mt-2">2</h3>
+                            <h3 className="text-3xl font-bold text-amber-500 mt-2">
+                                {stats?.alerts ?? 0}
+                            </h3>
                         </div>
                         <div className="p-3 bg-amber-500/10 rounded-xl border border-amber-500/20">
                             <AlertCircle className="w-6 h-6 text-amber-500" />
@@ -129,35 +182,23 @@ export function ResearcherDashboard() {
                     </div>
 
                     <div className="space-y-6">
-                        <div className="relative group">
-                            <div className="flex justify-between text-xs mb-2">
-                                <span className="text-slate-400 font-mono">PHASE I</span>
-                                <span className="font-bold text-white group-hover:text-purple-400 transition-colors">20%</span>
+                        {Object.entries(stats?.pipeline_viz || {}).map(([phase, value]) => (
+                            <div key={phase} className="relative group">
+                                <div className="flex justify-between text-xs mb-2">
+                                    <span className="text-slate-400 font-mono uppercase">{phase}</span>
+                                    <span className="font-bold text-white group-hover:text-purple-400 transition-colors">{value}%</span>
+                                </div>
+                                <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                    <div
+                                        className={`h-full rounded-full transition-all duration-500 ${phase.includes('I') && !phase.includes('II') ? 'bg-gradient-to-r from-purple-600 to-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.5)]' :
+                                            phase.includes('II') ? 'bg-gradient-to-r from-blue-600 to-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.5)]' :
+                                                'bg-gradient-to-r from-emerald-600 to-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.5)]'
+                                            }`}
+                                        style={{ width: `${value}%` }}
+                                    />
+                                </div>
                             </div>
-                            <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                                <div className="bg-gradient-to-r from-purple-600 to-purple-400 h-full rounded-full shadow-[0_0_10px_rgba(168,85,247,0.5)]" style={{ width: '20%' }}></div>
-                            </div>
-                        </div>
-
-                        <div className="relative group">
-                            <div className="flex justify-between text-xs mb-2">
-                                <span className="text-slate-400 font-mono">PHASE II</span>
-                                <span className="font-bold text-white group-hover:text-blue-400 transition-colors">25%</span>
-                            </div>
-                            <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                                <div className="bg-gradient-to-r from-blue-600 to-blue-400 h-full rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]" style={{ width: '25%' }}></div>
-                            </div>
-                        </div>
-
-                        <div className="relative group">
-                            <div className="flex justify-between text-xs mb-2">
-                                <span className="text-slate-400 font-mono">PHASE III</span>
-                                <span className="font-bold text-white group-hover:text-emerald-400 transition-colors">10%</span>
-                            </div>
-                            <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                                <div className="bg-gradient-to-r from-emerald-600 to-emerald-400 h-full rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]" style={{ width: '10%' }}></div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>

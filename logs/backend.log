@@ -688,3 +688,711 @@ fastapi.exceptions.ResponseValidationError: 1 validation errors:
 2026-02-06 00:17:00 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 1.5489s | ID: f8af42b3-7bec-49b3-b6e6-4933a3541279
 2026-02-06 00:17:00 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.7346s | ID: 4e4a4468-9923-49b4-9f46-fbabb29afa58
 2026-02-06 00:17:01 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 1.5455s | ID: edc76245-4230-4600-8e4d-0c18c3a0d484
+2026-02-08 12:10:36 | INFO | main.on_startup:97 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-08 12:10:36 | INFO | main.on_startup:106 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-08 12:12:30 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 1.4027s | ID: 74645dec-cd7b-46ea-a3a8-314fce9e099e
+2026-02-08 12:12:30 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0010s | ID: 542c1234-b92c-4ff5-a559-392b398e8089
+2026-02-08 12:12:31 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0798s | ID: 8836d503-f446-4461-bd49-84b8618d7a21
+2026-02-08 12:12:31 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0005s | ID: 037082b3-bf4b-448a-b2db-3647fe9349bb
+2026-02-08 12:12:31 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0000s | ID: 48bc6cab-b822-4de4-8f05-66dbf5e9ace8
+2026-02-08 12:12:32 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8711s | ID: fc0d6c20-b1b5-48e9-82ca-a7a2bf3df0a1
+2026-02-08 12:12:33 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0569s | ID: edb00a91-a24b-4fc5-b5ae-52bce370f663
+2026-02-08 12:12:34 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 2.9803s | ID: e451b23c-3a48-47e9-abca-dc0b14d86f91
+2026-02-08 12:12:36 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 2.0520s | ID: b4721684-7ca8-4d1f-8d6e-f69872dade10
+2026-02-08 12:13:23 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 401 | Duration: 0.6145s | ID: 9209d62a-a7f6-4fd3-8427-f172b050ee28
+2026-02-08 12:13:31 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 401 | Duration: 0.7026s | ID: d190f645-ce3c-4f4c-b4ce-9e5f688539a5
+2026-02-08 12:15:33 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 1.3174s | ID: 043e229a-4779-4cb1-9c72-fc7f90c588a8
+2026-02-08 12:15:34 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.9451s | ID: 211e8ee1-c4dc-4c94-b031-35ebf4f28aed
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/visits | Status: 200 | Duration: 0.0015s | ID: e7086152-2de9-4a15-9654-5d1190d41e52
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/prescriptions | Status: 200 | Duration: 0.0010s | ID: ada3d917-101a-420e-9269-52e39d13f062
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/allergies | Status: 200 | Duration: 0.0013s | ID: a3129093-7b88-4ee5-9cf7-46955aed6401
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/lab-results | Status: 200 | Duration: 0.0039s | ID: 7d7b20ee-5482-4568-8067-59489c3ea5c1
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/insurance | Status: 200 | Duration: 0.0034s | ID: 39f2e4fa-a0e5-4e00-8488-5c4b77fc0f95
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0010s | ID: bcdcd421-ac60-4774-ac89-efe1542d4a22
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/visits | Status: 200 | Duration: 0.0020s | ID: 0e384507-68fa-482c-b997-79304e7c0933
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/prescriptions | Status: 200 | Duration: 0.0017s | ID: f69dd417-e050-41d0-8561-60c4ca84a4f5
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/allergies | Status: 200 | Duration: 0.0026s | ID: a2f4f88c-3284-4792-b5de-16c9417728fc
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/lab-results | Status: 200 | Duration: 0.0021s | ID: 91272678-e682-41c6-9259-193249bf43db
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/insurance | Status: 200 | Duration: 0.0000s | ID: 3ffe468b-808f-4b37-b81f-4e5e63f9544e
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0000s | ID: 2436dff7-0c44-4da6-aeea-ae524e8b5bbb
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.6659s | ID: d69560be-7ad1-4d86-b45b-7373ca8b3cb7
+2026-02-08 12:15:35 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.7456s | ID: 5cf0b1b3-d320-4c69-84d9-f356984314aa
+2026-02-08 12:15:36 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.6441s | ID: b8d140c2-2237-4f31-a6c0-766e66527b1f
+2026-02-08 12:15:36 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.7009s | ID: ba6b9ffc-ac1a-4978-aa2a-a33b52b0971b
+2026-02-08 12:15:37 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 1.6239s | ID: ca12df16-fb64-46d5-98f6-a8930eee626b
+2026-02-08 12:15:37 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 1.7216s | ID: c8621d4b-cf6e-450f-a3a7-87d9e924fc98
+2026-02-08 12:15:37 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 1.7342s | ID: 81d890cd-69e0-446b-9e66-ac139a04d8db
+2026-02-08 12:15:37 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 1.8788s | ID: 108bb82f-8913-48fd-acfa-94727ed042f5
+2026-02-08 12:15:37 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 0.6876s | ID: 2537b016-5d9b-4077-b263-28147d803957
+2026-02-08 12:15:37 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 0.7313s | ID: 941eabbf-7968-47e1-9acf-420764f54aa6
+2026-02-08 12:15:37 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 0.7656s | ID: 8454668d-4cab-47a8-914f-1b3999c5a0d3
+2026-02-08 12:15:38 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 0.8639s | ID: 925d740f-3e12-4c3a-b0fd-17748cab5775
+2026-02-08 18:58:06 | INFO | main.on_startup:97 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-08 18:58:06 | INFO | main.on_startup:106 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-08 18:58:18 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.8364s | ID: 604a98d9-94e1-4cc5-969e-ea36c7a88be4
+2026-02-08 18:58:18 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0000s | ID: 2fe5b394-d497-4ab2-b9fd-fa26acc7aa66
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8045s | ID: e3396ebf-b476-4bcc-9c86-ec8aba6c8d29
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/visits | Status: 200 | Duration: 0.0006s | ID: ef09c207-acf6-4f90-ab2e-63a50b108394
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/prescriptions | Status: 200 | Duration: 0.0000s | ID: cb7bd3e3-0cee-4758-8c30-9aaadfe410be
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/allergies | Status: 200 | Duration: 0.0006s | ID: b3b23c82-3dab-45e1-bac0-c4fb4af9268d
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/lab-results | Status: 200 | Duration: 0.0015s | ID: 294dcd57-d7ba-4b8d-822e-b2797fba0429
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/insurance | Status: 200 | Duration: 0.0020s | ID: 41d1f892-29c6-442b-af16-1080c1dde418
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0023s | ID: 819f0f44-9cf8-4783-9bb8-84e4a16d8e5c
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/visits | Status: 200 | Duration: 0.0011s | ID: 36d4372a-0042-4f87-8719-40335334d482
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/prescriptions | Status: 200 | Duration: 0.0006s | ID: 3f8c7a82-e007-41b7-8598-9e653d9f5fd9
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/allergies | Status: 200 | Duration: 0.0015s | ID: 94b17f4b-6357-4797-9289-ff0e4825fe42
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/lab-results | Status: 200 | Duration: 0.0010s | ID: 91ff3b3f-e793-4f6e-be02-4b07a99cbf79
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/insurance | Status: 200 | Duration: 0.0016s | ID: 2450124a-ff38-47c9-ad9b-6c8eb1ee0963
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0010s | ID: b4565ee7-11f0-454f-be45-c49444fcc44f
+2026-02-08 18:58:19 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.6444s | ID: 4a0ed8e8-71f5-493f-b7ee-19c2d2242a10
+2026-02-08 18:58:20 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.6453s | ID: 8a6405bf-63ca-4ad3-8538-53896bfe3bc6
+2026-02-08 18:58:21 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 1.7673s | ID: 910048ae-24f2-47e0-9756-7f589583c8c7
+2026-02-08 18:58:21 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 1.7451s | ID: b78f2884-23c6-4844-8232-bc21ce31f4f8
+2026-02-08 18:58:21 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 1.7800s | ID: e5f787e1-8ba6-45f7-bb99-10c3b0a5bf11
+2026-02-08 18:58:21 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 1.7816s | ID: ccc8e0aa-818c-4a34-9740-8748a0ddfe6d
+2026-02-08 18:58:21 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 2.3624s | ID: 07f08b14-95f7-4ff6-87c4-d23e1cfeee9d
+2026-02-08 18:58:21 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 0.6429s | ID: 5f6b7aaf-0670-4ef2-8a6c-e32c5ff24535
+2026-02-08 18:58:22 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 0.6884s | ID: 8ed3ba32-6882-4667-8d3c-71011864f480
+2026-02-08 18:58:22 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 0.6938s | ID: 31526187-690d-4942-a5ae-84126135af9f
+2026-02-08 18:58:22 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.6922s | ID: 37e22dd7-c750-4cfe-acd6-87e78da6ca02
+2026-02-08 18:58:22 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 0.7021s | ID: df8ca0cf-3ca1-4767-a993-4fe972a168cb
+2026-02-10 11:24:14 | INFO | main.on_startup:97 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-10 11:24:14 | INFO | main.on_startup:106 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-10 11:24:33 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 1.4234s | ID: bac3c6f3-a47b-44ed-84bb-77dac21b7062
+2026-02-10 11:24:33 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0006s | ID: 83691099-aaea-4e3c-bdc9-e625f6e131b7
+2026-02-10 11:24:34 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0460s | ID: f7561564-369b-4171-b166-5f4e78f7dc4a
+2026-02-10 11:24:34 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0045s | ID: a1e3eb16-d1ad-4b7a-82fa-ebca0b6e7aae
+2026-02-10 11:24:34 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0010s | ID: aa2c9f64-fc87-4a68-8f40-cf9b5072df14
+2026-02-10 11:24:35 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0023s | ID: 98ab835a-1a2d-4c90-bd19-a1a327bd59b0
+2026-02-10 11:24:36 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0906s | ID: ef958bc6-e7ef-4441-b695-cdfa3939590a
+2026-02-10 11:24:38 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 3.5942s | ID: d19b2560-51d8-4cde-a82e-7a95b6ce154a
+2026-02-10 11:24:41 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 2.3560s | ID: 67a45b68-7907-466b-8c68-562b8cd6f767
+2026-02-10 11:24:51 | INFO | middleware.dispatch:21 | Request: OPTIONS /patients/ | Status: 200 | Duration: 0.0026s | ID: 9b353b3a-cc22-4310-93aa-cc8ce4aa63ec
+2026-02-10 11:24:51 | INFO | middleware.dispatch:21 | Request: OPTIONS /patients/ | Status: 200 | Duration: 0.0044s | ID: 92c31eca-f393-434a-9e2f-af7ef96f05a1
+2026-02-10 11:24:53 | INFO | middleware.dispatch:21 | Request: GET /patients/ | Status: 200 | Duration: 1.5553s | ID: 76153242-6976-47af-9b25-e6ada90d1052
+2026-02-10 11:24:53 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0000s | ID: 9aba389f-17f3-486d-9935-5c2310c64e36
+2026-02-10 11:24:53 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0035s | ID: 0b8e3620-603d-4120-a472-c876d8d23182
+2026-02-10 11:24:54 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 1.0850s | ID: 20c9edee-539a-4cfe-9913-1e21736489d3
+2026-02-10 11:24:54 | INFO | middleware.dispatch:21 | Request: GET /patients/ | Status: 200 | Duration: 1.5452s | ID: 90d48e4f-158c-4894-8adf-61a46a3c2af9
+2026-02-10 11:24:55 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 1.0407s | ID: b4ce33cc-f3c3-4901-8e73-f7179a8a880f
+2026-02-10 11:25:05 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0548s | ID: 73868db3-7a4b-41ac-844e-5099bd7a5bd8
+2026-02-10 11:25:06 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0099s | ID: 2a68f9df-d5f2-4924-906d-9cf661d695c8
+2026-02-10 11:25:06 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 2.1387s | ID: b2582737-7289-48b0-9109-082d451dfd26
+2026-02-10 11:25:08 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 2.1632s | ID: aa46a09c-0717-46ad-970c-6728139fba89
+2026-02-10 11:25:09 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0416s | ID: e48ce62c-3718-43d1-a982-02b4393dfa98
+2026-02-10 11:25:10 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0501s | ID: 068c3b19-b99a-43ec-806e-6f09b33c5a69
+2026-02-10 11:25:17 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0190s | ID: d7791f95-34cb-4154-8f15-345f9b1c68de
+2026-02-10 11:25:18 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0165s | ID: 06fdc510-df40-4c45-8d20-37c9ae3ff5f9
+2026-02-10 11:25:18 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 2.0808s | ID: 1465bab9-97e5-4c2a-874e-f1c508794cb6
+2026-02-10 11:25:20 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 2.0864s | ID: 61e7bb8f-1a98-4bb0-a19f-79611b4047c6
+2026-02-10 11:25:40 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 1.2641s | ID: 90c5b711-da35-4d33-a81d-6b0657a1ffe5
+2026-02-10 11:25:42 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.2860s | ID: 75430cbe-176d-403f-b134-5546de38f0da
+2026-02-10 11:25:42 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/visits | Status: 200 | Duration: 0.0100s | ID: 022d3aad-3894-4e82-8f20-6b251d77a943
+2026-02-10 11:25:42 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/prescriptions | Status: 200 | Duration: 0.0036s | ID: b01f9060-0f45-437f-82fe-ba87883ae5c3
+2026-02-10 11:25:42 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/allergies | Status: 200 | Duration: 0.0070s | ID: 64e5c799-4c8d-45d6-8670-8da5dceaf2f8
+2026-02-10 11:25:42 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/lab-results | Status: 200 | Duration: 0.0054s | ID: f705b297-232a-4f3c-8154-79bafd489737
+2026-02-10 11:25:42 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/insurance | Status: 200 | Duration: 0.0057s | ID: ef596beb-4d65-4e90-ab5c-3eaab990d1c0
+2026-02-10 11:25:42 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/prescriptions | Status: 200 | Duration: 0.0103s | ID: 9d964695-72bf-44ec-b4e6-c06a48e302eb
+2026-02-10 11:25:42 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/allergies | Status: 200 | Duration: 0.0106s | ID: 2452fbd3-5fed-4f5d-ac5b-2f8d665dd7c8
+2026-02-10 11:25:42 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/visits | Status: 200 | Duration: 0.0108s | ID: a31ddd35-dc50-4d0c-94f2-0e7b67ceae62
+2026-02-10 11:25:42 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/lab-results | Status: 200 | Duration: 0.0044s | ID: b5aa68fa-f02c-492d-9b4c-07215eea56a2
+2026-02-10 11:25:42 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/insurance | Status: 200 | Duration: 0.0048s | ID: 84f8449f-e497-4599-85e8-86aaf73e8288
+2026-02-10 11:25:43 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 0.9894s | ID: 0ad591fa-7fc6-4b09-b184-897ec4fef89b
+2026-02-10 11:25:43 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.9299s | ID: e9eb6b1a-f8f7-4230-be62-43254c5827be
+2026-02-10 11:25:44 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 1.1337s | ID: f75fec73-dd2c-45db-b8ab-abf0f1e1f82d
+2026-02-10 11:25:45 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 1.1250s | ID: 3a3858ce-55f2-4f6b-92dd-26bb5490a89c
+2026-02-10 11:25:45 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 2.9122s | ID: 47f419ea-46f8-4f9b-a573-13031fb66ec4
+2026-02-10 11:25:45 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 2.8986s | ID: 5d092f11-6541-4cc4-a658-3d31a8007b34
+2026-02-10 11:25:45 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 2.9038s | ID: f7889a4f-1c4f-4a66-8b21-0b6ced9ed94d
+2026-02-10 11:25:46 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 2.9446s | ID: d1fea904-88f1-43b0-8833-55baea105c4b
+2026-02-10 11:25:46 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 0.9989s | ID: f790c948-2d0f-4b42-8abc-d335db5b5f6b
+2026-02-10 11:25:46 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 1.0161s | ID: 8c49d4f3-82de-49ab-8bcc-bfdb56d04f67
+2026-02-10 11:25:46 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 0.9925s | ID: d153d3f7-5de4-45db-8d2b-2c19fc737645
+2026-02-10 11:25:47 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.9920s | ID: db6ae415-74cc-4547-8ab6-51c530ef97dd
+2026-02-10 11:25:54 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 1.3399s | ID: 433adec8-ac2b-4c44-85a5-a0d0cf15f186
+2026-02-10 11:25:55 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 1.0179s | ID: f3623d60-ae37-45e7-9895-3c7717b0b911
+2026-02-10 11:28:37 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.8492s | ID: ab1f3cdd-d1f6-4209-9782-1306571d0f62
+2026-02-10 11:28:38 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.9294s | ID: 93a8566e-49f5-4dc9-a58d-26d018f4bf95
+2026-02-10 11:28:40 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 1.0603s | ID: ce6dfcea-b7d8-4191-9508-e9863396a70b
+2026-02-10 11:28:41 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 0.8861s | ID: 73ffbef5-7b4c-4756-919b-1308f228946d
+2026-02-10 11:28:44 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 0.8993s | ID: b4a1726a-7346-4602-83bb-4c67c94044b7
+2026-02-10 11:28:44 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 0.8054s | ID: 176a58a9-d5c7-4a73-8213-13604dff9b08
+2026-02-10 11:28:51 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/claims | Status: 200 | Duration: 0.0000s | ID: ba70ba63-325a-409c-a369-f1c6aa1ae7c6
+2026-02-10 11:28:51 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/claims | Status: 200 | Duration: 0.0026s | ID: 728ea38b-9b03-45f2-b628-ab3be1f44822
+2026-02-10 11:28:53 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 1.4461s | ID: 34503763-4c59-4bfb-8d8d-a9abfe3151fc
+2026-02-10 11:28:53 | INFO | middleware.dispatch:21 | Request: GET /patient-data/claims | Status: 200 | Duration: 1.7122s | ID: f8e72cb0-fb42-4009-a4c4-1368ab502bfe
+2026-02-10 11:28:54 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 1.6291s | ID: b16342e5-8a6e-44aa-889a-5d783a13365e
+2026-02-10 11:28:55 | INFO | middleware.dispatch:21 | Request: GET /patient-data/claims | Status: 200 | Duration: 1.6126s | ID: d0debe36-4bd6-4971-9fe7-ea55642967ee
+2026-02-10 11:28:59 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 0.8842s | ID: 10386424-5dbb-4098-a5b3-36aedf1a108e
+2026-02-10 11:29:00 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 0.7981s | ID: d423f124-c3d6-4ab8-b409-67aa734f3c37
+2026-02-10 12:01:58 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0020s | ID: f6e43da3-26b7-4489-aaf2-6800fb9d8032
+2026-02-10 12:01:58 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0021s | ID: 0d2e3b74-3645-4839-bcfa-4d50526aed59
+2026-02-10 12:01:58 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 401 | Duration: 0.0077s | ID: db429de5-65d3-45ff-92eb-05312e7ad03e
+2026-02-10 12:01:58 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 401 | Duration: 0.0057s | ID: 292ee38b-31fe-43c7-9a16-c4d4adebd20b
+2026-02-14 15:23:50 | INFO | main.on_startup:97 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-14 15:23:50 | INFO | main.on_startup:106 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-14 15:24:25 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 1.6562s | ID: 6ba88007-8b77-4e91-8559-b0c7dadb95c2
+2026-02-14 15:24:25 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0007s | ID: b986eca7-0cbd-4b5c-9d05-5e58437babea
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.4532s | ID: 22fee1ed-fd1a-415e-a4a6-551e3717c6b4
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/visits | Status: 200 | Duration: 0.0005s | ID: eef78f43-764a-4ccd-b7ec-9d26b29f4250
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/prescriptions | Status: 200 | Duration: 0.0015s | ID: 5437c86e-8866-41b8-b314-b3478fe1f86f
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/allergies | Status: 200 | Duration: 0.0020s | ID: 512d1081-2121-44d0-be68-80210631d68a
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/lab-results | Status: 200 | Duration: 0.0051s | ID: 47342cb8-51df-4b03-8aa4-65ad1d26d335
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/insurance | Status: 200 | Duration: 0.0047s | ID: ddc85a8c-ba17-43a5-aa45-0671eb9ae24d
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/visits | Status: 200 | Duration: 0.0046s | ID: 1bd0933c-f166-4acd-bd7d-21293bd8eaf7
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0051s | ID: dc2dc3ec-83c2-4448-af75-539948d2b1a1
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/prescriptions | Status: 200 | Duration: 0.0070s | ID: 0a6de7fc-4f2b-4275-a6bb-2f6299d08d8b
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/allergies | Status: 200 | Duration: 0.0045s | ID: 02a7e297-1c41-473b-bdc2-eca449e23e15
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/lab-results | Status: 200 | Duration: 0.0048s | ID: 5b4cb6b4-9547-4154-aa4b-ce5059dedb5d
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/insurance | Status: 200 | Duration: 0.0047s | ID: a98623b4-c5e7-4480-8493-62296f53004e
+2026-02-14 15:24:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0000s | ID: d147787c-c7ea-422e-9658-6253c0e0bc54
+2026-02-14 15:24:28 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.8948s | ID: ef9ccb5e-db9a-4244-8929-154955d0d368
+2026-02-14 15:24:29 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.9406s | ID: 32cbe493-1ac8-4ed3-af6e-c760c8ce40f4
+2026-02-14 15:24:30 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 2.2132s | ID: f95684a1-41b9-40b7-b0f4-70c062ca68dd
+2026-02-14 15:24:30 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 2.2848s | ID: 93e5cc3e-ecc3-411c-aa6f-874479c45dcd
+2026-02-14 15:24:30 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 2.2511s | ID: 6a855c74-898d-41c8-81b4-8d535a02501b
+2026-02-14 15:24:30 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 2.2840s | ID: a85f61f7-b662-42e7-8e74-311ee17592c3
+2026-02-14 15:24:30 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 2.3341s | ID: 36327b56-a4c2-4faa-87c9-dd2f48658db5
+2026-02-14 15:24:31 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 0.8903s | ID: 65b8e16a-09b2-46ad-b028-ad56b6bdf01a
+2026-02-14 15:24:31 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 0.8476s | ID: 8c1be747-7d62-4bfa-a181-bc5d015f0f27
+2026-02-14 15:24:31 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.8639s | ID: 252bdcbc-b2f7-4072-8ef8-01ace871ec82
+2026-02-14 15:24:31 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 0.8624s | ID: 49f17381-405a-4378-ae4d-84ba23a98a34
+2026-02-14 15:24:31 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 0.8864s | ID: c58b112c-db29-417f-8be6-ec95488cf619
+2026-02-20 14:40:50 | INFO | main.on_startup:97 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-20 14:40:50 | INFO | main.on_startup:106 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-20 14:40:53 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 1.4706s | ID: 82acdd65-abe2-4516-aafd-58b645dee075
+2026-02-20 14:40:53 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0021s | ID: d6030ad6-11d3-431d-8ffe-8414206bb189
+2026-02-20 14:40:54 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0736s | ID: 296347e1-e8f7-4ab2-b515-39541eed8693
+2026-02-20 14:40:54 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/visits | Status: 200 | Duration: 0.0014s | ID: e2607562-f877-4a3a-8637-31e20906eaec
+2026-02-20 14:40:54 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/prescriptions | Status: 200 | Duration: 0.0000s | ID: c4f2b425-7f7a-4f58-b2f2-d119b0736e5a
+2026-02-20 14:40:54 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/allergies | Status: 200 | Duration: 0.0036s | ID: a1d8932e-5ff5-4b7c-9555-307f2b51e8da
+2026-02-20 14:40:55 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/lab-results | Status: 200 | Duration: 0.0063s | ID: 78239a12-0a80-4e58-9b8e-2bfcf2d9947b
+2026-02-20 14:40:55 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/insurance | Status: 200 | Duration: 0.0003s | ID: 242e0116-d115-496e-904f-d87c921e9ff8
+2026-02-20 14:40:55 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0005s | ID: 0fc305dc-9d28-4504-9b40-cf0bd15b3abf
+2026-02-20 14:40:55 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/visits | Status: 200 | Duration: 0.0005s | ID: da930ec5-4e69-4684-8e72-b80f9b3d3d2b
+2026-02-20 14:40:55 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/prescriptions | Status: 200 | Duration: 0.0010s | ID: 48d200b6-6db8-4ee0-bf31-902191a7cba2
+2026-02-20 14:40:55 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/allergies | Status: 200 | Duration: 0.0011s | ID: 00ebad2b-f2ad-4f80-a5fd-764e8c33a554
+2026-02-20 14:40:55 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/lab-results | Status: 200 | Duration: 0.0018s | ID: 7630056c-9439-4cf6-9b47-0093aa1e9eb4
+2026-02-20 14:40:55 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/insurance | Status: 200 | Duration: 0.0018s | ID: ab0a8549-2d7b-4e40-8b20-7ae8f33e91a3
+2026-02-20 14:40:55 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0000s | ID: 7e2297e1-ee1f-49ea-8fac-f57543795c9c
+2026-02-20 14:40:56 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 1.2249s | ID: c82bda11-b4c1-4ac0-bfc2-ea4be27a4066
+2026-02-20 14:40:57 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.6631s | ID: e0d23def-c56b-4e96-8277-82347400d8a8
+2026-02-20 14:40:57 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 2.1037s | ID: 3c1c835c-328c-4ce1-aa8d-b969ee9ce881
+2026-02-20 14:40:57 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 2.1252s | ID: b9fef6f0-808b-41c9-b70b-d1a385969d59
+2026-02-20 14:40:57 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 2.1257s | ID: 1f646420-b494-4927-8810-2832ac7f9371
+2026-02-20 14:40:57 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 2.1722s | ID: 102d3fcf-27a0-46ee-a561-04e2f8547ccb
+2026-02-20 14:40:57 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 2.2478s | ID: 0adec14e-0665-4b93-8177-e49a25e9dc21
+2026-02-20 14:40:58 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 0.6635s | ID: 522774bf-5078-4603-9866-5eac52a864e0
+2026-02-20 14:40:58 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 0.6408s | ID: 64adcd1b-c9d4-4431-b809-e6ad7ba08852
+2026-02-20 14:40:58 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.6497s | ID: 288c570d-039b-447d-a87a-cabd02b9ce65
+2026-02-20 14:40:58 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 0.6255s | ID: 402100ce-3c9c-46ce-a17d-5249f2fbda42
+2026-02-20 14:40:58 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 1.0306s | ID: 4c6750e5-cf15-4a3d-a872-138fce20478c
+2026-02-20 14:41:17 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/login | Status: 200 | Duration: 0.0007s | ID: 4bdf671f-d3da-47ea-b788-3e7d0b3f1252
+2026-02-20 14:41:19 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 1.1589s | ID: 10cca259-1f7d-4268-9f8c-f61ab7dade75
+2026-02-20 14:41:19 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8204s | ID: 8edb3ddb-f764-4374-8c6f-a7f5c953b42f
+2026-02-20 14:41:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0010s | ID: b7855e93-72ab-41f8-8248-dabb40e1ffb9
+2026-02-20 14:41:19 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0005s | ID: 76103605-fbee-4102-8f65-02b15b84cea8
+2026-02-20 14:41:20 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.7886s | ID: 3fccdaaa-5e62-408f-a0ac-5688e1b2fcb1
+2026-02-20 14:41:21 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8088s | ID: c971f3b8-1a96-47d1-b94e-04036b5f0041
+2026-02-20 14:41:21 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 1.6539s | ID: f147f1fa-0523-416c-a6b5-5e0277849d12
+2026-02-20 14:41:23 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 1.8202s | ID: 7b35208c-4771-4d28-a5f2-930da7cbfe0f
+2026-02-20 14:41:46 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8667s | ID: 50129dab-f6bf-4998-9222-7181224df97b
+2026-02-20 14:41:47 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.7765s | ID: e9bc6f59-6aed-455b-a788-401c05681194
+2026-02-20 14:42:50 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/register | Status: 200 | Duration: 0.0008s | ID: 3c7e4a72-371a-4656-9505-aec0be9e2725
+2026-02-20 14:42:54 | INFO | middleware.dispatch:21 | Request: POST /auth/register | Status: 200 | Duration: 4.0127s | ID: 0d1b1afb-481d-4693-950a-39d5dda07caf
+2026-02-20 14:43:02 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 1.1147s | ID: df2ac652-ad73-41ca-a401-a9624f788ae1
+2026-02-20 14:43:03 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.7936s | ID: c0f8adcf-35e8-4d9b-889b-f0dff8824dcf
+2026-02-21 18:00:25 | INFO | main.on_startup:97 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-21 18:00:25 | INFO | main.on_startup:106 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-21 18:00:48 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.8128s | ID: 5049f258-6618-4b13-98e6-345fef6c0b19
+2026-02-21 18:00:48 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0000s | ID: 036e1a26-48e8-4163-8fe2-670692a2def8
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8434s | ID: e4c49c0c-35b6-46ca-ade2-5b96d5713a0a
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/visits | Status: 200 | Duration: 0.0000s | ID: 203202dd-2ca1-4b6a-a1de-f77ccc0dc094
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/prescriptions | Status: 200 | Duration: 0.0010s | ID: 768d2e5a-bc9c-45b9-a08b-314393de9581
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/allergies | Status: 200 | Duration: 0.0010s | ID: d5bbe3fe-9416-48d0-91b9-142ac341f073
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/lab-results | Status: 200 | Duration: 0.0028s | ID: 43f76691-04c0-4f99-9ef7-e1f27d1bea5e
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/insurance | Status: 200 | Duration: 0.0037s | ID: 971b6231-906d-417f-8dbd-f7285c98819c
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0000s | ID: a7b9d0b8-767d-44d9-8003-ca62f28172ca
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/visits | Status: 200 | Duration: 0.0029s | ID: da2b0bd4-6e9b-4266-9f04-94bc9d5b87d6
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/prescriptions | Status: 200 | Duration: 0.0062s | ID: b097ae64-9c25-47e9-8511-a739974815d8
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/allergies | Status: 200 | Duration: 0.0012s | ID: f798e5bf-9dca-4433-b4e7-4dfa90e9e84c
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/lab-results | Status: 200 | Duration: 0.0000s | ID: dd12d271-b350-49a5-b4f9-b3dc778491b4
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/insurance | Status: 200 | Duration: 0.0007s | ID: 5e5de361-9799-4a1a-8e08-93de3314c668
+2026-02-21 18:00:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0007s | ID: a8b048fe-b815-4e9a-9031-528d19608b86
+2026-02-21 18:00:50 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.6663s | ID: 06706f31-655b-4511-b397-48460776e0bc
+2026-02-21 18:00:50 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.6710s | ID: cd5f49d2-712b-4b7a-95c2-0f631d791b3d
+2026-02-21 18:00:51 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 1.6720s | ID: a62a025c-ee0f-43bc-b84d-fc7109658972
+2026-02-21 18:00:51 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 1.6929s | ID: 6a5e62ca-7120-4485-8b36-c88218568e70
+2026-02-21 18:00:51 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 1.6963s | ID: 33b31412-1d22-4643-b481-c899364be677
+2026-02-21 18:00:51 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 1.7126s | ID: fdcf22ab-a6e6-4b37-bddb-a17912223613
+2026-02-21 18:00:51 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 1.8372s | ID: d761413e-1b89-4027-8192-3126f6b30901
+2026-02-21 18:00:52 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.6631s | ID: 8cd050d6-d846-4ed6-8e47-c2b6a2a04732
+2026-02-21 18:00:52 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 0.6691s | ID: 93f00403-d455-413c-895c-7db5362c086e
+2026-02-21 18:00:52 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 0.6740s | ID: 95e99852-c1e9-4f7f-aa56-ec1d92a1c944
+2026-02-21 18:00:52 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 0.6747s | ID: 761f78ec-cbb2-4e2b-abb4-fbdfb1341452
+2026-02-21 18:00:52 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 0.6696s | ID: c4ca7bd0-36db-4f5d-94a7-15aed3394712
+2026-02-21 18:00:59 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.7267s | ID: bf746e66-476e-4875-a757-fd273634b6d4
+2026-02-21 18:01:00 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.6659s | ID: 6a8ade99-5261-472c-9e1e-5727e9a35985
+2026-02-21 18:01:08 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.6621s | ID: ff218987-40ce-4360-949c-737514e484e9
+2026-02-21 18:01:08 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.6676s | ID: 5d8c8281-3217-4c8e-8e63-0349ca3c1503
+2026-02-21 18:01:11 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 0.6683s | ID: 87351df2-d9f0-4231-9d9b-72f1e9363af9
+2026-02-21 18:01:12 | INFO | middleware.dispatch:21 | Request: GET /patient-data/allergies | Status: 200 | Duration: 0.7288s | ID: fe8d952e-ef2e-49dc-bc46-9e59e9acbd35
+2026-02-21 18:01:18 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 0.6596s | ID: a42a8181-6fe7-4a35-bf54-9a08e800330b
+2026-02-21 18:01:19 | INFO | middleware.dispatch:21 | Request: GET /patient-data/lab-results | Status: 200 | Duration: 0.6591s | ID: fce817d9-8467-4f3e-9a3c-6f34805f17d7
+2026-02-21 18:01:21 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/claims | Status: 200 | Duration: 0.0012s | ID: 416dcc76-1fdd-46a8-a1c4-ede78d1f15e1
+2026-02-21 18:01:21 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/claims | Status: 200 | Duration: 0.0010s | ID: 5248c325-ba97-4a9f-9cc1-96023e515bdb
+2026-02-21 18:01:22 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 0.6689s | ID: 17056226-5612-4b95-a242-23e25f05cc6b
+2026-02-21 18:01:22 | INFO | middleware.dispatch:21 | Request: GET /patient-data/claims | Status: 200 | Duration: 0.6788s | ID: 37396297-aece-450b-9f80-92142a6cb794
+2026-02-21 18:01:22 | INFO | middleware.dispatch:21 | Request: GET /patient-data/claims | Status: 200 | Duration: 0.6669s | ID: 2d5547b7-d1b7-41a1-8634-394d117488c5
+2026-02-21 18:01:22 | INFO | middleware.dispatch:21 | Request: GET /patient-data/insurance | Status: 200 | Duration: 0.7379s | ID: 487c5746-f59b-4bbd-81fb-5163503192ce
+2026-02-21 18:01:32 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/login | Status: 200 | Duration: 0.0000s | ID: 7de487e3-9b6e-4617-831d-22d375bb1533
+2026-02-21 18:01:32 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.7401s | ID: b8734a6a-0590-4970-a2af-478235ab56c6
+2026-02-21 18:01:33 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8226s | ID: 049623ed-8f98-4ab4-a34f-1fefbccb25f4
+2026-02-21 18:01:34 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0005s | ID: e985013c-6b95-4ea8-a82e-e57fa53346fa
+2026-02-21 18:01:34 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0015s | ID: 58c31640-9df0-46ab-8a72-d32e28faab42
+2026-02-21 18:01:34 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8481s | ID: 80f96768-8762-4262-a283-1ceca9af1189
+2026-02-21 18:01:35 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.9036s | ID: 4b4ba230-949d-4f98-aace-5bb1adf6321c
+2026-02-21 18:01:35 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 1.6624s | ID: 79e82ccb-6bb9-4174-add6-ede516348ecf
+2026-02-21 18:01:37 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 1.6522s | ID: 6c72ae4b-a106-45f0-918b-a6eb129e282c
+2026-02-21 18:01:40 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 0.8335s | ID: 1e44fadc-7d3b-4962-aff9-6855fdd9d5bd
+2026-02-21 18:01:41 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 0.8504s | ID: efd68a8e-b20a-429d-85f8-04191f699b7a
+2026-02-21 18:02:08 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.7838s | ID: 88aa450e-617b-46e3-a39c-19b5150579c3
+2026-02-21 18:02:09 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.9959s | ID: f59d5177-de0f-41a3-b45f-43dec590bc8d
+2026-02-21 18:02:09 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/dashboard-stats | Status: 200 | Duration: 0.0000s | ID: 8c8fa660-8c63-4d33-9404-b6ec36846abd
+2026-02-21 18:02:09 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/dashboard-stats | Status: 200 | Duration: 0.0033s | ID: a2efa694-c981-45a0-9bc3-76ba8f55db86
+2026-02-21 18:02:10 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 1.1231s | ID: a8abdb52-29b7-43c0-b646-1d9e3e1962f2
+2026-02-21 18:02:11 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 1.0807s | ID: bd11619a-1478-4640-a21c-96b16905e3d8
+2026-02-21 18:04:55 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.9461s | ID: 45178fad-9350-4b37-934e-3087dbb7142e
+2026-02-21 18:04:56 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.9664s | ID: fca7e621-1cfd-47aa-8896-b5eecbb514ce
+2026-02-21 18:07:04 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.1888s | ID: 6844b34d-4b39-44f2-a90e-bd640c587c0e
+2026-02-21 18:07:04 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.9045s | ID: 9bfb572d-c0a4-4303-97b7-bc3cacd56b56
+2026-02-21 18:18:27 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 1.3941s | ID: 2623f29f-97a3-44d2-9e5c-8c2ab82b980f
+2026-02-21 18:18:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0025s | ID: c3cabe59-a0e6-472f-8baa-70e6573a1c70
+2026-02-21 18:18:29 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.3324s | ID: 9c7e492b-80ba-4e21-a747-887502312603
+2026-02-21 18:18:29 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/dashboard-stats | Status: 200 | Duration: 0.0010s | ID: 917849f1-6f84-4bf4-9c06-837335e55384
+2026-02-21 18:18:29 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/dashboard-stats | Status: 200 | Duration: 0.0005s | ID: 5ae48531-d273-416e-8b8b-6abce7cc27c0
+2026-02-21 18:18:30 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 1.3823s | ID: 2274fa8b-859a-4bb1-96fe-6483b89d2ea0
+2026-02-21 18:18:31 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 1.2561s | ID: 25dfc530-4142-49bd-bb2d-5378917c6ae8
+2026-02-21 18:20:48 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/login | Status: 200 | Duration: 0.0000s | ID: 0320ee1c-4cfc-47b7-8ef8-be605e54e5c1
+2026-02-21 18:20:50 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 1.2100s | ID: 4c7f07eb-56f4-4ba8-bafe-1952b11dea7f
+2026-02-21 18:20:51 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.2367s | ID: 4b19890c-2c0b-4298-9a6d-9883f41f402f
+2026-02-21 18:20:51 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0035s | ID: 15ddb144-f544-47c7-86bb-3e17eb906bb8
+2026-02-21 18:20:51 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0007s | ID: 6a0f7cbc-925e-40e8-ba70-45cc36fdd2f7
+2026-02-21 18:20:52 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.0811s | ID: 5235a795-e758-4cfb-b8ec-189ce0ca078a
+2026-02-21 18:20:53 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.3438s | ID: f58cba1b-a8f3-4a77-b7f1-f611247b00a2
+2026-02-21 18:20:54 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 3.0748s | ID: 682b0ede-bf0c-42f9-9c1e-de8c4235d5e2
+2026-02-21 18:20:56 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 2.0814s | ID: a91f6cb8-ee24-437e-9ea7-a5abc92978be
+2026-02-21 18:39:28 | INFO | main.on_startup:97 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-21 18:39:28 | INFO | main.on_startup:106 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-21 18:41:14 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.8343s | ID: 51f37eb2-7eb0-4034-98f7-9d6924ecb623
+2026-02-21 18:41:14 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0007s | ID: 19fecc84-fc05-44e4-a1aa-083431952eda
+2026-02-21 18:41:15 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.7851s | ID: b7957512-07a7-48c0-9e7a-f117489a8efc
+2026-02-21 18:41:22 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/login | Status: 200 | Duration: 0.0006s | ID: d18f1a0a-35c9-4b9a-87d6-4eb277dff1ca
+2026-02-21 18:41:22 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.7092s | ID: 40b9d437-0e55-49aa-b602-5b820408ec55
+2026-02-21 18:41:23 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.7588s | ID: a7684dc6-62f4-4730-a7f9-11038d1ec9d3
+2026-02-21 18:41:48 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.6847s | ID: 64a984e7-58d3-42d5-87ae-d4e7a63abd8d
+2026-02-21 18:41:49 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.7823s | ID: 3ea47e7c-3030-4a5b-9e1a-31f47daa9e2e
+2026-02-21 18:41:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/dashboard-stats | Status: 200 | Duration: 0.0000s | ID: 3bf961e5-f925-427a-8138-f8b06e751479
+2026-02-21 18:41:49 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/dashboard-stats | Status: 200 | Duration: 0.0016s | ID: fe0d2953-e263-4af1-88cd-9b952dc61d15
+2026-02-21 18:41:50 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9463s | ID: 3b460f2c-bdc8-450a-969f-7a3c9b9ffda0
+2026-02-21 18:41:51 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9133s | ID: 91a853cc-2f1f-4eb6-a5cd-a3ed63503cff
+2026-02-21 18:41:56 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/trials | Status: 200 | Duration: 0.0000s | ID: 1247b6c4-717e-4899-bcf9-cff37b8ac4af
+2026-02-21 18:41:56 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/trials | Status: 200 | Duration: 0.0006s | ID: 2f2750cb-fa06-4c01-a7cb-a705b5d3bb9f
+2026-02-21 18:41:56 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.7554s | ID: da2c5766-f2d8-4a5f-8af3-d0f76b80c7ab
+2026-02-21 18:41:57 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.7616s | ID: cd955984-a0e8-4f11-a7ad-90dd2b89d862
+2026-02-21 18:42:11 | INFO | middleware.dispatch:21 | Request: OPTIONS /agents/query | Status: 200 | Duration: 0.0000s | ID: 979a1572-9bfd-4e84-a3aa-774d2d6432d7
+2026-02-21 18:42:11 | INFO | middleware.dispatch:21 | Request: POST /agents/query | Status: 200 | Duration: 0.4350s | ID: 5a86a93f-3686-4820-8f56-472c810ffc09
+2026-02-21 18:42:15 | INFO | middleware.dispatch:21 | Request: POST /agents/query | Status: 200 | Duration: 0.1301s | ID: c58b5b33-f11e-4bcd-9bd2-391fc3ae6e1f
+2026-02-21 18:42:19 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8041s | ID: a92547a5-f808-4851-800e-4971b6be9d49
+2026-02-21 18:42:20 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.7754s | ID: 51f02199-f59f-4ff4-b5a1-f7226c47c511
+2026-02-21 18:42:22 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9620s | ID: f0d27f95-9196-4174-9b42-a23de320d940
+2026-02-21 18:42:23 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9070s | ID: db609570-13c1-4f0c-981e-b615e3041075
+2026-02-21 18:42:27 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9096s | ID: e17aa047-108b-4cd5-a6b0-2492ece9c427
+2026-02-21 18:42:28 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9029s | ID: cbc08318-74e9-44ae-9925-7d8892b65f6b
+2026-02-21 18:42:33 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 1.2647s | ID: 525e069f-8bbd-4763-8038-0f7f914ffc8e
+2026-02-21 18:42:34 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9110s | ID: 072fe024-7070-46bf-b53a-6ddf0848c060
+2026-02-21 18:44:59 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8264s | ID: ef804b5e-d8e3-4e8b-9751-b974400753fe
+2026-02-21 18:45:00 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.7641s | ID: b917363b-751a-41c1-968d-e53d5069a552
+2026-02-21 18:45:01 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 2.1493s | ID: e13a4c6b-3eba-4f56-b675-56b6722ea5ca
+2026-02-21 18:45:26 | INFO | main.on_startup:97 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-21 18:45:26 | INFO | main.on_startup:106 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-21 18:45:27 | ERROR | middleware.dispatch:45 | Unhandled Exception: GET /researchers/me/dashboard-stats | Error: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist
+LINE 1: ...projects AS medical_researchers_current_projects, medical.re...
+                                                             ^
+
+[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url 
+FROM medical.researchers 
+WHERE %(param_1)s::UUID = medical.researchers.user_id]
+[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]
+(Background on this error at: https://sqlalche.me/e/20/f405) | ID: bf70deab-b931-4d89-8df9-1d579bc18c83
+Traceback (most recent call last):
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column researchers.bio does not exist
+LINE 1: ...projects AS medical_researchers_current_projects, medical.re...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ROHAN\Medical\backend\core\middleware.py", line 18, in dispatch
+    response = await call_next(request)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 165, in call_next
+    raise app_exc
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 762, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 782, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 72, in app
+    response = await func(request)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 299, in app
+    raise e
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 294, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\concurrency.py", line 40, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\ROHAN\Medical\backend\routers\researchers.py", line 88, in get_researcher_stats
+    if not current_user.researcher_profile:
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\orm\attributes.py", line 1096, in get
+    value = self._fire_loader_callables(state, key, passive)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\orm\attributes.py", line 1131, in _fire_loader_callables
+    return self.callable_(state, passive)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\orm\strategies.py", line 978, in _load_for_state
+    return self._emit_lazyload(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\orm\strategies.py", line 1141, in _emit_lazyload
+    result = session.execute(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\orm\session.py", line 2365, in execute
+    return self._execute_internal(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\orm\session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist
+LINE 1: ...projects AS medical_researchers_current_projects, medical.re...
+                                                             ^
+
+[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url 
+FROM medical.researchers 
+WHERE %(param_1)s::UUID = medical.researchers.user_id]
+[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-02-21 18:46:13 | INFO | main.on_startup:97 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-21 18:46:13 | INFO | main.on_startup:106 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-21 18:46:15 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.8401s | ID: 1210a3c3-4781-4642-b7ea-ee0239380e74
+2026-02-21 18:46:16 | ERROR | middleware.dispatch:45 | Unhandled Exception: GET /auth/me | Error: 1 validation errors:
+  {'type': 'get_attribute_error', 'loc': ('response', 'researcher_profile'), 'msg': "Error extracting attribute: ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist\nLINE 1: ...projects AS medical_researchers_current_projects, medical.re...\n                                                             ^\n\n[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url \nFROM medical.researchers \nWHERE %(param_1)s::UUID = medical.researchers.user_id]\n[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]\n(Background on this error at: https://sqlalche.me/e/20/f405)", 'input': <backend.models.User object at 0x000001DD588E0C40>, 'ctx': {'error': "ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist\nLINE 1: ...projects AS medical_researchers_current_projects, medical.re...\n                                                             ^\n\n[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url \nFROM medical.researchers \nWHERE %(param_1)s::UUID = medical.researchers.user_id]\n[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]\n(Background on this error at: https://sqlalche.me/e/20/f405)"}, 'url': 'https://errors.pydantic.dev/2.11/v/get_attribute_error'}
+ | ID: 65ad2c38-41c6-420b-a594-b0cc320e7b4a
+Traceback (most recent call last):
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 159, in call_next
+    message = await recv_stream.receive()
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\streams\memory.py", line 126, in receive
+    raise EndOfStream from None
+anyio.EndOfStream
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ROHAN\Medical\backend\core\middleware.py", line 18, in dispatch
+    response = await call_next(request)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 165, in call_next
+    raise app_exc
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 762, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 782, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 72, in app
+    response = await func(request)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 315, in app
+    content = await serialize_response(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 155, in serialize_response
+    raise ResponseValidationError(
+fastapi.exceptions.ResponseValidationError: 1 validation errors:
+  {'type': 'get_attribute_error', 'loc': ('response', 'researcher_profile'), 'msg': "Error extracting attribute: ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist\nLINE 1: ...projects AS medical_researchers_current_projects, medical.re...\n                                                             ^\n\n[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url \nFROM medical.researchers \nWHERE %(param_1)s::UUID = medical.researchers.user_id]\n[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]\n(Background on this error at: https://sqlalche.me/e/20/f405)", 'input': <backend.models.User object at 0x000001DD588E0C40>, 'ctx': {'error': "ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist\nLINE 1: ...projects AS medical_researchers_current_projects, medical.re...\n                                                             ^\n\n[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url \nFROM medical.researchers \nWHERE %(param_1)s::UUID = medical.researchers.user_id]\n[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]\n(Background on this error at: https://sqlalche.me/e/20/f405)"}, 'url': 'https://errors.pydantic.dev/2.11/v/get_attribute_error'}
+
+2026-02-21 18:46:20 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.7607s | ID: b032cf01-233f-446b-a1f1-cc528256c7d5
+2026-02-21 18:46:21 | ERROR | middleware.dispatch:45 | Unhandled Exception: GET /auth/me | Error: 1 validation errors:
+  {'type': 'get_attribute_error', 'loc': ('response', 'researcher_profile'), 'msg': "Error extracting attribute: ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist\nLINE 1: ...projects AS medical_researchers_current_projects, medical.re...\n                                                             ^\n\n[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url \nFROM medical.researchers \nWHERE %(param_1)s::UUID = medical.researchers.user_id]\n[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]\n(Background on this error at: https://sqlalche.me/e/20/f405)", 'input': <backend.models.User object at 0x000001DD5893BA00>, 'ctx': {'error': "ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist\nLINE 1: ...projects AS medical_researchers_current_projects, medical.re...\n                                                             ^\n\n[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url \nFROM medical.researchers \nWHERE %(param_1)s::UUID = medical.researchers.user_id]\n[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]\n(Background on this error at: https://sqlalche.me/e/20/f405)"}, 'url': 'https://errors.pydantic.dev/2.11/v/get_attribute_error'}
+ | ID: 85041df5-03fb-4567-9ca8-dade8d42f37e
+Traceback (most recent call last):
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 159, in call_next
+    message = await recv_stream.receive()
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\streams\memory.py", line 126, in receive
+    raise EndOfStream from None
+anyio.EndOfStream
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ROHAN\Medical\backend\core\middleware.py", line 18, in dispatch
+    response = await call_next(request)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 165, in call_next
+    raise app_exc
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 762, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 782, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 72, in app
+    response = await func(request)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 315, in app
+    content = await serialize_response(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 155, in serialize_response
+    raise ResponseValidationError(
+fastapi.exceptions.ResponseValidationError: 1 validation errors:
+  {'type': 'get_attribute_error', 'loc': ('response', 'researcher_profile'), 'msg': "Error extracting attribute: ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist\nLINE 1: ...projects AS medical_researchers_current_projects, medical.re...\n                                                             ^\n\n[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url \nFROM medical.researchers \nWHERE %(param_1)s::UUID = medical.researchers.user_id]\n[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]\n(Background on this error at: https://sqlalche.me/e/20/f405)", 'input': <backend.models.User object at 0x000001DD5893BA00>, 'ctx': {'error': "ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist\nLINE 1: ...projects AS medical_researchers_current_projects, medical.re...\n                                                             ^\n\n[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url \nFROM medical.researchers \nWHERE %(param_1)s::UUID = medical.researchers.user_id]\n[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]\n(Background on this error at: https://sqlalche.me/e/20/f405)"}, 'url': 'https://errors.pydantic.dev/2.11/v/get_attribute_error'}
+
+2026-02-21 18:47:16 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.7333s | ID: 65596a86-28d7-4016-be61-be7c2f1b0fbe
+2026-02-21 18:47:17 | ERROR | middleware.dispatch:45 | Unhandled Exception: GET /auth/me | Error: 1 validation errors:
+  {'type': 'get_attribute_error', 'loc': ('response', 'researcher_profile'), 'msg': "Error extracting attribute: ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist\nLINE 1: ...projects AS medical_researchers_current_projects, medical.re...\n                                                             ^\n\n[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url \nFROM medical.researchers \nWHERE %(param_1)s::UUID = medical.researchers.user_id]\n[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]\n(Background on this error at: https://sqlalche.me/e/20/f405)", 'input': <backend.models.User object at 0x000001DD58939D50>, 'ctx': {'error': "ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist\nLINE 1: ...projects AS medical_researchers_current_projects, medical.re...\n                                                             ^\n\n[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url \nFROM medical.researchers \nWHERE %(param_1)s::UUID = medical.researchers.user_id]\n[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]\n(Background on this error at: https://sqlalche.me/e/20/f405)"}, 'url': 'https://errors.pydantic.dev/2.11/v/get_attribute_error'}
+ | ID: b2c9526b-8d73-4dc9-811c-bbad3001d18e
+Traceback (most recent call last):
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 159, in call_next
+    message = await recv_stream.receive()
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\streams\memory.py", line 126, in receive
+    raise EndOfStream from None
+anyio.EndOfStream
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ROHAN\Medical\backend\core\middleware.py", line 18, in dispatch
+    response = await call_next(request)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 165, in call_next
+    raise app_exc
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 762, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 782, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 72, in app
+    response = await func(request)
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 315, in app
+    content = await serialize_response(
+  File "C:\Users\ROHAN\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 155, in serialize_response
+    raise ResponseValidationError(
+fastapi.exceptions.ResponseValidationError: 1 validation errors:
+  {'type': 'get_attribute_error', 'loc': ('response', 'researcher_profile'), 'msg': "Error extracting attribute: ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist\nLINE 1: ...projects AS medical_researchers_current_projects, medical.re...\n                                                             ^\n\n[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url \nFROM medical.researchers \nWHERE %(param_1)s::UUID = medical.researchers.user_id]\n[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]\n(Background on this error at: https://sqlalche.me/e/20/f405)", 'input': <backend.models.User object at 0x000001DD58939D50>, 'ctx': {'error': "ProgrammingError: (psycopg2.errors.UndefinedColumn) column researchers.bio does not exist\nLINE 1: ...projects AS medical_researchers_current_projects, medical.re...\n                                                             ^\n\n[SQL: SELECT medical.researchers.id AS medical_researchers_id, medical.researchers.user_id AS medical_researchers_user_id, medical.researchers.institution AS medical_researchers_institution, medical.researchers.field_of_study AS medical_researchers_field_of_study, medical.researchers.publications_count AS medical_researchers_publications_count, medical.researchers.current_projects AS medical_researchers_current_projects, medical.researchers.bio AS medical_researchers_bio, medical.researchers.thesis_url AS medical_researchers_thesis_url, medical.researchers.cv_url AS medical_researchers_cv_url, medical.researchers.other_docs_url AS medical_researchers_other_docs_url \nFROM medical.researchers \nWHERE %(param_1)s::UUID = medical.researchers.user_id]\n[parameters: {'param_1': UUID('22e7668c-ae4b-4f7e-addb-9a17eb090782')}]\n(Background on this error at: https://sqlalche.me/e/20/f405)"}, 'url': 'https://errors.pydantic.dev/2.11/v/get_attribute_error'}
+
+2026-02-21 18:48:29 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.7424s | ID: eb341082-81fc-45d1-91fb-1852ba7a02c0
+2026-02-21 18:48:30 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 1.2443s | ID: 05ba66d3-43dd-4566-b5bd-66719ed80358
+2026-02-21 18:48:31 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 1.0575s | ID: a4cdabf0-d9ed-4c06-8c00-86e09da8d9a4
+2026-02-21 18:48:33 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 1.3882s | ID: c65c746c-a5c4-4cfb-8cc9-d84e5f763975
+2026-02-21 18:48:43 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8208s | ID: fa587cbd-df1d-42ee-b2ab-d3012e2d9ab6
+2026-02-21 18:48:44 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8239s | ID: f2ac9b61-77ce-4261-978b-62cfb50f504b
+2026-02-21 18:56:16 | INFO | main.on_startup:97 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-21 18:56:16 | INFO | main.on_startup:106 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
+2026-02-21 18:59:12 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0095s | ID: a99e1802-3951-44cb-a4f5-484dea2bab4e
+2026-02-21 18:59:12 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0129s | ID: fe1a6cbd-2def-45bb-97ad-90c7dd175184
+2026-02-21 18:59:13 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.9766s | ID: 309fcaba-5d4b-4e7a-a8ad-1eb54f5d4152
+2026-02-21 18:59:14 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8206s | ID: 41636669-2294-4934-a9ae-94d377f1f5e2
+2026-02-21 18:59:21 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/trials | Status: 200 | Duration: 0.0010s | ID: 53cda196-649a-475d-8bf0-0ab4b5b50b78
+2026-02-21 18:59:21 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/trials | Status: 200 | Duration: 0.0020s | ID: c9f4818e-d885-4eb1-8bf2-22913a740eac
+2026-02-21 18:59:22 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8239s | ID: 9091693a-d3d6-4a10-858a-9d5d5e0804f0
+2026-02-21 18:59:23 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8222s | ID: 0d351179-cfb9-4a44-a23d-43aaaf9f8817
+2026-02-21 18:59:24 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/dashboard-stats | Status: 200 | Duration: 0.0000s | ID: c3e5caf2-da51-4a8a-b8cc-1e82f255a2f0
+2026-02-21 18:59:24 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/dashboard-stats | Status: 200 | Duration: 0.0000s | ID: 32d21d10-1afb-44f8-9048-046a9ca7979f
+2026-02-21 18:59:25 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9964s | ID: c585b71a-085c-4d81-b13b-e9e7b9d28eb0
+2026-02-21 18:59:26 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9864s | ID: eac475f8-edab-4878-8621-9f976a5162c2
+2026-02-21 18:59:37 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.7551s | ID: dcb5d0e8-1e06-4994-b1b0-8d08318df9b0
+2026-02-21 18:59:38 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8280s | ID: 8972c6c7-88c8-43db-93e5-ff3f500ffcbc
+2026-02-21 18:59:38 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0000s | ID: 357d2de3-e6a7-4ea0-9e24-81a420b49b70
+2026-02-21 18:59:38 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0023s | ID: 7ce87b36-079e-4ca1-ab1a-451bee6aa8ea
+2026-02-21 18:59:39 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8240s | ID: 12a4d172-87fe-4a59-adb7-f06b375aaf70
+2026-02-21 18:59:40 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8261s | ID: d6a93c14-2269-4a69-b212-29972bca0b91
+2026-02-21 18:59:41 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 2.6582s | ID: d41f874f-eb99-42ae-9671-5ef278beb9d2
+2026-02-21 18:59:43 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 1.6474s | ID: ed4515f1-cdf8-4a2f-a686-39edeaeedcce
+2026-02-21 19:00:12 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/login | Status: 200 | Duration: 0.0011s | ID: 8f152217-4881-4e72-b486-2dc528690dcf
+2026-02-21 19:00:13 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.7478s | ID: f7db61c7-c813-4437-a9ef-d2d9e3b040b8
+2026-02-21 19:00:14 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8307s | ID: 137ab2a3-8395-4a6d-89cf-c0ad0b1a31a9
+2026-02-21 19:00:15 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9640s | ID: cb59beac-1ad3-4c0e-8c53-a18846d4465f
+2026-02-21 19:00:16 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9884s | ID: 01138453-356b-448f-a66e-b8cdca848f47
+2026-02-21 19:02:04 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8302s | ID: 4d5e3197-868c-4935-9494-7f301d10c5ba
+2026-02-21 19:02:05 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8270s | ID: b801d29a-c820-4056-8c9a-f96013a3d83e
+2026-02-21 19:04:27 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me | Status: 200 | Duration: 0.0021s | ID: 4e6ccf30-fa94-4c97-8273-af7a38af1de3
+2026-02-21 19:04:30 | INFO | middleware.dispatch:21 | Request: PUT /researchers/me | Status: 200 | Duration: 2.3013s | ID: a70c586a-db8c-428c-a099-353b739348a1
+2026-02-21 19:06:33 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9961s | ID: 34554d10-af60-4cd7-8fa4-86c562dbd5ff
+2026-02-21 19:06:35 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 1.3592s | ID: 2d45e451-49af-4f71-8976-dc494edf0895
+2026-02-21 19:06:36 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8093s | ID: 14e2cdc5-cabf-4b25-819f-06185d6ace52
+2026-02-21 19:06:37 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8252s | ID: b29430b8-f8db-44ba-97f1-2ea89da44716
+2026-02-21 19:08:05 | INFO | middleware.dispatch:21 | Request: PUT /researchers/me | Status: 200 | Duration: 1.4979s | ID: aac24ebd-909e-4fe6-ae80-4b0468c62f4f
+2026-02-21 19:09:47 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/trials | Status: 200 | Duration: 0.0125s | ID: b8d6b8f5-56c9-429e-a975-c3faa4bb29b2
+2026-02-21 19:09:47 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/trials | Status: 200 | Duration: 0.0006s | ID: e1bc8f61-bd6b-4335-9748-69e296c0787b
+2026-02-21 19:09:48 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8112s | ID: 4d01f7f0-a12b-4009-bd40-dff33abecac6
+2026-02-21 19:09:49 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8282s | ID: 3fe39345-ab32-49b0-a877-c88cd00c19e9
+2026-02-21 19:11:17 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8139s | ID: 8b9c774e-f822-44ec-97f9-c8cb1b2a3f85
+2026-02-21 19:11:18 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8261s | ID: 55f44d2d-8370-4199-8d79-06828c46251f
+2026-02-21 19:12:27 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8229s | ID: 56ddbbfc-2a1e-4db3-922c-f9469351296b
+2026-02-21 19:12:28 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8838s | ID: 856812f7-1df8-42df-8cc2-64287c7eefac
+2026-02-21 19:16:23 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0031s | ID: cd91f749-030f-42ad-91cc-cd7b82e04cce
+2026-02-21 19:16:23 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0058s | ID: af2f3174-687f-4be3-9791-591a5a1d1d75
+2026-02-21 19:16:24 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8660s | ID: e383f981-094a-4829-b39c-40ca24c7e440
+2026-02-21 19:16:25 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8618s | ID: b08e49a9-e9f6-462b-a451-2d2d20b42f9b
+2026-02-21 19:16:25 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8831s | ID: 38ae81b8-10b8-4fc5-82d1-4da5cb3e62e8
+2026-02-21 19:16:25 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8295s | ID: ad5d2a5b-6583-41d4-bd44-029fa94a5345
+2026-02-21 19:17:52 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8158s | ID: 616a7498-be0b-4ac6-bd15-365ce0c16681
+2026-02-21 19:17:53 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8171s | ID: 15e995ba-66c1-4b64-b559-da226ddb480e
+2026-02-21 19:17:53 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8382s | ID: f3871587-3b4d-4f05-86c2-049180d424cf
+2026-02-21 19:17:54 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8125s | ID: 39f2014c-87c7-4b78-9746-9901fedfa3be
+2026-02-21 19:19:16 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8318s | ID: 293c1755-4faf-4f1b-baba-03de856375ad
+2026-02-21 19:19:45 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8066s | ID: 36a2017f-2efb-4a5b-994a-47aa65d881b2
+2026-02-21 19:19:46 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8161s | ID: 4de724c8-d2f4-4b94-8d74-d5934d11db60
+2026-02-21 19:19:47 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8295s | ID: bf0653b2-4426-43d8-927c-7aab771b5352
+2026-02-21 19:19:47 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8231s | ID: b89478f4-8386-4f1b-9d94-eec0d92408ba
+2026-02-21 19:21:09 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/trials | Status: 200 | Duration: 0.0057s | ID: 1d858659-2e5f-457e-8967-e292824c2d50
+2026-02-21 19:21:09 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/trials | Status: 200 | Duration: 0.0053s | ID: d895a368-cd29-4cbb-8b83-32a63672e989
+2026-02-21 19:21:10 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8401s | ID: ea91529b-b9b6-4187-a5a0-ed4962dc9df4
+2026-02-21 19:21:10 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8290s | ID: 5beb2bdf-6b3d-4400-b2c2-c2feb1f20a63
+2026-02-21 19:21:11 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8378s | ID: 4b472ed4-def9-4d02-bef7-7d25000f9c95
+2026-02-21 19:21:57 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8209s | ID: d78c1f74-3384-46a0-8ce4-1556cb861d79
+2026-02-21 19:21:57 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8315s | ID: cde9c7df-0436-4b7f-ba38-69f31c370ce4
+2026-02-21 19:23:00 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/trials | Status: 200 | Duration: 0.0025s | ID: 2a294cbe-2a28-4ef4-9eb0-fda2d9a15014
+2026-02-21 19:23:02 | INFO | middleware.dispatch:21 | Request: POST /researchers/me/trials | Status: 200 | Duration: 1.8137s | ID: 5b50b0ab-c222-49bc-9868-e50d24a6d5bd
+2026-02-21 19:23:03 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8294s | ID: e696fe68-ae2c-4f1b-a249-471123400073
+2026-02-21 19:23:21 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/dashboard-stats | Status: 200 | Duration: 0.0010s | ID: 8fb3b6ea-d164-4248-ba4a-cbb020a5d66c
+2026-02-21 19:23:21 | INFO | middleware.dispatch:21 | Request: OPTIONS /researchers/me/dashboard-stats | Status: 200 | Duration: 0.0017s | ID: ec3d3fe9-e2e9-4fe8-9a0c-452375453f69
+2026-02-21 19:23:22 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 1.0254s | ID: 56658fa1-8f0d-4ebe-9a09-c6da9852b0f0
+2026-02-21 19:23:24 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 1.3822s | ID: 0acc9d03-d4dc-42a7-bcff-6e88f27b2037
+2026-02-21 19:23:35 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8095s | ID: 455f3caf-1a33-41a9-9e3e-07a2dae247fe
+2026-02-21 19:23:36 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.9534s | ID: 23f41dec-7de1-47e2-9f4b-9937db60d511
+2026-02-21 19:23:44 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9693s | ID: 649b32e6-9147-495e-9aa2-4201f1b93421
+2026-02-21 19:23:45 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9617s | ID: 2195723c-221c-4301-9617-4e9048377a77
+2026-02-21 19:24:05 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8004s | ID: 68901840-5df8-49a0-a5f1-28e8351e66d1
+2026-02-21 19:24:05 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8031s | ID: 8bb99b99-1836-48a4-9b7c-8fe424370b86
+2026-02-21 19:26:25 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 0.8105s | ID: 70aa4990-4b4e-4ada-902a-f54e69b83cb2
+2026-02-21 19:27:12 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/trials | Status: 200 | Duration: 1.0297s | ID: 56163f13-9390-4c87-85a7-6461c3682e2f
+2026-02-21 19:29:51 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 1.0600s | ID: 8f230748-d0c6-4fda-8f1f-ebdf3d332beb
+2026-02-21 19:29:52 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9602s | ID: 0ec8c9ad-8dc5-4e27-8afd-ef2af862f522
+2026-02-21 19:29:58 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 0.9868s | ID: cc499d3a-6be4-4fde-93b0-6418a4fcb4e5
+2026-02-21 19:29:58 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0010s | ID: 4a859808-c827-4a43-b3a2-7e5c97fb1be5
+2026-02-21 19:29:58 | INFO | middleware.dispatch:21 | Request: OPTIONS /auth/me | Status: 200 | Duration: 0.0016s | ID: aeadb2df-3a20-49f1-b656-b87dfe177426
+2026-02-21 19:29:59 | INFO | middleware.dispatch:21 | Request: GET /researchers/me/dashboard-stats | Status: 200 | Duration: 1.0530s | ID: 360a3a2f-d0bd-42c5-99c6-df409195f5f4
+2026-02-21 19:29:59 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.9679s | ID: 73ca49d2-f8ae-48ea-8dc8-aad5b836cfb4
+2026-02-21 19:30:00 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8225s | ID: 43f7c01b-a43b-4239-bd3c-358e24a21e68
+2026-02-21 19:30:52 | INFO | middleware.dispatch:21 | Request: POST /auth/login | Status: 200 | Duration: 0.7809s | ID: d7ff49f6-3752-47dd-b8a2-5888c5bdaa6e
+2026-02-21 19:30:53 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8158s | ID: fa016421-9c9f-436c-8043-5aee83cbf5cd
+2026-02-21 19:30:53 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0000s | ID: 954aef8c-dbdd-4b44-8c25-e842f4df5e6c
+2026-02-21 19:30:53 | INFO | middleware.dispatch:21 | Request: OPTIONS /doctors/me/recent-activity | Status: 200 | Duration: 0.0000s | ID: 7b513a79-68d2-4c67-aa12-c30cd06aff20
+2026-02-21 19:30:54 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8153s | ID: 63e8e005-b4dc-4cee-8b83-d23900d4ec90
+2026-02-21 19:30:55 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8095s | ID: a791108d-9b72-4411-a00c-89bdaf89a80c
+2026-02-21 19:30:55 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 1.6343s | ID: 9bb2b1d9-8816-4c12-80e7-0c84d9953ca5
+2026-02-21 19:30:56 | INFO | middleware.dispatch:21 | Request: GET /doctors/me/recent-activity | Status: 200 | Duration: 1.6231s | ID: 1ea9547f-6882-4fc1-b81b-8fb96bbf5819
+2026-02-21 19:31:00 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8225s | ID: b6349fbb-3681-49ec-8daf-fe765de04eaa
+2026-02-21 19:31:01 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8134s | ID: d0439a31-1fc3-4c6d-8d9e-663a62cb5141
+2026-02-21 19:31:04 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8091s | ID: 4f6309f6-77ea-4efd-82c2-c769824c863a
+2026-02-21 19:31:05 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8072s | ID: 47cb330a-0a37-43de-b908-2ecd60a2f298
+2026-02-21 19:31:21 | INFO | middleware.dispatch:21 | Request: OPTIONS /patients/ | Status: 200 | Duration: 0.0005s | ID: 2fa09e3d-77df-4fc2-8388-ec012e3e3f2e
+2026-02-21 19:31:21 | INFO | middleware.dispatch:21 | Request: OPTIONS /patients/ | Status: 200 | Duration: 0.0021s | ID: 3c720fbd-0f4a-4e30-ab69-5c79d46be467
+2026-02-21 19:31:23 | INFO | middleware.dispatch:21 | Request: GET /patients/ | Status: 200 | Duration: 1.2094s | ID: 279ac9db-5c29-4b1d-9c12-9698ab429588
+2026-02-21 19:31:24 | INFO | middleware.dispatch:21 | Request: GET /patients/ | Status: 200 | Duration: 1.3940s | ID: 90cc50ea-5c2b-4514-aaa6-162c0f7be078
+2026-02-21 19:31:25 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0005s | ID: 2028ccc9-abed-489e-85c4-bc3cd7de19a1
+2026-02-21 19:31:25 | INFO | middleware.dispatch:21 | Request: OPTIONS /patient-data/appointments | Status: 200 | Duration: 0.0006s | ID: ef12c189-6a8f-4cf2-b376-6dadde37ddf1
+2026-02-21 19:31:26 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 0.8367s | ID: b501f731-deb6-464a-8302-4ba7d2beb105
+2026-02-21 19:31:27 | INFO | middleware.dispatch:21 | Request: GET /patient-data/appointments | Status: 200 | Duration: 0.8202s | ID: 085d2180-524e-4e0d-9849-979e414aaf9f
+2026-02-21 19:33:00 | INFO | middleware.dispatch:21 | Request: GET /auth/me | Status: 200 | Duration: 0.8180s | ID: bcc56a7a-bf14-4142-9e10-2697558c4330
