@@ -534,7 +534,7 @@ const ResearcherProfile: React.FC = () => {
                                             <Upload className="w-3.5 h-3.5 text-white" />
                                         </label>
                                         {doc.url && (
-                                            <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${doc.url} `} target="_blank" className="p-2 bg-purple-600/20 text-purple-400 rounded-lg hover:bg-purple-600/30 transition-colors">
+                                            <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${doc.url}`} target="_blank" className="p-2 bg-purple-600/20 text-purple-400 rounded-lg hover:bg-purple-600/30 transition-colors">
                                                 <ExternalLink className="w-3.5 h-3.5" />
                                             </a>
                                         )}

@@ -11,15 +11,18 @@ interface Consultation {
     status: 'Upcoming' | 'In-Progress' | 'Completed' | 'Cancelled'
     avatar?: string
     consultation_mode?: 'Online' | 'Offline'
+    patient_id?: string
 }
 
 import { useAuth } from '../../contexts/AuthContext'
+import { useNotification } from '../../contexts/NotificationContext'
 import { getMyAppointments, updateAppointmentStatus } from '../../services/api'
 import { format } from 'date-fns'
 
 export function Consultations() {
     const navigate = useNavigate()
-    const { user } = useAuth()
+    const { user, profile } = useAuth()
+    const { sendMessage } = useNotification()
     const [consultations, setConsultations] = useState<Consultation[]>([])
     const [loading, setLoading] = useState(true)
 
@@ -41,7 +44,8 @@ export function Consultations() {
                 reason: app.reason,
                 status: app.status === 'Confirmed' ? 'Upcoming' : app.status,
                 avatar: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&h=400&fit=crop', // Placeholder
-                consultation_mode: app.consultation_mode
+                consultation_mode: app.consultation_mode,
+                patient_id: app.patient_id
             }))
             setConsultations(mappedData)
         } catch (error) {

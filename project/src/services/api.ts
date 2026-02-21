@@ -297,9 +297,9 @@ export const deleteAppointment = async (id: string) => {
     }
 };
 
-export const updateAppointmentStatus = async (id: string, status: string) => {
+export const updateAppointmentStatus = async (appointmentId: string, status: string) => {
     try {
-        const response = await api.put(`/patient-data/appointments/${id}/status`, { status });
+        const response = await api.patch(`/appointments/${appointmentId}/status?status=${status}`);
         return response.data;
     } catch (error) {
         console.error('Error updating appointment status:', error);
@@ -472,6 +472,46 @@ export const getDoctorDashboardStats = async () => {
         return response.data;
     } catch (error) {
         console.error('Error fetching doctor stats:', error);
+        throw error;
+    }
+};
+
+export const createCall = async (callData: any) => {
+    try {
+        const response = await api.post('/appointments/calls', callData);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating call:', error);
+        throw error;
+    }
+};
+
+export const getNotifications = async (userId: string) => {
+    try {
+        const response = await api.get(`/notifications/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching notifications:', error);
+        throw error;
+    }
+};
+
+export const markNotificationRead = async (notificationId: string) => {
+    try {
+        const response = await api.patch(`/notifications/${notificationId}/read`);
+        return response.data;
+    } catch (error) {
+        console.error('Error marking notification read:', error);
+        throw error;
+    }
+};
+
+export const markAllNotificationsRead = async (userId: string) => {
+    try {
+        const response = await api.patch(`/notifications/read-all/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error marking all notifications read:', error);
         throw error;
     }
 };

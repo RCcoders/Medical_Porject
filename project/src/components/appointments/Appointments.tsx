@@ -361,13 +361,13 @@ export function Appointments() {
                       <h3 className="text-lg font-semibold text-gray-900">
                         {format(new Date(appointment.appointment_date), 'MMM d, yyyy')} at {format(new Date(appointment.appointment_date), 'h:mm a')}
                       </h3>
-                      <span className={`ml - 3 px - 2 py - 1 text - xs font - medium rounded - full ${getStatusColor(appointment.status || 'Scheduled')} `}>
+                      <span className={`ml-3 px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(appointment.status || 'Scheduled')}`}>
                         {appointment.status || 'Scheduled'}
                       </span>
                     </div>
 
                     <div className="mb-3 flex gap-2">
-                      <span className={`inline - flex px - 2 py - 1 text - xs font - medium rounded - full ${getAppointmentTypeColor(appointment.appointment_type)} `}>
+                      <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${getAppointmentTypeColor(appointment.appointment_type)}`}>
                         {appointment.appointment_type}
                       </span>
                       {appointment.consultation_mode === 'Online' && (
@@ -429,7 +429,7 @@ export function Appointments() {
                     </button>
                     {appointment.consultation_mode === 'Online' && (
                       <button
-                        onClick={() => navigate(`/ video - call / ${appointment.id} `)}
+                        onClick={() => navigate(`/video-call/${appointment.id}`)}
                         className="text-gray-400 hover:text-green-600 transition-colors"
                         title="Join Video Call"
                       >
