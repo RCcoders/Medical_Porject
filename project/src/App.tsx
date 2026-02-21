@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { NotificationProvider } from './contexts/NotificationContext'
 import { AuthPortal } from './components/auth/AuthPortal'
@@ -164,15 +164,8 @@ function AppRoutes() {
 export default function App() {
   const [showSplash, setShowSplash] = useState(true)
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplash(false)
-    }, 2500)
-    return () => clearTimeout(timer)
-  }, [])
-
   if (showSplash) {
-    return <SplashScreen />
+    return <SplashScreen onFinished={() => setShowSplash(false)} />
   }
 
   return (
