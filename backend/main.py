@@ -28,9 +28,13 @@ app = FastAPI(title="Medical Project Backend")
 # --- CORS config ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
-    allow_methods=["*"],
+    allow_origins=[
+        "https://medical-porject-6mxf.vercel.app",
+        "http://localhost:5173",
+        "http://localhost:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allow_headers=["*"],
 )
 app.add_middleware(GlobalExceptionHandlerMiddleware)
@@ -58,7 +62,7 @@ async def reject_large_requests(request: Request, call_next):
     if cl:
         try:
             if int(cl) > MAX_CONTENT_LENGTH:
-                return fastapi.responses.JSONResponse(
+                return JSONResponse(
                     status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
                     content={"detail": "Request body too large"},
                 )
