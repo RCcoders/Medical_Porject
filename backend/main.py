@@ -38,7 +38,7 @@ app.add_middleware(
         "http://localhost:3000",
     ],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
@@ -91,6 +91,12 @@ app.include_router(notifications.router)
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Medical Project Backend"}
+
+
+# --- Explicit OPTIONS handler — guarantees 200 on ALL preflight requests ---
+@app.options("/{path:path}")
+async def options_handler(path: str):
+    return {}
 
 
 # --- Startup hook for extra checks (optional) ---
