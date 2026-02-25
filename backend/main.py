@@ -3,6 +3,7 @@ from fastapi import FastAPI, Depends, HTTPException, Request, status
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from uuid import UUID
@@ -20,8 +21,15 @@ from .core.middleware import GlobalExceptionHandlerMiddleware
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("medical_backend")
 
-# --- Ensure DB metadata created (keep but consider migrations for production) ---
-models.Base.metadata.create_all(bind=engine)
+# --- Ensure DB schema + tables exist ---
+try:
+    with engine.connect() as conn:
+        conn.execute(text("CREATE SCHEMA IF NOT EXISTS medical"))
+        conn.commit()
+    models.Base.metadata.create_all(bind=engine)
+    logger.info("Database schema and tables verified.")
+except Exception as e:
+    logger.error(f"DB init error: {e}")
 
 app = FastAPI(title="Medical Project Backend")
 
