@@ -200,6 +200,74 @@ class User(UserBase):
 
     class Config:
         from_attributes = True
+
+# -------------------------
+# PATIENT PROFILE SCHEMAS
+# -------------------------
+
+class PatientProfileBase(BaseModel):
+    # Personal
+    date_of_birth: Optional[date] = None
+    gender: Optional[str] = None
+    marital_status: Optional[str] = None
+    occupation: Optional[str] = None
+    nationality: Optional[str] = None
+    languages: Optional[str] = None
+    profile_photo: Optional[str] = None
+
+    # Contact
+    phone: Optional[str] = None
+    alternate_phone: Optional[str] = None
+    address_line1: Optional[str] = None
+    address_line2: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    pincode: Optional[str] = None
+    country: Optional[str] = "India"
+
+    # Guardian / Emergency
+    guardian_name: Optional[str] = None
+    guardian_relationship: Optional[str] = None
+    guardian_phone: Optional[str] = None
+    guardian_email: Optional[str] = None
+    guardian_address: Optional[str] = None
+
+    emergency_contact_name: Optional[str] = None
+    emergency_contact_phone: Optional[str] = None
+    emergency_relationship: Optional[str] = None
+
+    # Health
+    blood_type: Optional[str] = None
+    height_cm: Optional[float] = None
+    weight_kg: Optional[float] = None
+    known_conditions: Optional[str] = None
+    known_allergies: Optional[str] = None
+    current_medications: Optional[str] = None
+    smoking_status: Optional[str] = None
+    alcohol_use: Optional[str] = None
+    exercise_frequency: Optional[str] = None
+
+    # Identity / Insurance
+    aadhar_card_number: Optional[str] = None
+    pan_number: Optional[str] = None
+    insurance_provider: Optional[str] = None
+    insurance_policy_no: Optional[str] = None
+
+class PatientProfileCreate(PatientProfileBase):
+    user_id: UUID
+
+class PatientProfileUpdate(PatientProfileBase):
+    pass  # All fields optional for PATCH
+
+class PatientProfileResponse(PatientProfileBase):
+    id: UUID
+    user_id: UUID
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
 # -------------------------
 
 class HospitalVisitBase(BaseModel):
@@ -251,6 +319,26 @@ class Appointment(AppointmentBase):
     user_id: UUID
     created_at: datetime
     updated_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+# -------------------------
+# CALL SCHEMAS
+# -------------------------
+
+class CallBase(BaseModel):
+    appointment_id: UUID
+    call_status: str
+    ended_by: Optional[str] = None
+
+class CallCreate(CallBase):
+    pass
+
+class Call(CallBase):
+    id: UUID
+    started_at: datetime
+    ended_at: Optional[datetime] = None
 
     class Config:
         from_attributes = True
@@ -408,3 +496,25 @@ class Claim(ClaimBase):
 class OTPVerify(BaseModel):
     email: str
     otp: str
+
+
+# -------------------------
+# NOTIFICATION SCHEMAS
+# -------------------------
+
+class NotificationBase(BaseModel):
+    title: str
+    message: str
+    type: str
+    link: Optional[str] = None
+
+class NotificationCreate(NotificationBase):
+    user_id: UUID
+
+class Notification(NotificationBase):
+    id: UUID
+    is_read: bool
+    created_at: datetime
+
+    class Config:
+        from_attributes = True

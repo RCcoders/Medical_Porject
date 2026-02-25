@@ -41,6 +41,68 @@ class User(Base):
     appointments = relationship("Appointment", back_populates="patient")
     doctor_profile = relationship("Doctor", back_populates="user", uselist=False)
     researcher_profile = relationship("Researcher", back_populates="user", uselist=False)
+    patient_profile = relationship("PatientProfile", back_populates="user", uselist=False)
+
+
+
+class PatientProfile(Base):
+    __tablename__ = "patient_profiles"
+    __table_args__ = {"schema": "medical"}
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("medical.users.id"), unique=True, nullable=False)
+
+    # Personal Details
+    date_of_birth = Column(Date, nullable=True)
+    gender = Column(String(20), nullable=True)
+    marital_status = Column(String(30), nullable=True)
+    occupation = Column(String(100), nullable=True)
+    nationality = Column(String(80), nullable=True)
+    languages = Column(Text, nullable=True)          # comma-separated
+    profile_photo = Column(Text, nullable=True)      # URL / path
+
+    # Contact Details
+    phone = Column(String(20), nullable=True)
+    alternate_phone = Column(String(20), nullable=True)
+    address_line1 = Column(Text, nullable=True)
+    address_line2 = Column(Text, nullable=True)
+    city = Column(String(100), nullable=True)
+    state = Column(String(100), nullable=True)
+    pincode = Column(String(10), nullable=True)
+    country = Column(String(80), nullable=True, default="India")
+
+    # Guardian / Emergency Contact
+    guardian_name = Column(String(150), nullable=True)
+    guardian_relationship = Column(String(60), nullable=True)
+    guardian_phone = Column(String(20), nullable=True)
+    guardian_email = Column(String(150), nullable=True)
+    guardian_address = Column(Text, nullable=True)
+
+    emergency_contact_name = Column(String(150), nullable=True)
+    emergency_contact_phone = Column(String(20), nullable=True)
+    emergency_relationship = Column(String(60), nullable=True)
+
+    # Health Information
+    blood_type = Column(String(5), nullable=True)
+    height_cm = Column(Float, nullable=True)
+    weight_kg = Column(Float, nullable=True)
+    known_conditions = Column(Text, nullable=True)   # comma-separated
+    known_allergies = Column(Text, nullable=True)    # quick summary
+    current_medications = Column(Text, nullable=True)
+    smoking_status = Column(String(30), nullable=True)
+    alcohol_use = Column(String(30), nullable=True)
+    exercise_frequency = Column(String(30), nullable=True)
+
+    # Identity / Insurance
+    aadhar_card_number = Column(String(12), nullable=True)
+    pan_number = Column(String(10), nullable=True)
+    insurance_provider = Column(String(150), nullable=True)
+    insurance_policy_no = Column(String(80), nullable=True)
+
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+    user = relationship("User", back_populates="patient_profile")
 
 
 class Doctor(Base):
@@ -311,6 +373,21 @@ class Appointment(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     patient = relationship("User", back_populates="appointments")
+    calls = relationship("Call", back_populates="appointment")
+
+
+class Call(Base):
+    __tablename__ = "calls"
+    __table_args__ = {"schema": "medical"}
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    appointment_id = Column(UUID(as_uuid=True), ForeignKey("medical.appointments.id"))
+    started_at = Column(DateTime(timezone=True), server_default=func.now())
+    ended_at = Column(DateTime(timezone=True), nullable=True)
+    ended_by = Column(String, nullable=True) # 'doctor', 'patient', 'system'
+    call_status = Column(String) # 'ringing', 'ongoing', 'ended'
+    
+    appointment = relationship("Appointment", back_populates="calls")
 
 
 class OTP(Base):
@@ -322,3 +399,18 @@ class OTP(Base):
     otp_code = Column(String)
     expires_at = Column(DateTime(timezone=True))
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+class Notification(Base):
+    __tablename__ = "notifications"
+    __table_args__ = {"schema": "medical"}
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("medical.users.id"))
+    title = Column(String)
+    message = Column(Text)
+    type = Column(String) # 'appointment', 'prescription', 'general'
+    is_read = Column(Boolean, default=False)
+    link = Column(String, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    user = relationship("User")

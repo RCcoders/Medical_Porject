@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { FlaskConical, LayoutDashboard, LogOut, Microscope, ShieldCheck, Wifi, Menu, X } from 'lucide-react'
+import { LayoutDashboard, LogOut, Microscope, ShieldCheck, Wifi, Menu, X } from 'lucide-react'
+import { FloatingChatWidget } from '../agents/FloatingChatWidget'
 import { useAuth } from '../../contexts/AuthContext'
 
 
@@ -74,17 +75,7 @@ export function PharmaLayout() {
                         Clinical Trials
                     </Link>
 
-                    <Link
-                        to="/pharma/ai-assistant"
-                        onClick={() => setIsSidebarOpen(false)}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${isActive('/pharma/ai-assistant')
-                            ? 'bg-purple-600/10 text-purple-300 border border-purple-500/20 shadow-[0_0_15px_rgba(147,51,234,0.1)]'
-                            : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 border border-transparent'
-                            }`}
-                    >
-                        <FlaskConical className="h-4 w-4" />
-                        AI Research Assistant
-                    </Link>
+
 
 
                 </nav>
@@ -130,7 +121,7 @@ export function PharmaLayout() {
                         <h2 className="text-sm font-semibold text-slate-200 tracking-wide uppercase truncate">
                             {isActive('/pharma/dashboard') && 'Global R&D Overview'}
                             {isActive('/pharma/clinical-trials') && 'Clinical Trials Management'}
-                            {isActive('/pharma/ai-assistant') && 'AI Research Module'}
+
                             {isActive('/pharma/profile') && 'Researcher Identity Profile'}
 
                         </h2>
@@ -150,6 +141,7 @@ export function PharmaLayout() {
 
                 <main className="flex-1 overflow-auto bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black p-4 md:p-8">
                     <Outlet />
+                    <FloatingChatWidget mode="researcher" />
                 </main>
             </div>
         </div>

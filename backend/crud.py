@@ -393,3 +393,61 @@ def get_doctor_dashboard_stats(db: Session, doctor_name: str, hospital_name: str
         "appointments": appointments_today or 12,
         "pending_reports": pending_reports or 8
     }
+
+def create_call(db: Session, call: schemas.CallCreate):
+    db_call = models.Call(**call.dict())
+    db.add(db_call)
+    db.commit()
+    db.refresh(db_call)
+    return db_call
+
+def update_call(db: Session, call_id: uuid.UUID, status: str, ended_by: str = None):
+    db_call = db.query(models.Call).filter(models.Call.id == call_id).first()
+    if db_call:
+        db_call.call_status = status
+        if status == 'ended':
+            db_call.ended_at = func.now()
+            db_call.ended_by = ended_by
+        db.commit()
+        db.refresh(db_call)
+    return db_call
+
+def update_appointment_status(db: Session, appointment_id: uuid.UUID, status: str):
+    db_appointment = db.query(models.Appointment).filter(models.Appointment.id == appointment_id).first()
+    if db_appointment:
+        db_appointment.status = status
+        db.commit()
+        db.refresh(db_appointment)
+    return db_appointment
+
+def get_user_notifications(db: Session, user_id: uuid.UUID, skip: int = 0, limit: int = 20):
+    return db.query(models.Notification).filter(models.Notification.user_id == user_id).order_by(models.Notification.created_at.desc()).offset(skip).limit(limit).all()
+
+def create_notification(db: Session, notification: schemas.NotificationCreate):
+    db_notification = models.Notification(**notification.dict())
+    db.add(db_notification)
+    db.commit()
+    db.refresh(db_notification)
+    return db_notification
+
+def mark_notification_as_read(db: Session, notification_id: uuid.UUID):
+    db_notification = db.query(models.Notification).filter(models.Notification.id == notification_id).first()
+    if db_notification:
+        db_notification.is_read = True
+        db.commit()
+        db.refresh(db_notification)
+    return db_notification
+
+def mark_all_unread_as_read(db: Session, user_id: uuid.UUID):
+    db.query(models.Notification).filter(
+        models.Notification.user_id == user_id,
+        models.Notification.is_read == False
+    ).update({models.Notification.is_read: True})
+    db.commit()
+
+def mark_all_unread_as_read(db: Session, user_id: uuid.UUID):
+    db.query(models.Notification).filter(
+        models.Notification.user_id == user_id,
+        models.Notification.is_read == False
+    ).update({models.Notification.is_read: True})
+    db.commit()

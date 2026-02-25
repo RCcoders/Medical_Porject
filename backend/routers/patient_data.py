@@ -7,6 +7,8 @@ from ..routers.auth import get_current_user
 import shutil
 import os
 import uuid
+import json
+from .video import manager
 
 router = APIRouter(
     prefix="/patient-data",
@@ -52,12 +54,38 @@ def read_prescriptions(skip: int = 0, limit: int = 100, db: Session = Depends(ge
     return crud.get_prescriptions(db, user_id=current_user.id, skip=skip, limit=limit)
 
 @router.post("/prescriptions", response_model=schemas.Prescription)
-def create_prescription(prescription: schemas.PrescriptionCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+async def create_prescription(prescription: schemas.PrescriptionCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     # Auto-fill prescribing doctor if user is a doctor
     if current_user.role == 'doctor':
         prescription.prescribing_doctor = current_user.full_name
         
-    return crud.create_prescription(db=db, prescription=prescription)
+    db_prescription = crud.create_prescription(db=db, prescription=prescription)
+    
+    # Notify patient
+    notif_data = schemas.NotificationCreate(
+        user_id=db_prescription.user_id,
+        title="New Prescription",
+        message=f"Dr. {db_prescription.prescribing_doctor} has issued a new prescription for {db_prescription.drug_name}.",
+        type="prescription",
+        link="/prescriptions"
+    )
+    db_notif = crud.create_notification(db, notif_data)
+    
+    # Real-time signaling
+    await manager.notify_user(str(db_prescription.user_id), json.dumps({
+        "type": "GENERAL_NOTIFICATION",
+        "notification": {
+            "id": str(db_notif.id),
+            "title": db_notif.title,
+            "message": db_notif.message,
+            "type": db_notif.type,
+            "is_read": db_notif.is_read,
+            "created_at": db_notif.created_at.isoformat(),
+            "link": db_notif.link
+        }
+    }))
+    
+    return db_prescription
 
 # -------------------------
 # ALLERGIES
@@ -117,8 +145,34 @@ def read_appointments(skip: int = 0, limit: int = 100, db: Session = Depends(get
     return crud.get_user_appointments(db, user_id=current_user.id, skip=skip, limit=limit)
 
 @router.post("/appointments", response_model=schemas.Appointment)
-def create_appointment(appointment: schemas.AppointmentCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
-    return crud.create_appointment(db=db, appointment=appointment)
+async def create_appointment(appointment: schemas.AppointmentCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    db_appointment = crud.create_appointment(db=db, appointment=appointment)
+    
+    # Notify patient
+    notif_data = schemas.NotificationCreate(
+        user_id=db_appointment.user_id,
+        title="Appointment Scheduled",
+        message=f"New appointment with Dr. {db_appointment.doctor_name} scheduled for {db_appointment.appointment_date.strftime('%Y-%m-%d %H:%M')}.",
+        type="appointment",
+        link="/appointments"
+    )
+    db_notif = crud.create_notification(db, notif_data)
+    
+    # Real-time signaling
+    await manager.notify_user(str(db_appointment.user_id), json.dumps({
+        "type": "GENERAL_NOTIFICATION",
+        "notification": {
+            "id": str(db_notif.id),
+            "title": db_notif.title,
+            "message": db_notif.message,
+            "type": db_notif.type,
+            "is_read": db_notif.is_read,
+            "created_at": db_notif.created_at.isoformat(),
+            "link": db_notif.link
+        }
+    }))
+    
+    return db_appointment
 @router.delete("/appointments/{id}")
 def delete_appointment(id: str, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     appointment = crud.delete_appointment(db, appointment_id=id)
@@ -137,7 +191,7 @@ class AppointmentStatusUpdate(schemas.BaseModel):
     status: str
 
 @router.put("/appointments/{id}/status", response_model=schemas.Appointment)
-def update_appointment_status(id: str, status_update: AppointmentStatusUpdate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+async def update_appointment_status(id: str, status_update: AppointmentStatusUpdate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     appointment = crud.update_appointment_status(db, appointment_id=id, status=status_update.status)
     if not appointment:
         raise HTTPException(status_code=404, detail="Appointment not found")
@@ -172,6 +226,30 @@ def update_appointment_status(id: str, status_update: AppointmentStatusUpdate, d
         # So we are good.
         
         crud.create_hospital_visit(db=db, visit=visit_data)
+        
+        # Notify patient
+        notif_data = schemas.NotificationCreate(
+            user_id=appointment.user_id,
+            title="Appointment Completed",
+            message=f"Your appointment with Dr. {appointment.doctor_name} at {appointment.hospital_clinic} has been marked as completed.",
+            type="appointment",
+            link="/history"
+        )
+        db_notif = crud.create_notification(db, notif_data)
+        
+        # Real-time signaling
+        await manager.notify_user(str(appointment.user_id), json.dumps({
+            "type": "GENERAL_NOTIFICATION",
+            "notification": {
+                "id": str(db_notif.id),
+                "title": db_notif.title,
+                "message": db_notif.message,
+                "type": db_notif.type,
+                "is_read": db_notif.is_read,
+                "created_at": db_notif.created_at.isoformat(),
+                "link": db_notif.link
+            }
+        }))
         
     return appointment
 

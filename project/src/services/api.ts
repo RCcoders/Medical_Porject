@@ -299,7 +299,7 @@ export const deleteAppointment = async (id: string) => {
 
 export const updateAppointmentStatus = async (appointmentId: string, status: string) => {
     try {
-        const response = await api.patch(`/appointments/${appointmentId}/status?status=${status}`);
+        const response = await api.patch(`/patient-data/appointments/${appointmentId}/status?status=${status}`);
         return response.data;
     } catch (error) {
         console.error('Error updating appointment status:', error);
@@ -512,6 +512,43 @@ export const markAllNotificationsRead = async (userId: string) => {
         return response.data;
     } catch (error) {
         console.error('Error marking all notifications read:', error);
+        throw error;
+    }
+};
+
+// -------------------------
+// PATIENT PROFILE API
+// -------------------------
+
+/** Fetch the current patient's extended profile (auto-created on first call) */
+export const getMyPatientProfile = async () => {
+    try {
+        const response = await api.get('/patients/profile/me');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching patient profile:', error);
+        throw error;
+    }
+};
+
+/** Save (upsert) the current patient's extended profile */
+export const updateMyPatientProfile = async (profileData: Record<string, unknown>) => {
+    try {
+        const response = await api.patch('/patients/profile/me', profileData);
+        return response.data;
+    } catch (error) {
+        console.error('Error updating patient profile:', error);
+        throw error;
+    }
+};
+
+/** Doctors: fetch a specific patient's full profile */
+export const getPatientProfileById = async (patientId: string) => {
+    try {
+        const response = await api.get(`/patients/${patientId}/profile`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching patient profile:', error);
         throw error;
     }
 };

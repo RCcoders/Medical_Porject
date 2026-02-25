@@ -1,5 +1,6 @@
 # main.py
 from fastapi import FastAPI, Depends, HTTPException, Request, status
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
@@ -11,7 +12,7 @@ import os
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine, get_db
-from .routers import auth, doctors, researchers, patient_data, agents, users, patients, appointments, video
+from .routers import auth, doctors, researchers, patient_data, agents, users, patients, appointments, video, notifications
 from .routers.auth import get_current_user
 from .core.middleware import GlobalExceptionHandlerMiddleware
 
@@ -81,6 +82,7 @@ app.include_router(users.router)
 app.include_router(patients.router)
 app.include_router(appointments.router)
 app.include_router(video.router)
+app.include_router(notifications.router)
 
 
 # --- Root ---
@@ -95,18 +97,6 @@ def on_startup():
     # ensure upload dir exists and log startup state
     UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
     logger.info(f"Uploads are being served from: {UPLOAD_DIR}")
-
-
-
-# --- Startup hook for extra checks (optional) ---
-@app.on_event("startup")
-def on_startup():
-    # ensure upload dir exists and log startup state
-    UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-    logger.info(f"Uploads are being served from: {UPLOAD_DIR}")
-    # Optionally ensure DB schema exists if you're using a custom schema name "medical"
-    # If you use schema-qualified tables, ensure the schema exists or create it here (postgres).
-    # Example (raw SQL): engine.execute("CREATE SCHEMA IF NOT EXISTS medical;")  # use with caution
 
 
 # --- Helpful notes for production (do not remove) ---

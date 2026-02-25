@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { Activity, Users, Settings, LogOut, HeartPulse, LayoutDashboard, Bot, Menu, X } from 'lucide-react'
+import { Activity, Users, Settings, LogOut, HeartPulse, LayoutDashboard, Menu, X } from 'lucide-react'
+import { FloatingChatWidget } from '../agents/FloatingChatWidget'
 import { useAuth } from '../../contexts/AuthContext'
 
 export function DoctorLayout() {
@@ -81,19 +82,6 @@ export function DoctorLayout() {
                         All Patients
                     </Link>
 
-                    <Link
-                        to="/doctor/ai-assistant"
-                        onClick={() => setIsSidebarOpen(false)}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive('/doctor/ai-assistant')
-                            ? 'bg-blue-50 text-blue-700'
-                            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                            }`}
-                    >
-                        <Bot className="h-5 w-5" />
-                        AI Assistant
-                    </Link>
-
-
 
                     <div className="text-xs font-semibold text-slate-400 mt-8 mb-4 px-2">ADMIN</div>
                     <Link
@@ -147,7 +135,7 @@ export function DoctorLayout() {
                             {isActive('/doctor/dashboard') && 'Practice Overview'}
                             {isActive('/doctor/consultations') && 'Patient Consultations'}
                             {isActive('/doctor/patients') && 'Patient Registry'}
-                            {isActive('/doctor/ai-assistant') && 'Clinical AI Assistant'}
+
                             {isActive('/doctor/settings') && 'Settings'}
                             {isActive('/doctor/profile') && 'Doctor Profile'}
                         </h2>
@@ -162,6 +150,7 @@ export function DoctorLayout() {
                 </header>
                 <main className="flex-1 overflow-auto p-4 lg:p-8 relative">
                     <Outlet />
+                    <FloatingChatWidget mode="doctor" />
                 </main>
             </div>
         </div>

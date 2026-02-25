@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Plus, Search, Filter, Calendar, MapPin, User, X, Trash2, RefreshCw, Video } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
-import { createAppointment, getMyAppointments, deleteAppointment, updateAppointment, getDoctors, updateAppointmentStatus } from '../../services/api'
+import { createAppointment, getMyAppointments, updateAppointment, getDoctors, updateAppointmentStatus } from '../../services/api'
 import { Appointment } from '../../types/database.types'
 import { format } from 'date-fns'
 
@@ -20,7 +20,6 @@ export function Appointments() {
   const navigate = useNavigate()
   const [appointments, setAppointments] = useState<Appointment[]>([])
   const [loading, setLoading] = useState(true)
-  const [showModal, setShowModal] = useState(false)
   const [doctors, setDoctors] = useState<any[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [filterStatus, setFilterStatus] = useState<string>('all')
@@ -463,9 +462,9 @@ export function Appointments() {
 
       {/* Schedule Appointment Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-200 flex justify-between items-center sticky top-0 bg-white rounded-t-xl">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
+          <div className="bg-white rounded-t-2xl sm:rounded-xl shadow-xl w-full sm:max-w-2xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto">
+            <div className="p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center sticky top-0 bg-white rounded-t-xl sm:rounded-t-xl">
               <h2 className="text-xl font-bold text-gray-900">{editingId ? 'Reschedule Appointment' : 'Schedule Appointment'}</h2>
               <button
                 onClick={() => {
@@ -480,37 +479,6 @@ export function Appointments() {
 
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Doctor Name *</label>
-                  <select
-                    name="doctor_name"
-                    required
-                    value={formData.doctor_name}
-                    onChange={handleInputChange}
-                    disabled={!formData.hospital_clinic}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100"
-                  >
-                    <option value="">Select Doctor</option>
-                    {doctors.map((doctor, index) => (
-                      <option key={index} value={doctor.full_name}>
-                        {doctor.full_name} ({doctor.doctor_profile?.specialization || 'General'})
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Specialty</label>
-                  <input
-                    type="text"
-                    name="specialty"
-                    value={formData.specialty}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="e.g. Cardiology"
-                  />
-                </div>
-
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
                   <select
@@ -559,6 +527,43 @@ export function Appointments() {
                   </select>
                 </div>
 
+                {/* Doctor Name — only shown after hospital is selected */}
+                <div className="col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Doctor Name *</label>
+                  {!formData.hospital_clinic ? (
+                    <div className="w-full px-3 py-2 border border-dashed border-gray-300 rounded-lg bg-gray-50 text-gray-400 text-sm">
+                      ℹ️ Please select State, City and Hospital first
+                    </div>
+                  ) : (
+                    <select
+                      name="doctor_name"
+                      required
+                      value={formData.doctor_name}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="">Select Doctor</option>
+                      {doctors.map((doctor, index) => (
+                        <option key={index} value={doctor.full_name}>
+                          {doctor.full_name} ({doctor.doctor_profile?.specialization || 'General'})
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </div>
+
+                <div className="col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Specialty</label>
+                  <input
+                    type="text"
+                    name="specialty"
+                    value={formData.specialty}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="e.g. Cardiology"
+                  />
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Date *</label>
                   <input
@@ -581,16 +586,9 @@ export function Appointments() {
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="">Select Time Slot</option>
-                    <option value="09:00">09:00 AM - 10:00 AM</option>
-                    <option value="10:00">10:00 AM - 11:00 AM</option>
-                    <option value="11:00">11:00 AM - 12:00 PM</option>
-                    <option value="12:00">12:00 PM - 01:00 PM</option>
-                    <option value="13:00">01:00 PM - 02:00 PM</option>
-                    <option value="14:00">02:00 PM - 03:00 PM</option>
-                    <option value="15:00">03:00 PM - 04:00 PM</option>
-                    <option value="16:00">04:00 PM - 05:00 PM</option>
-                    <option value="17:00">05:00 PM - 06:00 PM</option>
-                    <option value="18:00">06:00 PM - 07:00 PM</option>
+                    <option value="08:00">🌅 Morning — 8:00 AM - 9:00 AM</option>
+                    <option value="14:30">☀️ Afternoon — 2:30 PM - 3:30 PM</option>
+                    <option value="20:00">🌙 Night — 8:00 PM - 9:00 PM</option>
                   </select>
                 </div>
 

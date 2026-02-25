@@ -33,6 +33,56 @@ export interface Profile {
   doctor_profile?: DoctorProfile
 }
 
+export interface PatientProfile {
+  id: string
+  user_id: string
+  // Personal
+  date_of_birth?: string
+  gender?: string
+  marital_status?: string
+  occupation?: string
+  nationality?: string
+  languages?: string
+  profile_photo?: string
+  // Contact
+  phone?: string
+  alternate_phone?: string
+  address_line1?: string
+  address_line2?: string
+  city?: string
+  state?: string
+  pincode?: string
+  country?: string
+  // Guardian
+  guardian_name?: string
+  guardian_relationship?: string
+  guardian_phone?: string
+  guardian_email?: string
+  guardian_address?: string
+  // Emergency
+  emergency_contact_name?: string
+  emergency_contact_phone?: string
+  emergency_relationship?: string
+  // Health
+  blood_type?: string
+  height_cm?: number
+  weight_kg?: number
+  bmi?: number
+  known_conditions?: string
+  known_allergies?: string
+  current_medications?: string
+  smoking_status?: string
+  alcohol_use?: string
+  exercise_frequency?: string
+  // Identity / Insurance
+  aadhar_card_number?: string
+  pan_number?: string
+  insurance_provider?: string
+  insurance_policy_no?: string
+  created_at: string
+  updated_at?: string
+}
+
 export interface HospitalVisit {
   id: string
   user_id: string
