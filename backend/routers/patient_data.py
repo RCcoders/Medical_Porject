@@ -191,43 +191,37 @@ class AppointmentStatusUpdate(schemas.BaseModel):
     status: str
 
 @router.put("/appointments/{id}/status", response_model=schemas.Appointment)
-async def update_appointment_status(id: str, status_update: AppointmentStatusUpdate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
-    appointment = crud.update_appointment_status(db, appointment_id=id, status=status_update.status)
+@router.patch("/appointments/{id}/status", response_model=schemas.Appointment)
+async def update_appointment_status(
+    id: str,
+    status: Optional[str] = None,
+    status_update: Optional[AppointmentStatusUpdate] = None,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    # Accept status from query param OR request body
+    final_status = status or (status_update.status if status_update else None)
+    if not final_status:
+        raise HTTPException(status_code=422, detail="status is required")
+    
+    appointment = crud.update_appointment_status(db, appointment_id=id, status=final_status)
     if not appointment:
         raise HTTPException(status_code=404, detail="Appointment not found")
     
-    # Automate Hospital Visit Creation
-    if status_update.status == "Completed":
-        # Check if visit already exists to avoid duplicates (optional but good practice)
-        # For now, we'll just create it.
-        
-        # We need to map Appointment data to HospitalVisitCreate schema
-        # Appointment has: doctor_name, hospital_clinic, appointment_date, reason, notes
-        # HospitalVisit needs: hospital_name, admission_date, visit_type, primary_doctor, diagnosis, treatment_summary, insurance_claim_status
-        
+    # Automate Hospital Visit Creation on Completion
+    if final_status == "Completed":
         visit_data = schemas.HospitalVisitCreate(
-            user_id=appointment.user_id, # Use appointment's user_id
+            user_id=appointment.user_id,
             hospital_name=appointment.hospital_clinic,
             admission_date=appointment.appointment_date,
-            visit_type=appointment.appointment_type, # Assuming types match or mapping needed. Appointment types: Routine, Follow-up, etc. Visit types: Emergency, Scheduled, etc.
-            # We might need to map types or just use what we have if they overlap.
-            # Let's assume they are compatible or just pass the string.
+            visit_type=appointment.appointment_type,
             primary_doctor=appointment.doctor_name,
-            diagnosis=appointment.reason, # Mapping reason to diagnosis as a fallback
+            diagnosis=appointment.reason,
             treatment_summary=appointment.notes,
             insurance_claim_status="Pending"
         )
-        
-        # Create the visit
-        # Note: create_hospital_visit in crud expects user_id in schema? No, we fixed that in previous session?
-        # Let's check crud.create_hospital_visit again.
-        # It takes `visit: schemas.HospitalVisitCreate`.
-        # And `HospitalVisitCreate` has `user_id`.
-        # So we are good.
-        
         crud.create_hospital_visit(db=db, visit=visit_data)
         
-        # Notify patient
         notif_data = schemas.NotificationCreate(
             user_id=appointment.user_id,
             title="Appointment Completed",
@@ -236,8 +230,6 @@ async def update_appointment_status(id: str, status_update: AppointmentStatusUpd
             link="/history"
         )
         db_notif = crud.create_notification(db, notif_data)
-        
-        # Real-time signaling
         await manager.notify_user(str(appointment.user_id), json.dumps({
             "type": "GENERAL_NOTIFICATION",
             "notification": {
@@ -250,6 +242,9 @@ async def update_appointment_status(id: str, status_update: AppointmentStatusUpd
                 "link": db_notif.link
             }
         }))
+        
+    return appointment
+
         
     return appointment
 
