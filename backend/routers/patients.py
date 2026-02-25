@@ -23,10 +23,10 @@ def read_patients(
     current_user: schemas.User = Depends(get_current_user),
 ):
     doctor_name_filter: Optional[str] = None
+    hospital_filter: Optional[str] = None  # ← fix: always initialized
     
     if current_user.role == "doctor":
         doctor_name_filter = current_user.full_name
-        # Also keep hospital filter if needed, but appointment link is stronger
         try:
              dp = getattr(current_user, "doctor_profile", None)
              if dp and getattr(dp, "hospital_name", None):
