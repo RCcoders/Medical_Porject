@@ -1,202 +1,234 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface SplashScreenProps {
     onFinished?: () => void;
 }
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const [fading, setFading] = useState(false);
-    const [paused, setPaused] = useState(false);
+    const [phase, setPhase] = useState<'in' | 'hold' | 'out'>('in');
     const [progress, setProgress] = useState(0);
 
-    const dismiss = () => {
-        setFading(true);
-        setTimeout(() => onFinished?.(), 600); // wait for fade-out
-    };
-
     useEffect(() => {
-        const video = videoRef.current;
-        if (!video) return;
+        // Phase: fade in (0.6s) → hold with progress (2.4s) → fade out (0.6s) = 3.6s total
+        const t1 = setTimeout(() => setPhase('hold'), 600);
+        const t2 = setTimeout(() => setPhase('out'), 3000);
+        const t3 = setTimeout(() => onFinished?.(), 3600);
 
-        const handleEnd = () => dismiss();
-        const handleError = () => onFinished?.();
-
-        const handleTimeUpdate = () => {
-            if (video.duration) {
-                setProgress((video.currentTime / video.duration) * 100);
-            }
+        // Animate progress bar over 2.4s hold phase
+        let start: number | null = null;
+        let raf: number;
+        const animateProgress = (ts: number) => {
+            if (!start) start = ts;
+            const elapsed = ts - start;
+            const pct = Math.min((elapsed / 2400) * 100, 100);
+            setProgress(pct);
+            if (pct < 100) raf = requestAnimationFrame(animateProgress);
         };
-
-        video.addEventListener('ended', handleEnd);
-        video.addEventListener('error', handleError);
-        video.addEventListener('timeupdate', handleTimeUpdate);
-
-        video.play().catch(() => {
-            // Autoplay blocked — show paused state so user can click to play
-            setPaused(true);
-        });
+        const t4 = setTimeout(() => { raf = requestAnimationFrame(animateProgress); }, 600);
 
         return () => {
-            video.removeEventListener('ended', handleEnd);
-            video.removeEventListener('error', handleError);
-            video.removeEventListener('timeupdate', handleTimeUpdate);
+            clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+            cancelAnimationFrame(raf);
         };
     }, []);
 
-    const handleClickToPlay = () => {
-        videoRef.current?.play().then(() => setPaused(false));
-    };
-
     return (
-        <div
-            onClick={paused ? handleClickToPlay : undefined}
-            style={{
-                position: 'fixed',
-                inset: 0,
-                zIndex: 9999,
-                backgroundColor: '#000',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                opacity: fading ? 0 : 1,
-                transition: 'opacity 0.6s ease',
-                cursor: paused ? 'pointer' : 'default',
-            }}
-        >
-            {/* Full-screen video */}
-            <video
-                ref={videoRef}
-                src="/assets/healtcare.mp4"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                muted
-                playsInline
-                preload="auto"
-            />
-
-            {/* Gradient overlay — bottom fade for logo/UI legibility */}
-            <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, transparent 40%, rgba(0,0,0,0.6) 100%)',
-                pointerEvents: 'none',
-            }} />
-
-            {/* Logo — center */}
-            <div style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                pointerEvents: 'none',
-                textAlign: 'center',
-            }}>
-                <img
-                    src="/assets/g-onelogo.png"
-                    alt="G-ONE"
-                    style={{
-                        width: '140px',
-                        height: '140px',
-                        objectFit: 'contain',
-                        filter: 'drop-shadow(0 0 32px rgba(37,99,235,0.8)) drop-shadow(0 0 12px rgba(0,0,0,0.9))',
-                        animation: 'splashPulse 2s ease-in-out infinite',
-                    }}
-                />
-                <p style={{
-                    color: 'rgba(255,255,255,0.85)',
-                    fontSize: '18px',
-                    fontWeight: 600,
-                    marginTop: '12px',
-                    letterSpacing: '0.12em',
-                    textShadow: '0 2px 12px rgba(0,0,0,0.8)',
-                    fontFamily: 'system-ui, sans-serif',
-                }}>G-ONE MEDICAL</p>
+        <div style={{
+            position: 'fixed', inset: 0, zIndex: 9999,
+            background: 'radial-gradient(ellipse at 60% 40%, #0f2a5e 0%, #060d1f 55%, #000510 100%)',
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center',
+            opacity: phase === 'out' ? 0 : 1,
+            transition: phase === 'in' ? 'opacity 0.6s ease' : phase === 'out' ? 'opacity 0.6s ease' : 'none',
+            overflow: 'hidden',
+        }}>
+            {/* Animated background orbs */}
+            <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+                <div style={orb('#3b82f6', 420, '15%', '20%', '18s')} />
+                <div style={orb('#6366f1', 320, '70%', '60%', '22s')} />
+                <div style={orb('#0ea5e9', 260, '40%', '80%', '16s')} />
+                <div style={orb('#1d4ed8', 180, '80%', '15%', '20s')} />
+                {/* Grid lines */}
+                <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.05 }}>
+                    <defs>
+                        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#60a5fa" strokeWidth="0.5" />
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#grid)" />
+                </svg>
             </div>
 
-            {/* Click-to-play hint */}
-            {paused && (
-                <div style={{
+            {/* Cross/plus decorations */}
+            {[...Array(6)].map((_, i) => (
+                <div key={i} style={{
                     position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    background: 'rgba(0,0,0,0.7)',
-                    borderRadius: '50%',
-                    width: '80px',
-                    height: '80px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: '2px solid rgba(255,255,255,0.4)',
-                    backdropFilter: 'blur(8px)',
-                }}>
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
-                        <path d="M8 5v14l11-7z" />
-                    </svg>
-                </div>
-            )}
+                    left: `${[10, 85, 25, 75, 50, 5][i]}%`,
+                    top: `${[15, 25, 75, 80, 45, 55][i]}%`,
+                    color: 'rgba(96,165,250,0.2)',
+                    fontSize: `${[28, 20, 24, 18, 32, 16][i]}px`,
+                    animation: `floatBob ${[4, 5, 3.5, 4.5, 3, 5.5][i]}s ease-in-out infinite`,
+                    animationDelay: `${i * 0.4}s`,
+                    fontWeight: 300,
+                }}>✚</div>
+            ))}
 
-            {/* Bottom bar: progress + skip */}
+            {/* Main logo circle */}
             <div style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                padding: '20px 28px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '16px',
+                position: 'relative',
+                width: '160px', height: '160px',
+                marginBottom: '32px',
+                animation: 'logoScale 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards',
             }}>
-                {/* Progress bar */}
+                {/* Rotating ring */}
                 <div style={{
-                    flex: 1,
-                    height: '3px',
-                    background: 'rgba(255,255,255,0.2)',
-                    borderRadius: '2px',
-                    overflow: 'hidden',
+                    position: 'absolute', inset: '-12px',
+                    borderRadius: '50%',
+                    border: '2px solid transparent',
+                    borderTopColor: '#3b82f6',
+                    borderRightColor: '#6366f1',
+                    animation: 'spinRing 3s linear infinite',
+                }} />
+                {/* Outer glow ring */}
+                <div style={{
+                    position: 'absolute', inset: '-4px',
+                    borderRadius: '50%',
+                    border: '1px solid rgba(96,165,250,0.3)',
+                    animation: 'pulse 2s ease-in-out infinite',
+                }} />
+                {/* Logo background */}
+                <div style={{
+                    width: '100%', height: '100%',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(99,102,241,0.2) 100%)',
+                    backdropFilter: 'blur(12px)',
+                    border: '1px solid rgba(96,165,250,0.3)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    boxShadow: '0 0 60px rgba(59,130,246,0.3), 0 0 120px rgba(59,130,246,0.1)',
+                }}>
+                    <img
+                        src="/assets/g-onelogo.png"
+                        alt="G-ONE"
+                        style={{
+                            width: '90px', height: '90px',
+                            objectFit: 'contain',
+                            filter: 'drop-shadow(0 0 16px rgba(96,165,250,0.8))',
+                        }}
+                    />
+                </div>
+            </div>
+
+            {/* Brand name */}
+            <div style={{
+                textAlign: 'center', marginBottom: '8px',
+                animation: 'fadeUp 0.7s 0.3s both ease-out',
+            }}>
+                <h1 style={{
+                    color: '#fff',
+                    fontSize: '28px',
+                    fontWeight: 700,
+                    letterSpacing: '0.2em',
+                    margin: 0,
+                    fontFamily: 'system-ui, -apple-system, sans-serif',
+                    textShadow: '0 0 30px rgba(96,165,250,0.6)',
+                }}>G-ONE MEDICAL</h1>
+                <p style={{
+                    color: 'rgba(148,163,184,0.8)',
+                    fontSize: '13px',
+                    letterSpacing: '0.3em',
+                    margin: '6px 0 0',
+                    fontFamily: 'system-ui, sans-serif',
+                    textTransform: 'uppercase',
+                }}>Healthcare Platform</p>
+            </div>
+
+            {/* Tagline dots */}
+            <div style={{
+                display: 'flex', gap: '6px', marginBottom: '48px', marginTop: '16px',
+                animation: 'fadeUp 0.7s 0.5s both ease-out',
+            }}>
+                {['#3b82f6', '#6366f1', '#0ea5e9'].map((c, i) => (
+                    <div key={i} style={{
+                        width: '6px', height: '6px', borderRadius: '50%',
+                        background: c,
+                        animation: `dotBounce 1.2s ${i * 0.15}s ease-in-out infinite`,
+                    }} />
+                ))}
+            </div>
+
+            {/* Progress bar */}
+            <div style={{
+                position: 'absolute', bottom: '40px', left: '50%',
+                transform: 'translateX(-50%)',
+                width: '200px',
+                animation: 'fadeUp 0.7s 0.6s both ease-out',
+            }}>
+                <div style={{
+                    fontSize: '11px', color: 'rgba(148,163,184,0.6)',
+                    textAlign: 'center', marginBottom: '8px',
+                    letterSpacing: '0.12em',
+                    fontFamily: 'system-ui, sans-serif',
+                }}>INITIALIZING…</div>
+                <div style={{
+                    height: '3px', background: 'rgba(255,255,255,0.1)',
+                    borderRadius: '2px', overflow: 'hidden',
                 }}>
                     <div style={{
-                        height: '100%',
-                        width: `${progress}%`,
-                        background: 'linear-gradient(90deg, #3b82f6, #60a5fa)',
+                        height: '100%', width: `${progress}%`,
+                        background: 'linear-gradient(90deg, #3b82f6, #6366f1, #0ea5e9)',
                         borderRadius: '2px',
-                        transition: 'width 0.3s linear',
+                        boxShadow: '0 0 8px rgba(99,102,241,0.8)',
+                        transition: 'width 0.1s linear',
                     }} />
                 </div>
-
-                {/* Skip button */}
-                <button
-                    onClick={(e) => { e.stopPropagation(); dismiss(); }}
-                    style={{
-                        background: 'rgba(255,255,255,0.12)',
-                        border: '1px solid rgba(255,255,255,0.25)',
-                        color: 'rgba(255,255,255,0.85)',
-                        padding: '6px 16px',
-                        borderRadius: '20px',
-                        fontSize: '13px',
-                        fontWeight: 500,
-                        cursor: 'pointer',
-                        backdropFilter: 'blur(8px)',
-                        letterSpacing: '0.04em',
-                        transition: 'background 0.2s',
-                        fontFamily: 'system-ui, sans-serif',
-                        whiteSpace: 'nowrap',
-                    }}
-                    onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.22)')}
-                    onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.12)')}
-                >
-                    Skip ›
-                </button>
             </div>
 
             <style>{`
-                @keyframes splashPulse {
-                    0%, 100% { transform: scale(1); opacity: 1; }
-                    50% { transform: scale(1.06); opacity: 0.9; }
+                @keyframes spinRing {
+                    to { transform: rotate(360deg); }
+                }
+                @keyframes pulse {
+                    0%, 100% { opacity: 0.3; transform: scale(1); }
+                    50% { opacity: 0.7; transform: scale(1.04); }
+                }
+                @keyframes logoScale {
+                    from { transform: scale(0.6); opacity: 0; }
+                    to { transform: scale(1); opacity: 1; }
+                }
+                @keyframes fadeUp {
+                    from { opacity: 0; transform: translateY(16px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes floatBob {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-12px); }
+                }
+                @keyframes dotBounce {
+                    0%, 100% { transform: translateY(0); opacity: 0.5; }
+                    50% { transform: translateY(-6px); opacity: 1; }
+                }
+                @keyframes orbFloat {
+                    0%, 100% { transform: translate(0, 0); }
+                    33% { transform: translate(30px, -20px); }
+                    66% { transform: translate(-20px, 15px); }
                 }
             `}</style>
         </div>
     );
 };
+
+function orb(color: string, size: number, left: string, top: string, duration: string): React.CSSProperties {
+    return {
+        position: 'absolute',
+        left, top,
+        width: `${size}px`, height: `${size}px`,
+        borderRadius: '50%',
+        background: color,
+        filter: `blur(${size * 0.45}px)`,
+        opacity: 0.15,
+        animation: `orbFloat ${duration} ease-in-out infinite`,
+        transform: 'translate(-50%, -50%)',
+    };
+}
 
 export default SplashScreen;
