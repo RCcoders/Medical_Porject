@@ -26,14 +26,13 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Medical Project Backend")
 
 # --- CORS config ---
-# For development allow localhost ports. REMOVE "*" in production and replace with explicit origins.
-dev_origins = [
-    "http://localhost:5173",  # Vite
-    "http://localhost:3000",
-]
+# Set ALLOWED_ORIGINS env var in production: "https://your-app.vercel.app,https://www.yourapp.com"
+_raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:3000")
+allowed_origins = [o.strip() for o in _raw_origins.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=dev_origins + ["*"],  # temporarily allow "*" for dev — remove "*" before production
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
