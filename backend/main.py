@@ -26,14 +26,17 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Medical Project Backend")
 
 # --- CORS config ---
-# Set ALLOWED_ORIGINS env var in production: "https://your-app.vercel.app,https://www.yourapp.com"
-_raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:3000")
-allowed_origins = [o.strip() for o in _raw_origins.split(",") if o.strip()]
+# Set ALLOWED_ORIGINS in production. Falls back to allow all for initial deploy.
+_raw_origins = os.getenv("ALLOWED_ORIGINS", "*")
+if _raw_origins == "*":
+    allowed_origins = ["*"]
+else:
+    allowed_origins = [o.strip() for o in _raw_origins.split(",") if o.strip()]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
-    allow_credentials=True,
+    allow_credentials=False if "*" in allowed_origins else True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
