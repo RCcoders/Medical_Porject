@@ -25,7 +25,11 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Medical Project Backend")
 
-# --- CORS config ---
+# --- Middleware order matters: Starlette is LIFO (last added = outermost = runs first) ---
+# GlobalExceptionHandlerMiddleware must be INNER so CORS headers are always attached
+app.add_middleware(GlobalExceptionHandlerMiddleware)
+
+# CORSMiddleware MUST be outermost so ALL responses (including errors) get CORS headers
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -37,7 +41,6 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allow_headers=["*"],
 )
-app.add_middleware(GlobalExceptionHandlerMiddleware)
 
 # --- Directories & static mount ---
 BASE_DIR = Path(__file__).resolve().parent.parent  # adjust if this file sits at backend/
