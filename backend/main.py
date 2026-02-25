@@ -41,10 +41,10 @@ app.add_middleware(GlobalExceptionHandlerMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://medical-porject-6mxf.vercel.app",
         "http://localhost:5173",
         "http://localhost:3000",
     ],
+    allow_origin_regex=r"https://.*\.(vercel\.app|onrender\.com)",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
