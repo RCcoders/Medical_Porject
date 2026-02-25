@@ -1,4 +1,4 @@
-# G-ONE Medical Project — Deployment Guide
+# G-ONE Medical — Deployment Guide
 
 ## Overview
 
@@ -9,93 +9,94 @@
 
 ---
 
-## Step 1 — Deploy Backend on Render
+## Part 1 — Deploy Backend on Render
 
-### 1.1 Create the service
-1. Go to [render.com](https://render.com) → Sign in
-2. **New → Web Service**
-3. Connect GitHub → select `RCcoders/Medical_Porject`
-4. Configure:
+### 1. Create Web Service
+1. Go to [render.com](https://render.com) → **New → Web Service**
+2. Connect GitHub → select `RCcoders/Medical_Porject`
+3. Fill in settings:
 
 | Setting | Value |
 |---|---|
-| Root Directory | `backend` |
-| Runtime | `Python 3` |
-| Build Command | `pip install -r requirements.txt` |
-| Start Command | `uvicorn main:app --host 0.0.0.0 --port $PORT` |
+| **Root Directory** | `backend` ⚠️ *must be set — this is why build fails if missing* |
+| **Runtime** | `Python 3` |
+| **Build Command** | `pip install -r requirements.txt` |
+| **Start Command** | `uvicorn main:app --host 0.0.0.0 --port $PORT` |
 
-### 1.2 Add Environment Variables
-In Render → **Environment** tab, add:
+### 2. Add Environment Variables
 
 | Key | Value |
 |---|---|
 | `DATABASE_URL` | `postgresql://postgres.yeekjtwgobyvygfaibro:ynVfKmqdnhIEhlTU@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres` |
 | `VITE_SUPABASE_URL` | `https://yeekjtwgobyvygfaibro.supabase.co` |
-| `VITE_SUPABASE_ANON_KEY` | *(your full anon key from `backend/.env`)* |
+| `VITE_SUPABASE_ANON_KEY` | *(copy from `backend/.env`)* |
 | `GOOGLE_API_KEY` | `AIzaSyAPETnDlgXak1F4iw6YEc81JIZKI4cUURg` |
 | `GOOGLE_CSE_ID` | `214e6a6cf18cf48a1` |
 | `MISTRAL_API_KEY` | `dPpEwb4tzs8Ro2GYwvXmg7lAhCDOFst2` |
 | `GOOGLE_GENAI_KEY` | `AIzaSyB-JEgB58B86TpX8osRFZWxrhQWkWgt75I` |
-| `ALLOWED_ORIGINS` | *(leave blank for now — fill in after Step 2)* |
+| `ALLOWED_ORIGINS` | *(leave blank — fill after Step 2 is done)* |
 
-### 1.3 Deploy
-- Click **Create Web Service** → wait 3–5 minutes
-- Once live, copy your Render URL → e.g. `https://medical-porject.onrender.com`
+> **Skip** `OLLAMA_MODEL` — Ollama doesn't work on cloud servers.
+
+### 3. Deploy
+- Click **Create Web Service** → wait 3–5 mins
+- Copy the live URL e.g. `https://gone-medical-backend.onrender.com`
 
 ---
 
-## Step 2 — Deploy Frontend on Vercel
+> ### ⚠️ If build fails with "No such file: requirements.txt"
+> Render is not reading the Root Directory correctly.
+> Go to your service → **Settings → Build & Deploy → Root Directory** → type `backend` → Save → Manual Deploy.
 
-### 2.1 Create the project
+---
+
+## Part 2 — Deploy Frontend on Vercel
+
+### 1. Create Project
 1. Go to [vercel.com](https://vercel.com) → **Add New Project**
-2. Import `RCcoders/Medical_Porject` from GitHub
+2. Import `RCcoders/Medical_Porject`
 3. Set **Root Directory** → `project`
-4. Framework will auto-detect as **Vite**
+4. Framework auto-detects as **Vite**
 
-### 2.2 Add Environment Variables
+### 2. Add Environment Variables
 
 | Key | Value |
 |---|---|
 | `VITE_SUPABASE_URL` | `https://yeekjtwgobyvygfaibro.supabase.co` |
-| `VITE_SUPABASE_ANON_KEY` | *(your full anon key from `project/.env`)* |
-| `VITE_API_URL` | *(your Render URL from Step 1)* |
+| `VITE_SUPABASE_ANON_KEY` | *(copy from `project/.env`)* |
+| `VITE_API_URL` | *(your Render URL from Part 1)* |
 
-### 2.3 Deploy
-- Click **Deploy** → wait ~2 minutes
-- Once live, copy your Vercel URL → e.g. `https://medical-porject.vercel.app`
+### 3. Deploy
+- Click **Deploy** → wait ~2 mins
+- Copy the Vercel URL e.g. `https://medical-porject.vercel.app`
 
 ---
 
-## Step 3 — Connect Frontend ↔ Backend (CORS)
+## Part 3 — Connect Frontend ↔ Backend (CORS)
 
-Go back to **Render → Environment** and add/update:
+Go back to **Render → Environment** and set:
 
 | Key | Value |
 |---|---|
 | `ALLOWED_ORIGINS` | `https://medical-porject.vercel.app` |
 
-Click **Save** → Render will auto-redeploy.
+Click **Save** → Render auto-redeploys.
 
 ---
 
-## Step 4 — Verify Everything Works
+## Part 4 — Verify
 
-| Test | Expected Result |
+| Test | Expected |
 |---|---|
-| Open Vercel URL | Splash screen → Login page |
-| Refresh any page (e.g. `/appointments`) | No 404 error |
-| Log in as patient | Dashboard loads, appointments work |
-| Log in as doctor | Doctor dashboard + AI chat widget visible |
-| Log in as researcher | Researcher portal + AI chat widget visible |
-| Create an appointment | Saved and listed correctly |
+| Open Vercel URL | Splash → Login page |
+| Refresh `/appointments` | No 404 |
+| Login as patient | Dashboard + data loads |
+| Login as doctor | Doctor dashboard + AI bot |
+| Login as researcher | Research portal + AI bot |
+| Create appointment | Saves correctly |
 
 ---
 
 ## Notes
-
-> **Render Free Tier** spins down after 15 mins of inactivity — first API call after idle takes ~30s.
-> Upgrade to paid ($7/mo) to keep it always-on.
-
-> **Ollama** (`OLLAMA_MODEL=llama3`) does not run on Render — skip that env var. The app falls back to Gemini/Mistral automatically.
-
-> **Re-deploy after changes:** Push to `main` → Vercel and Render auto-deploy via GitHub webhook.
+- **Render free tier** sleeps after 15 min idle → first request takes ~30s to wake. Upgrade to $7/mo for always-on.
+- **Auto-deploy:** Push to `main` → both Vercel and Render redeploy automatically via GitHub webhook.
