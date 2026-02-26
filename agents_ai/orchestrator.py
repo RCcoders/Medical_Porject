@@ -89,7 +89,7 @@ class DrugRepurposingOrchestrator:
             category = self.router_chain.invoke({"query": query}).strip().upper()
             print(f"   -> Detected Intent: [{category}]")
         except Exception as e:
-            return f"Router Error (Rate Limit?): {e}"
+            raise e
 
         # Step 2: Dispatch
         # We add a tiny sleep to prevent hitting rate limits instantly between Router & Agent
