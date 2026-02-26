@@ -41,6 +41,8 @@ def read_visits(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), 
 
 @router.post("/visits", response_model=schemas.HospitalVisit)
 def create_visit(visit: schemas.HospitalVisitCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    if not visit.user_id:
+        visit.user_id = current_user.id
     if visit.user_id != current_user.id and current_user.role != 'doctor':
          raise HTTPException(status_code=403, detail="Not authorized to create visit for this user")
     return crud.create_hospital_visit(db=db, visit=visit)
@@ -55,6 +57,8 @@ def read_prescriptions(skip: int = 0, limit: int = 100, db: Session = Depends(ge
 
 @router.post("/prescriptions", response_model=schemas.Prescription)
 async def create_prescription(prescription: schemas.PrescriptionCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    if not prescription.user_id:
+        prescription.user_id = current_user.id
     # Auto-fill prescribing doctor if user is a doctor
     if current_user.role == 'doctor':
         prescription.prescribing_doctor = current_user.full_name
@@ -97,6 +101,8 @@ def read_allergies(skip: int = 0, limit: int = 100, db: Session = Depends(get_db
 
 @router.post("/allergies", response_model=schemas.Allergy)
 def create_allergy(allergy: schemas.AllergyCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    if not allergy.user_id:
+        allergy.user_id = current_user.id
     return crud.create_allergy(db=db, allergy=allergy)
 
 # -------------------------
@@ -109,6 +115,8 @@ def read_lab_results(skip: int = 0, limit: int = 100, db: Session = Depends(get_
 
 @router.post("/lab-results", response_model=schemas.LabResult)
 def create_lab_result(result: schemas.LabResultCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    if not result.user_id:
+        result.user_id = current_user.id
     return crud.create_lab_result(db=db, result=result)
 
 # -------------------------
@@ -121,6 +129,8 @@ def read_insurance(skip: int = 0, limit: int = 100, db: Session = Depends(get_db
 
 @router.post("/insurance", response_model=schemas.InsurancePolicy)
 def create_insurance(policy: schemas.InsurancePolicyCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    if not policy.user_id:
+        policy.user_id = current_user.id
     return crud.create_insurance_policy(db=db, policy=policy)
 
 @router.get("/claims", response_model=List[schemas.Claim])
@@ -129,6 +139,8 @@ def read_claims(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), 
 
 @router.post("/claims", response_model=schemas.Claim)
 def create_claim(claim: schemas.ClaimCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    if not claim.user_id:
+        claim.user_id = current_user.id
     return crud.create_claim(db=db, claim=claim)
 
 # -------------------------
@@ -146,6 +158,8 @@ def read_appointments(skip: int = 0, limit: int = 100, db: Session = Depends(get
 
 @router.post("/appointments", response_model=schemas.Appointment)
 async def create_appointment(appointment: schemas.AppointmentCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    if not appointment.user_id:
+        appointment.user_id = current_user.id
     db_appointment = crud.create_appointment(db=db, appointment=appointment)
     
     # Notify patient

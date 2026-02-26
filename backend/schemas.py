@@ -284,7 +284,7 @@ class HospitalVisitBase(BaseModel):
     insurance_claim_status: str
 
 class HospitalVisitCreate(HospitalVisitBase):
-    user_id: UUID
+    user_id: Optional[UUID] = None
 
 class HospitalVisit(HospitalVisitBase):
     id: UUID
@@ -312,7 +312,7 @@ class AppointmentBase(BaseModel):
     notes: Optional[str] = None
 
 class AppointmentCreate(AppointmentBase):
-    user_id: UUID
+    user_id: Optional[UUID] = None
 
 class Appointment(AppointmentBase):
     id: UUID
@@ -362,7 +362,7 @@ class PrescriptionBase(BaseModel):
     document_url: Optional[str] = None
 
 class PrescriptionCreate(PrescriptionBase):
-    user_id: UUID
+    user_id: Optional[UUID] = None
     visit_id: Optional[UUID] = None
 
 class Prescription(PrescriptionBase):
@@ -389,7 +389,7 @@ class AllergyBase(BaseModel):
     last_reaction: Optional[date] = None
 
 class AllergyCreate(AllergyBase):
-    user_id: UUID
+    user_id: Optional[UUID] = None
 
 class Allergy(AllergyBase):
     id: UUID
@@ -418,7 +418,7 @@ class LabResultBase(BaseModel):
     document_url: Optional[str] = None
 
 class LabResultCreate(LabResultBase):
-    user_id: UUID
+    user_id: Optional[UUID] = None
     visit_id: Optional[UUID] = None
 
 class LabResult(LabResultBase):
@@ -448,7 +448,7 @@ class InsurancePolicyBase(BaseModel):
     is_active: bool
 
 class InsurancePolicyCreate(InsurancePolicyBase):
-    user_id: UUID
+    user_id: Optional[UUID] = None
 
 class InsurancePolicy(InsurancePolicyBase):
     id: UUID
@@ -474,7 +474,7 @@ class ClaimBase(BaseModel):
     notes: Optional[str] = None
 
 class ClaimCreate(ClaimBase):
-    user_id: UUID
+    user_id: Optional[UUID] = None
     policy_id: UUID
     visit_id: Optional[UUID] = None
 

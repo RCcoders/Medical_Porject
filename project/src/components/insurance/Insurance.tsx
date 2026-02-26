@@ -92,6 +92,7 @@ export function Insurance() {
     try {
       const policyData = {
         ...policyForm,
+        user_id: user?.id,
         premium_amount: parseFloat(policyForm.premium_amount),
         deductible_amount: parseFloat(policyForm.deductible_amount),
         deductible_met: parseFloat(policyForm.deductible_met),
@@ -130,6 +131,7 @@ export function Insurance() {
     try {
       const claimData = {
         ...claimForm,
+        user_id: user?.id,
         claim_amount: parseFloat(claimForm.claim_amount)
       }
       await createClaim(claimData)

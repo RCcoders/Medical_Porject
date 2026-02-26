@@ -53,6 +53,7 @@ export function Allergies() {
     try {
       const allergyData = {
         ...formData,
+        user_id: user?.id,
         last_reaction: formData.last_reaction || undefined
       }
 

@@ -51,15 +51,16 @@ app.add_middleware(
 )
 
 # --- Directories & static mount ---
-BASE_DIR = Path(__file__).resolve().parent.parent  # adjust if this file sits at backend/
-UPLOAD_DIR = BASE_DIR / "backend" / "static" / "uploads"
+# This approach works whether you run from project root or backend/ directory
+BACKEND_DIR = Path(__file__).resolve().parent
+UPLOAD_DIR = BACKEND_DIR / "static" / "uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 # Expose uploads at /uploads so frontend can GET http://<host>/uploads/<file>
 app.mount("/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
 
 # Optional: keep older static mount if you have other assets under /static
-STATIC_DIR = BASE_DIR / "backend" / "static"
+STATIC_DIR = BACKEND_DIR / "static"
 if STATIC_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 

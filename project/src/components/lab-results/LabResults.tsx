@@ -53,7 +53,7 @@ export function LabResults() {
     e.preventDefault()
     setIsSubmitting(true)
     try {
-      await createLabResult(formData)
+      await createLabResult({ ...formData, user_id: user?.id })
       await fetchLabResults()
       setIsModalOpen(false)
       // Reset form
