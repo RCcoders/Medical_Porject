@@ -42,7 +42,7 @@ function getConfig(mode: 'patient' | 'doctor' | 'researcher') {
                 labelColor: 'text-blue-700 bg-blue-50 border-blue-200',
                 title: 'Clinical AI Assistant',
                 placeholder: 'Ask a clinical question...',
-                greeting: '👨‍⚕️ Hello Doctor! I\'m your Clinical AI Assistant. Ask me about diagnoses, drug dosages, red flags, or OPD triage. Try keywords like "fever red flag", "nsaid contraindication", "sepsis", "centor" and more.',
+                greeting: '👨‍⚕️ Hello Sir/Madam! I\'m your Clinical AI Assistant. I can help with diagnoses, drug dosages, red flags, clinical guidelines, and OPD triage. Try asking about "fever red flag", "nsaid contraindication", "sepsis", "centor" and more. How can I assist you today?',
                 pingColor: 'bg-green-400',
             }
         case 'researcher':
@@ -57,7 +57,7 @@ function getConfig(mode: 'patient' | 'doctor' | 'researcher') {
                 labelColor: 'text-purple-300 bg-purple-900/60 border-purple-700',
                 title: 'Research AI Assistant',
                 placeholder: 'Ask a research question...',
-                greeting: '🔬 Hello Researcher! I\'m your Research AI Assistant. Ask me about study design, bias, outcomes, drug safety research, or data analysis. Try keywords like "cohort vs case control", "missing data research", "urti outcomes" and more.',
+                greeting: '🔬 Hello Sir/Madam! I\'m your Research AI Assistant. I can help with study design, bias, outcomes, drug safety research, and data analysis. Try asking about "cohort vs case control", "missing data research", "urti outcomes" and more. How can I help you today?',
                 pingColor: 'bg-purple-400',
             }
         default:
@@ -72,7 +72,7 @@ function getConfig(mode: 'patient' | 'doctor' | 'researcher') {
                 labelColor: '',
                 title: 'Medical Assistant',
                 placeholder: 'Ask a medical question...',
-                greeting: 'Hello! I am your Medical AI Assistant. How can I help you today?',
+                greeting: '👋 Hello Sir/Madam! I\'m your Medical AI Assistant. How can I help you today? You can describe your symptoms, ask about a medical condition, or seek health guidance. For example, try asking about "fever", "chest pain", "diabetes", or any health concern you have.',
                 pingColor: 'bg-green-400',
             }
     }

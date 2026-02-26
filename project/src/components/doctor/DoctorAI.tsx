@@ -97,7 +97,7 @@ export function DoctorAI() {
         {
             id: '1',
             role: 'agent',
-            content: 'I am your Clinical Decision Support Assistant. I can help with guidelines, drug interactions, and latest research. How can I assist you today?',
+            content: '👨‍⚕️ Hello Sir/Madam! I am your Clinical Decision Support Assistant. I can help with clinical guidelines, drug interactions, diagnosis guidance, and the latest medical research. How can I assist you today?',
             timestamp: new Date()
         }
     ])
@@ -142,10 +142,18 @@ export function DoctorAI() {
             }
             setMessages(prev => [...prev, agentMsg])
         } catch (error) {
+            const samples = [
+                'fever red flag signs in adults',
+                'nsaid contraindication in renal failure',
+                'first-line therapy for hypertension',
+                'drug interaction warfarin and amiodarone',
+                'atrial fibrillation anticoagulation',
+            ]
+            const sample = samples[Math.floor(Math.random() * samples.length)]
             const errorMsg: Message = {
                 id: (Date.now() + 1).toString(),
                 role: 'agent',
-                content: "System Error: Unable to reach clinical agent swarm. Please verify backend connection.",
+                content: `👨‍⚕️ Hello Sir/Madam! I'm having trouble processing that query right now.\n\nCould you try rephrasing with more specific clinical keywords?\n\n💡 *Try asking:* "${sample}"\n\nFeel free to ask a different clinical question and I'll assist you!`,
                 timestamp: new Date()
             }
             setMessages(prev => [...prev, errorMsg])

@@ -11,6 +11,44 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 const thinkingDelay = () =>
     new Promise<void>(resolve => setTimeout(resolve, 5000 + Math.random() * 1000))
 
+// Sample questions per mode shown when no keyword match is found
+const PATIENT_SAMPLES = [
+    'What are the symptoms of diabetes?',
+    'I have chest pain and shortness of breath',
+    'What causes high blood pressure?',
+    'I have a fever and sore throat',
+    'What are the signs of anemia?',
+    'I feel dizzy and nauseous',
+    'What is asthma and how is it treated?',
+    'I have joint pain and swelling',
+]
+
+const DOCTOR_SAMPLES = [
+    'fever red flag signs in adults',
+    'nsaid contraindication in renal failure',
+    'sepsis management guidelines',
+    'first-line therapy for hypertension',
+    'drug interaction warfarin and amiodarone',
+    'diabetes management in CKD',
+    'atrial fibrillation anticoagulation',
+    'statin choice secondary prevention',
+]
+
+const RESEARCHER_SAMPLES = [
+    'cohort vs case control study design',
+    'how to handle missing data in research',
+    'urti study outcomes',
+    'common research biases to avoid',
+    'sample size calculation principles',
+    'randomized controlled trial methodology',
+    'prevalence vs incidence study',
+    'systematic review vs meta-analysis',
+]
+
+function randomSample(arr: string[]): string {
+    return arr[Math.floor(Math.random() * arr.length)]
+}
+
 export const agentService = {
     async query(query: string, mode: 'patient' | 'doctor' | 'researcher' = 'patient'): Promise<string> {
 
@@ -27,7 +65,8 @@ export const agentService = {
                 const response = await axios.post(`${API_URL}/agents/query`, { query });
                 return response.data.response;
             } catch {
-                return `🔬 **No local match found**\n\nI couldn't find a matching research answer for **"${query}"**.\n\nTry a more specific keyword, for example:\n• "fever prevalence" — research variables in febrile illness\n• "urti study" — URTI outcome measures\n• "study design" — cohort vs case-control\n• "bias research" — common research biases\n• "missing data research" — handling missing data\n\n*The AI backend is currently unavailable. Using local knowledge base only.*`
+                const sample = randomSample(RESEARCHER_SAMPLES)
+                return `🔬 **Hello Sir/Madam!**\n\nI couldn't find a specific match for **"${query}"**.\n\nCould you try rephrasing with a more specific research keyword? Here's an example to get you started:\n\n💡 *Try asking:* **"${sample}"**\n\nOr explore topics like study design, bias, outcomes, data analysis, or drug safety research.`
             }
         }
 
@@ -53,7 +92,9 @@ export const agentService = {
             const response = await axios.post(`${API_URL}/agents/query`, { query });
             return response.data.response;
         } catch {
-            return `💬 **No Answer Found**\n\nI couldn't find information about **"${query}"** in my knowledge base, and the AI backend is currently unavailable.\n\nPlease try a more specific medical term or consult a healthcare professional.`
+            const samples = mode === 'doctor' ? DOCTOR_SAMPLES : PATIENT_SAMPLES
+            const sample = randomSample(samples)
+            return `👋 **Hello Sir/Madam!**\n\nI couldn't find a specific answer for **"${query}"** right now.\n\nCould you try asking with more specific keywords? Here's an example to help you get started:\n\n💡 *Try asking:* **"${sample}"**\n\nFeel free to describe your question differently and I'll do my best to help!`
         }
     }
 };

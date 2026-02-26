@@ -14,7 +14,7 @@ export function AgentChat() {
         {
             id: '1',
             role: 'agent',
-            content: 'Hello! I am your Medical AI Assistant. How can I help you today?',
+            content: '👋 Hello Sir/Madam! I am your Medical AI Assistant. How can I help you today? Feel free to describe your symptoms, ask about a medical condition, or seek health guidance — for example, try asking about "fever", "diabetes", "chest pain", or any concern you have.',
             timestamp: new Date()
         }
     ])
@@ -55,10 +55,18 @@ export function AgentChat() {
             }
             setMessages(prev => [...prev, agentMsg])
         } catch (error) {
+            const samples = [
+                'What are the symptoms of diabetes?',
+                'I have a fever and sore throat',
+                'What causes high blood pressure?',
+                'I feel dizzy and nauseous',
+                'What is asthma and how is it treated?',
+            ]
+            const sample = samples[Math.floor(Math.random() * samples.length)]
             const errorMsg: Message = {
                 id: (Date.now() + 1).toString(),
                 role: 'agent',
-                content: "I'm sorry, I encountered an error processing your request. Please try again later.",
+                content: `👋 Hello Sir/Madam! I'm having a little trouble finding an answer for that right now.\n\nCould you try rephrasing your question with more specific keywords?\n\n💡 *Try asking:* "${sample}"\n\nFeel free to ask a different question and I'll do my best to help!`,
                 timestamp: new Date()
             }
             setMessages(prev => [...prev, errorMsg])

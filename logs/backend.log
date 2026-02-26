@@ -3716,3 +3716,5 @@ sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate
 2026-02-26 18:43:26 | INFO | middleware.dispatch:21 | Request: GET /patient-data/visits | Status: 200 | Duration: 0.7358s | ID: 86117093-dc9c-4394-b074-5d0074520d5d
 2026-02-26 18:43:32 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.6935s | ID: 2e4622da-9a73-4f2d-b2ba-7957946bbd22
 2026-02-26 18:43:33 | INFO | middleware.dispatch:21 | Request: GET /patient-data/prescriptions | Status: 200 | Duration: 0.8092s | ID: d76ca03b-5a8c-4c58-801b-d99dc645513c
+2026-02-26 18:59:40 | INFO | main.<module>:30 | Database schema and tables verified.
+2026-02-26 18:59:40 | INFO | main.on_startup:116 | Uploads are being served from: C:\Users\ROHAN\Medical\backend\static\uploads
