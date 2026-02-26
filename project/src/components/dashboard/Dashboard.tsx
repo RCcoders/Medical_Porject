@@ -160,9 +160,9 @@ export function Dashboard() {
       {/* Welcome Section */}
       <div className="bg-gradient-to-r from-teal-600 to-teal-700 rounded-2xl p-4 md:p-6 text-white shadow-lg">
         <div className="flex items-center">
-          <Activity className="h-12 w-12 text-blue-200" />
-          <div className="ml-4">
-            <h2 className="text-2xl md:text-3xl font-bold">
+          <Activity className="h-10 w-10 md:h-12 md:w-12 text-blue-200 shrink-0" />
+          <div className="ml-3 md:ml-4">
+            <h2 className="text-xl md:text-3xl font-bold">
               Welcome back, {profile?.full_name?.split(' ')[0]}!
             </h2>
             <p className="text-blue-100 mt-1">

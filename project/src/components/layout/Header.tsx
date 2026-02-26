@@ -25,7 +25,7 @@ export function Header({ onMenuClick }: HeaderProps) {
             <Menu className="h-6 w-6" />
           </button>
 
-          <h1 className="text-lg md:text-2xl font-bold text-slate-800 truncate max-w-[200px] md:max-w-none">
+          <h1 className="text-base md:text-2xl font-bold text-slate-800 truncate max-w-[150px] xs:max-w-[200px] md:max-w-none">
             Welcome, {profile?.full_name?.split(' ')[0] || 'User'}
           </h1>
         </div>

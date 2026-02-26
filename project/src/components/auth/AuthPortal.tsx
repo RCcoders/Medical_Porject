@@ -197,7 +197,7 @@ export function AuthPortal() {
 
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4 font-sans">
-            <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8 transition-all duration-300 relative">
+            <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-6 md:p-8 transition-all duration-300 relative">
 
                 <button
                     onClick={handleBack}
@@ -303,7 +303,7 @@ export function AuthPortal() {
 
                     {authMode === 'register' && selectedRole === 'doctor' && (
                         <>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-gray-700 text-sm font-semibold mb-2">State</label>
                                     <div className="relative">

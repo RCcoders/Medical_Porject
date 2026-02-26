@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Plus, Shield, FileText, DollarSign, Calendar, X, Building, Info, Check } from 'lucide-react'
+import { Plus, Shield, FileText, DollarSign, Calendar, X, Building } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
 import { getInsurancePolicies, getClaims, createInsurancePolicy, createClaim } from '../../services/api'
 import { InsurancePolicy, Claim } from '../../types/database.types'
@@ -27,8 +27,6 @@ export function Insurance() {
   const [isClaimModalOpen, setIsClaimModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // Selected Provider for Details
-  const [selectedProvider, setSelectedProvider] = useState<InsuranceProvider | null>(null)
 
   // Form Data
   const [policyForm, setPolicyForm] = useState({
@@ -187,7 +185,7 @@ export function Insurance() {
           <h1 className="text-2xl font-bold text-gray-900">Insurance & Claims</h1>
           <p className="text-gray-600 mt-1">Manage your insurance policies and track claims</p>
         </div>
-        <div className="flex space-x-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <button
             onClick={() => { resetPolicyForm(); setIsPolicyModalOpen(true); }}
             className="bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors duration-200 flex items-center"
@@ -254,7 +252,7 @@ export function Insurance() {
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                           <div>
                             <p className="text-sm font-medium text-gray-500 mb-1">Policy Number</p>
                             <p className="text-base font-medium text-gray-900">{policy.policy_number}</p>
@@ -322,7 +320,7 @@ export function Insurance() {
                           </span>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                           <div>
                             <p className="text-sm font-medium text-gray-500 mb-1">Submission Date</p>
                             <div className="flex items-center text-sm text-gray-900">

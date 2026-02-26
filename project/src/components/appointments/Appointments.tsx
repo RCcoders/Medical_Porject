@@ -314,10 +314,10 @@ export function Appointments() {
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center"
+          className="bg-blue-600 text-white p-2 sm:px-4 sm:py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center"
         >
-          <Plus className="h-4 w-4 mr-2" />
-          Schedule Appointment
+          <Plus className="h-5 w-5 sm:mr-2" />
+          <span className="hidden sm:inline">Schedule Appointment</span>
         </button>
       </div>
 
@@ -360,7 +360,7 @@ export function Appointments() {
                       <h3 className="text-lg font-semibold text-gray-900">
                         {format(new Date(appointment.appointment_date), 'MMM d, yyyy')} at {format(new Date(appointment.appointment_date), 'h:mm a')}
                       </h3>
-                      <span className={`ml-3 px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(appointment.status || 'Scheduled')}`}>
+                      <span className={`ml-auto sm:ml-3 px-2 py-1 text-[10px] sm:text-xs font-medium rounded-full ${getStatusColor(appointment.status || 'Scheduled')}`}>
                         {appointment.status || 'Scheduled'}
                       </span>
                     </div>

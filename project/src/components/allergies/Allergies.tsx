@@ -169,7 +169,7 @@ export function Allergies() {
                       </span>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                       <div>
                         <p className="text-sm font-medium text-current mb-1">Reaction Symptoms</p>
                         <p className="text-sm text-current opacity-90">{allergy.reaction_symptoms}</p>

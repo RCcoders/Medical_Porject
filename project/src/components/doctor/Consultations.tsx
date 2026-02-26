@@ -15,14 +15,12 @@ interface Consultation {
 }
 
 import { useAuth } from '../../contexts/AuthContext'
-import { useNotification } from '../../contexts/NotificationContext'
 import { getMyAppointments, updateAppointmentStatus } from '../../services/api'
 import { format } from 'date-fns'
 
 export function Consultations() {
     const navigate = useNavigate()
-    const { user, profile } = useAuth()
-    const { sendMessage } = useNotification()
+    const { user } = useAuth()
     const [consultations, setConsultations] = useState<Consultation[]>([])
     const [loading, setLoading] = useState(true)
 
@@ -92,26 +90,26 @@ export function Consultations() {
     }
 
     return (
-        <div className="space-y-6 p-6">
-            <div className="flex justify-between items-center">
-                <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Patient Consultations</h1>
-                    <p className="text-gray-500">Manage your daily appointments and patient interactions</p>
+        <div className="space-y-6 p-4 md:p-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div className="flex-1">
+                    <h1 className="text-xl md:text-2xl font-bold text-gray-900">Patient Consultations</h1>
+                    <p className="text-sm md:text-base text-gray-500 mt-1">Manage your daily appointments and patient interactions</p>
                 </div>
-                <div className="flex gap-3">
-                    <button className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition-colors">
+                <div className="flex gap-3 w-full sm:w-auto">
+                    <button className="flex-1 sm:flex-none px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition-colors text-sm">
                         Sync Calendar
                     </button>
                 </div>
             </div>
 
             {/* Stats Overview */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
                 <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
                     <div className="flex justify-between items-start">
                         <div>
-                            <p className="text-sm font-medium text-gray-500">Today's Appointments</p>
-                            <h3 className="text-2xl font-bold text-gray-900 mt-1">8</h3>
+                            <p className="text-[10px] xs:text-sm font-medium text-gray-500">Today's Apps</p>
+                            <h3 className="text-lg xs:text-2xl font-bold text-gray-900 mt-1">8</h3>
                         </div>
                         <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
                             <Calendar className="w-5 h-5" />
@@ -121,8 +119,8 @@ export function Consultations() {
                 <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
                     <div className="flex justify-between items-start">
                         <div>
-                            <p className="text-sm font-medium text-gray-500">Pending Reviews</p>
-                            <h3 className="text-2xl font-bold text-gray-900 mt-1">3</h3>
+                            <p className="text-[10px] xs:text-sm font-medium text-gray-500">Pending Reviews</p>
+                            <h3 className="text-lg xs:text-2xl font-bold text-gray-900 mt-1">3</h3>
                         </div>
                         <div className="p-2 bg-yellow-50 rounded-lg text-yellow-600">
                             <FileText className="w-5 h-5" />
@@ -132,8 +130,8 @@ export function Consultations() {
                 <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
                     <div className="flex justify-between items-start">
                         <div>
-                            <p className="text-sm font-medium text-gray-500">Total Patients</p>
-                            <h3 className="text-2xl font-bold text-gray-900 mt-1">142</h3>
+                            <p className="text-[10px] xs:text-sm font-medium text-gray-500">Total Patients</p>
+                            <h3 className="text-lg xs:text-2xl font-bold text-gray-900 mt-1">142</h3>
                         </div>
                         <div className="p-2 bg-green-50 rounded-lg text-green-600">
                             <User className="w-5 h-5" />
@@ -143,8 +141,8 @@ export function Consultations() {
                 <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
                     <div className="flex justify-between items-start">
                         <div>
-                            <p className="text-sm font-medium text-gray-500">Average Wait Time</p>
-                            <h3 className="text-2xl font-bold text-gray-900 mt-1">12m</h3>
+                            <p className="text-[10px] xs:text-sm font-medium text-gray-500">Average Wait</p>
+                            <h3 className="text-lg xs:text-2xl font-bold text-gray-900 mt-1">12m</h3>
                         </div>
                         <div className="p-2 bg-purple-50 rounded-lg text-purple-600">
                             <Clock className="w-5 h-5" />
@@ -155,15 +153,15 @@ export function Consultations() {
 
             {/* Consultations List */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-                <div className="p-6 border-b border-gray-100 flex justify-between items-center">
+                <div className="p-4 md:p-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <h2 className="text-lg font-bold text-gray-900">Upcoming Consultations</h2>
-                    <div className="flex gap-2">
-                        <select className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div className="flex gap-2 w-full sm:w-auto">
+                        <select className="flex-1 sm:flex-none px-3 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option>All Types</option>
                             <option>Video</option>
                             <option>In-Person</option>
                         </select>
-                        <select className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <select className="flex-1 sm:flex-none px-3 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option>Today</option>
                             <option>Tomorrow</option>
                             <option>This Week</option>
@@ -173,17 +171,22 @@ export function Consultations() {
 
                 <div className="divide-y divide-gray-100">
                     {consultations.map((consultation) => (
-                        <div key={consultation.id} className="p-6 hover:bg-gray-50 transition-colors">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                        <div key={consultation.id} className="p-4 md:p-6 hover:bg-gray-50 transition-colors">
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div className="flex items-center gap-3 md:gap-4">
                                     <img
                                         src={consultation.avatar}
                                         alt={consultation.patientName}
-                                        className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
+                                        className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-white shadow-sm"
                                     />
-                                    <div>
-                                        <h3 className="font-semibold text-gray-900">{consultation.patientName}</h3>
-                                        <div className="flex items-center gap-3 mt-1 text-sm text-gray-500">
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-2">
+                                            <h3 className="font-semibold text-gray-900 truncate">{consultation.patientName}</h3>
+                                            <span className={`md:hidden inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium ${getStatusColor(consultation.status)}`}>
+                                                {consultation.status}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center gap-3 mt-1 text-xs md:text-sm text-gray-500">
                                             <span className="flex items-center gap-1">
                                                 <Clock className="w-3.5 h-3.5" />
                                                 {consultation.time}
@@ -194,10 +197,13 @@ export function Consultations() {
                                             </span>
                                         </div>
                                     </div>
+                                    <button className="md:hidden p-2 text-gray-400">
+                                        <MoreVertical className="w-5 h-5" />
+                                    </button>
                                 </div>
 
-                                <div className="flex items-center gap-6">
-                                    <div className="text-right hidden md:block">
+                                <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+                                    <div className="text-left md:text-right hidden md:block">
                                         <p className="text-sm font-medium text-gray-900">{consultation.reason}</p>
                                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mt-1 ${getStatusColor(consultation.status)}`}>
                                             {consultation.status}
@@ -209,14 +215,14 @@ export function Consultations() {
                                             <>
                                                 <button
                                                     onClick={() => navigate(`/video-call/${consultation.id}`)}
-                                                    className="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors shadow-sm flex items-center gap-2"
+                                                    className="flex-1 md:flex-none px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors shadow-sm flex items-center justify-center gap-2"
                                                 >
                                                     <Video className="w-4 h-4" />
-                                                    Resume Call
+                                                    <span className="whitespace-nowrap">Resume Call</span>
                                                 </button>
                                                 <button
                                                     onClick={() => handleStatusUpdate(consultation.id, 'Completed')}
-                                                    className="px-4 py-2 bg-gray-600 text-white text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-sm"
+                                                    className="flex-1 md:flex-none px-4 py-2 bg-gray-600 text-white text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-sm flex items-center justify-center"
                                                 >
                                                     Complete
                                                 </button>
@@ -228,23 +234,22 @@ export function Consultations() {
                                                         handleStatusUpdate(consultation.id, 'In-Progress')
                                                         navigate(`/video-call/${consultation.id}`)
                                                     } else {
-                                                        // Handle offline consultation start
                                                         if (window.confirm('Start offline consultation? This will mark it as In-Progress.')) {
                                                             handleStatusUpdate(consultation.id, 'In-Progress')
                                                         }
                                                     }
                                                 }}
-                                                className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+                                                className="w-full md:w-auto px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
                                             >
                                                 Start Consultation
                                             </button>
                                         ) : (
-                                            <button className="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors">
+                                            <button className="w-full md:w-auto px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors">
                                                 View Details
                                             </button>
                                         )}
 
-                                        <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                        <button className="hidden md:block p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
                                             <MoreVertical className="w-5 h-5" />
                                         </button>
                                     </div>
@@ -260,6 +265,6 @@ export function Consultations() {
                     </button>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }

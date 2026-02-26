@@ -177,7 +177,7 @@ export function Profile() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Profile Settings</h1>
           <p className="text-gray-600 mt-1">
@@ -187,7 +187,7 @@ export function Profile() {
         {!isEditing && (
           <button
             onClick={() => setIsEditing(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+            className="w-full sm:w-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center"
           >
             <Edit className="h-4 w-4 mr-2" />
             Edit Profile
@@ -209,9 +209,9 @@ export function Profile() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
 
         {/* ── 1. Personal Information ── */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
+        <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
           <SectionHeading icon={User} title="Personal Information" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <Field label="Date of Birth">
               <input {...register('date_of_birth')} type="date" disabled={!isEditing} className={inputClass(isEditing)} />
             </Field>
@@ -246,9 +246,9 @@ export function Profile() {
         </div>
 
         {/* ── 2. Contact Details ── */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
+        <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
           <SectionHeading icon={MapPin} title="Contact Details" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <Field label="Phone Number">
               <input {...register('phone')} type="tel" disabled={!isEditing} className={inputClass(isEditing)} placeholder="+91 XXXXX XXXXX" />
             </Field>
@@ -277,9 +277,9 @@ export function Profile() {
         </div>
 
         {/* ── 3. Guardian Contact ── */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
+        <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
           <SectionHeading icon={Users} title="Guardian Contact" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <Field label="Guardian Name">
               <input {...register('guardian_name')} type="text" disabled={!isEditing} className={inputClass(isEditing)} />
             </Field>
@@ -309,9 +309,9 @@ export function Profile() {
         </div>
 
         {/* ── 4. Emergency Contact ── */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
+        <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
           <SectionHeading icon={Users} title="Emergency Contact" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             <Field label="Contact Name">
               <input {...register('emergency_contact_name')} type="text" disabled={!isEditing} className={inputClass(isEditing)} />
             </Field>
@@ -333,9 +333,9 @@ export function Profile() {
         </div>
 
         {/* ── 5. Health Information ── */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
+        <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
           <SectionHeading icon={Heart} title="Health Information" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <Field label="Blood Type">
               <select {...register('blood_type')} disabled={!isEditing} className={inputClass(isEditing)}>
                 <option value="">Select blood type</option>
@@ -393,9 +393,9 @@ export function Profile() {
         </div>
 
         {/* ── 6. Identity & Insurance ── */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
+        <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
           <SectionHeading icon={Shield} title="Identity & Insurance" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <Field label="Aadhar Card Number">
               <input {...register('aadhar_card_number')} type="text" disabled={!isEditing} className={inputClass(isEditing)} maxLength={12} placeholder="12-digit Aadhar number" />
             </Field>

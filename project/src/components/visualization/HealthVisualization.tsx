@@ -160,9 +160,9 @@ export function HealthVisualization({ patientId }: HealthVisualizationProps) {
           </div>
         </div>
 
-        <div className="bg-gray-50 rounded-lg overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
+        <div className="bg-gray-50 rounded-lg overflow-hidden translate-z-0">
+          <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300">
+            <table className="w-full min-w-[600px]">
               <thead>
                 <tr className="border-b border-gray-200 bg-gray-100">
                   <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Date</th>
