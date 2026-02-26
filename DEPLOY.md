@@ -1,100 +1,42 @@
-# G-ONE Medical — Deployment Guide
+# Deployment Guide - Render
 
-## Overview
+Follow these steps to deploy the Medical Project to Render.
 
-| Service | Platform | What it hosts |
-|---|---|---|
-| **Backend** | Render | FastAPI REST API |
-| **Frontend** | Vercel | React/Vite app |
+## 1. Backend Deployment (Web Service)
 
----
-
-## Part 1 — Deploy Backend on Render
-
-### 1. Create Web Service
-1. [render.com](https://render.com) → **New → Web Service**
-2. Connect GitHub → select `RCcoders/Medical_Porject`
-3. Set these fields:
-
-| Setting | Value |
-|---|---|
-| **Root Directory** | *(leave empty — repo root)* |
-| **Runtime** | `Python 3` |
-| **Build Command** | `pip install -r backend/requirements.txt` |
-| **Start Command** | `uvicorn backend.main:app --host 0.0.0.0 --port $PORT` |
-
-### 2. Add Environment Variables
-
-| Key | Value |
-|---|---|
-| `PYTHON_VERSION` | `3.11.9` ⚠️ *required — prevents Python 3.14 build failures* |
-| `DATABASE_URL` | `postgresql://postgres.yeekjtwgobyvygfaibro:ynVfKmqdnhIEhlTU@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres` |
-| `VITE_SUPABASE_URL` | `https://yeekjtwgobyvygfaibro.supabase.co` |
-| `VITE_SUPABASE_ANON_KEY` | *(copy from `backend/.env`)* |
-| `GOOGLE_API_KEY` | `AIzaSyAPETnDlgXak1F4iw6YEc81JIZKI4cUURg` |
-| `GOOGLE_CSE_ID` | `214e6a6cf18cf48a1` |
-| `MISTRAL_API_KEY` | `dPpEwb4tzs8Ro2GYwvXmg7lAhCDOFst2` |
-| `GOOGLE_GENAI_KEY` | `AIzaSyB-JEgB58B86TpX8osRFZWxrhQWkWgt75I` |
-| `ALLOWED_ORIGINS` | *(leave blank — fill after Vercel deploy)* |
-
-> ⚠️ **Skip** `OLLAMA_MODEL` — Ollama doesn't work on cloud servers.
-
-### 3. Deploy & Copy URL
-- Click **Create Web Service** → wait ~3 mins
-- Copy live URL e.g. `https://gone-medical-backend.onrender.com`
+1. **New Web Service**: In Render dashboard, click **New +** -> **Web Service**.
+2. **Connect Repo**: Select your GitHub repository.
+3. **Configuration**:
+   - **Name**: `medical-backend` (or your choice)
+   - **Runtime**: `Python 3`
+   - **Build Command**: `pip install -r backend/requirements.txt`
+   - **Start Command**: `python -m uvicorn backend.main:app --host 0.0.0.0 --port $PORT`
+4. **Environment Variables**: Click **Advanced** -> **Add Environment Variable**:
+   - `DATABASE_URL`: Your PostgreSQL/Supabase connection string.
+   - `MISTRAL_API_KEY`: Your Mistral AI key.
+   - `GOOGLE_API_KEY`: Your Google AI key.
+   - `GOOGLE_CSE_ID`: Your Google Search Engine ID.
+   - `VITE_SUPABASE_URL`: Your Supabase URL.
+   - `VITE_SUPABASE_ANON_KEY`: Your Supabase Anon Key.
+   - `PYTHON_VERSION`: `3.11.9`
 
 ---
 
-## Part 2 — Deploy Frontend on Vercel
+## 2. Frontend Deployment (Static Site)
 
-### 1. Create Project
-1. [vercel.com](https://vercel.com) → **Add New Project**
-2. Import `RCcoders/Medical_Porject`
-3. Set **Root Directory** → `project`
-
-### 2. Add Environment Variables
-
-| Key | Value |
-|---|---|
-| `VITE_SUPABASE_URL` | `https://yeekjtwgobyvygfaibro.supabase.co` |
-| `VITE_SUPABASE_ANON_KEY` | *(copy from `project/.env`)* |
-| `VITE_API_URL` | *(your Render URL from Part 1)* |
-
-### 3. Deploy & Copy URL
-- Click **Deploy** → wait ~2 mins
-- Copy live URL e.g. `https://medical-porject.vercel.app`
+1. **New Static Site**: In Render dashboard, click **New +** -> **Static Site**.
+2. **Connect Repo**: Select your GitHub repository.
+3. **Configuration**:
+   - **Name**: `medical-frontend`
+   - **Build Command**: `npm install && npm run build`
+   - **Publish Directory**: `project/dist`
+4. **Environment Variables**:
+   - `VITE_API_URL`: Use the URL of your **Backend Web Service** (e.g., `https://medical-backend.onrender.com`).
+   - `VITE_SUPABASE_URL`: Your Supabase URL.
+   - `VITE_SUPABASE_ANON_KEY`: Your Supabase Anon Key.
 
 ---
 
-## Part 3 — Connect CORS
-
-Render → **Environment** → update:
-
-| Key | Value |
-|---|---|
-| `ALLOWED_ORIGINS` | `https://medical-porject.vercel.app` |
-
-Save → Render auto-redeploys.
-
----
-
-## Part 4 — Verify
-
-| Test | Expected |
-|---|---|
-| Open Vercel URL | Splash screen → Login |
-| Refresh `/appointments` | No 404 |
-| Login as patient | Dashboard + appointments work |
-| Login as doctor | Doctor dashboard + AI bot |
-| Login as researcher | Research portal + AI bot |
-
----
-
-## Notes
-
-- **Render free tier** sleeps after 15 min idle → first request takes ~30s. Upgrade to $7/mo for always-on.
-- **Auto-deploy:** Any push to `main` triggers redeploy on both Render and Vercel.
-- **Render build failures checklist:**
-  - `pydantic-core` Rust error → `PYTHON_VERSION=3.11.9` not set
-  - `requirements.txt not found` → Root Directory must be *empty* (not `backend`)
-  - `Exited with status 1` → Start Command must be `uvicorn backend.main:app ...` (not `uvicorn main:app`)
+## 3. Post-Deployment Checks
+- Ensure the **Backend** is fully deployed before the **Frontend** starts its build, as the frontend needs the backend URL.
+- If you see CORS errors, ensure the frontend URL is added to the backend's allowed origins (already configured for `*.onrender.com`).
