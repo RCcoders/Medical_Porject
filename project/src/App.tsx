@@ -23,7 +23,7 @@ import { PharmaLayout } from './components/layout/PharmaLayout'
 import { ResearchLab } from './components/pharma/ResearchLab'
 import { ResearcherDashboard } from './components/pharma/ResearcherDashboard'
 import { ClinicalTrials } from './components/pharma/ClinicalTrials'
-import { VideoCall } from './components/common/VideoCall'
+import { VideoCallContainer } from './components/video/VideoCallContainer'
 import DoctorProfile from './components/profile/DoctorProfile'
 import ResearcherProfile from './components/profile/ResearcherProfile'
 import SplashScreen from './components/common/SplashScreen'
@@ -154,8 +154,8 @@ function AppRoutes() {
         <Route index element={<Navigate to="/pharma/dashboard" replace />} />
       </Route>
 
-      {/* Common Routes */}
-      <Route path="/video-call/:appointmentId" element={<VideoCall />} />
+      <Route path="/video-call/:appointmentId" element={<VideoCallContainer />} />
+
 
     </Routes>
   )

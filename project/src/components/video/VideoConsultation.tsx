@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
 import { Phone, PhoneOff, Mic, MicOff, Video as VideoIcon, VideoOff } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { updateAppointmentStatus } from '../../services/api';
+import { useNotification } from '../../contexts/NotificationContext';
+import { updateAppointmentStatus, getAppointmentDetails } from '../../services/api';
 
 interface VideoConsultationProps {
     appointmentId: string;
@@ -19,6 +20,7 @@ const STUN_SERVERS = {
 
 export function VideoConsultation({ appointmentId, roomId, onClose, isDoctor = false }: VideoConsultationProps) {
     const { profile } = useAuth();
+    const { sendMessage } = useNotification();
     const [localStream, setLocalStream] = useState<MediaStream | null>(null);
     const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null);
     const [isMuted, setIsMuted] = useState(false);
@@ -32,22 +34,50 @@ export function VideoConsultation({ appointmentId, roomId, onClose, isDoctor = f
     useEffect(() => {
         const startCall = async () => {
             try {
-                // 1. Get Media
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                // 1. Get Media with Fallback
+                let stream: MediaStream;
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                } catch (err) {
+                    console.warn('Camera failed, trying audio only:', err);
+                    stream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
+                    setIsVideoOff(true);
+                }
+
                 setLocalStream(stream);
                 if (localVideoRef.current) localVideoRef.current.srcObject = stream;
 
                 // 2. Setup WebSocket
-                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-                const wsBase = apiUrl.replace(/^http/, 'ws');
-                const wsUrl = `${wsBase}/ws/call/${roomId}/${profile?.id}`;
+                // Use relative protocol and host for production (Render) support
+                const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+                const host = import.meta.env.VITE_API_URL
+                    ? import.meta.env.VITE_API_URL.replace(/^https?:\/\//, '')
+                    : `${window.location.hostname}:8000`;
+
+                const wsUrl = `${protocol}//${host}/ws/call/${roomId}/${profile?.id}`;
                 socket.current = new WebSocket(wsUrl);
 
-                socket.current.onopen = () => {
+                socket.current.onopen = async () => {
                     console.log('WebSocket connected');
                     if (isDoctor) {
                         // Doctor initiates by creating offer
                         createOffer();
+
+                        // Also notify the patient via Notification WebSocket
+                        try {
+                            const appointment = await getAppointmentDetails(appointmentId);
+                            if (appointment && appointment.patient_id) {
+                                sendMessage({
+                                    type: 'CALL_INITIATED',
+                                    appointment_id: appointmentId,
+                                    doctor_name: profile?.full_name || 'Doctor',
+                                    patient_id: appointment.patient_id,
+                                    room_id: roomId
+                                });
+                            }
+                        } catch (err) {
+                            console.error('Error sending call notification:', err);
+                        }
                     }
                 };
 

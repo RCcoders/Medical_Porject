@@ -317,6 +317,16 @@ export const updateAppointment = async (id: string, appointmentData: any) => {
     }
 };
 
+export const getAppointmentDetails = async (id: string) => {
+    try {
+        const response = await api.get(`/patient-data/appointments/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching appointment details:', error);
+        throw error;
+    }
+};
+
 export const verifyOtp = async (email: string, otp: string) => {
     try {
         const response = await api.post('/auth/verify-otp', { email, otp });
