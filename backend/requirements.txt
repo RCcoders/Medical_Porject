@@ -16,6 +16,6 @@ langchain-community==0.3.13
 langchain-google-genai==2.0.7
 langchain-mistralai==0.2.4
 langchain-ollama==0.1.2
-langchain-google-community==0.0.8
+langchain-google-community==1.0.8
 google-search-results==2.4.2
 supabase==2.10.0
